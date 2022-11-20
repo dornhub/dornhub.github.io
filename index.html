@@ -1,48 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>2022OH | 羟基人快乐老家</title>
+	<title>Dornhub | Donh Gov</title>
 	<style>
+	body{
+		width:100%;
+		height:100%;
+		background-color:#001;
+    	justify-content: center;
+    	align-items: center;
+	}
 	#nav{
 		position:absolute;
 		top:0px;
 		left:0px;
 		width:100%;
 		height:75px;
-		background-color:white;
+		background-color:#001;
 		position:fixed;
 	}
 	#navname1{
-		margin-left:175px;
+		margin-left:225px;
 		font-weight:900;
 		background-color:transparent;
-		color:rgb(102,153,255);
+		text-shadow: 0 0 10px rgba(255,165,0,1),
+        	0 0 20px rgba(255,165,0,1),  
+        	0 0 30px rgba(255,165,0,1),  
+        	0 0 40px rgba(255,165,0,1),        
+        	0 0 100px rgba(255,165,0,1),  
+        	0 0 200px rgba(255,165,0,1),  
+        	0 0 300px rgba(255,165,0,1),  
+        	0 0 400px rgba(255,165,0,1);
+		color:#000;
 		font-size:30px;
 	}
 	#navname2{
+		box-shadow: 0 0 10px rgba(30,144,255,0.25),
+        	0 0 20px rgba(30,144,255,0.25),  
+        	0 0 30px rgba(30,144,255,0.25),  
+        	0 0 40px rgba(30,144,255,0.25),        
+        	0 0 100px rgba(30,144,255,0.25),  
+        	0 0 200px rgba(30,144,255,0.25),  
+        	0 0 300px rgba(30,144,255,0.25),  
+        	0 0 400px rgba(30,144,255,0.25);
+    	/*color: #fff;*/
 		font-weight:900;
+		width:300px;
 		height:50px;
-		color:white;
 		font-size:30px;
-		background-color:rgb(102,153,255);
-		border-radius:10px;
-	}
-	body{
-		width:100%;
-		height:100%;
-		background-color:rgb(240,240,240);
+		/*background-color:rgb(102,153,255);*/
+		border: 0px solid #000;
+		/*-webkit-text-stroke:1px #1e90ff;*/
+		border-radius:12px;
+		/*border-image: linear-gradient(to top right, #ffa500, #2d3436, #1565c0) 1;*/
+		text-shadow: 0 0 10px #1e90ff,
+        	0 0 20px #1e90ff,  
+        	0 0 30px #1e90ff,  
+        	0 0 40px #1e90ff,        
+        	0 0 100px #1e90ff,  
+        	0 0 200px #1e90ff,  
+        	0 0 300px #1e90ff,  
+        	0 0 400px #1e90ff;
 	}
 	#navbut1,#navbut2,#navbut3,#navbut4,#navbut5,#navbut6,#navbut7,#navbut8,#navbut9{
 		width:80px;
-		color:black;
+		color:white;
 		position:absolute;
 		top:0px;
 		height:75px;
 		background:transparent;
 		border:none;
 		position:stalic;
+		outline:none;
 	}
-	#navbut1{margin-left:5px;background-color:rgb(102,153,255);color:white;}
+	#navbut1{margin-left:5px;
+		color:white;
+		font-weight:900;
+		border: 2px solid #fff;
+		border-image: linear-gradient(to top right, #ffa500, #000, #1565c0) 5;
+		box-shadow: 0 0 10px rgba(30,144,255,0.25),
+        	0 0 20px rgba(255,165,0,0.25),  
+        	0 0 30px rgba(255,165,0,0.25),  
+        	0 0 40px rgba(30,144,255,0.25),        
+        	0 0 100px rgba(30,144,255,0.25),  
+        	0 0 200px rgba(30,144,255,0.25),  
+        	0 0 300px rgba(30,144,255,0.25),  
+        	0 0 400px rgba(255,165,0,0.25);
+	}
 	#navbut2{margin-left:85px;}
 	#navbut3{margin-left:165px;}
 	#navbut4{margin-left:245px;}
@@ -52,12 +96,23 @@
 	#navbut8{margin-left:565px;}
 	#navbut9{margin-left:645px;}
 	#navbut1:hover,#navbut2:hover,#navbut3:hover,#navbut4:hover,#navbut5:hover,#navbut6:hover,#navbut7:hover,#navbut8:hover,#navbut9:hover{
-		background-color:rgb(102,153,255);
+		font-weight:900;
 		color:white;
+		font-weight:900;
+		border: 2px solid #fff;
+		border-image: linear-gradient(to top right, #ffa500, #000, #1565c0) 5;
+		box-shadow: 0 0 10px rgba(30,144,255,0.25),
+        	0 0 20px rgba(255,165,0,0.25),  
+        	0 0 30px rgba(255,165,0,0.25),  
+        	0 0 40px rgba(30,144,255,0.25),        
+        	0 0 100px rgba(30,144,255,0.25),  
+        	0 0 200px rgba(30,144,255,0.25),  
+        	0 0 300px rgba(30,144,255,0.25),  
+        	0 0 400px rgba(255,165,0,0.25);
 	}
 	#text{
 		font-weight:100;
-		color:black;
+		color:white;
 	}
 	sup{font-size:10px;}
 	#title,#texte{line-height:0px;}
@@ -73,7 +128,7 @@
 		color:rgb(100,100,100);
 		font-size:15px;
 	}
-	a{text-decoration:none;color:rgb(100,100,100);text-shadow: 2px 2px 5px rgb(102,153,255);}
+	a{text-decoration:none;color:rgb(100,100,100);text-shadow: 2px 2px 5px #1e90ff;}
 	#br{height:5px;}
 	</style>
 </head>
@@ -84,23 +139,23 @@
 		<span id="navname1">Dorn</span>
 		<span id="navname2">&nbsp;Hub&nbsp;</span>
 		&nbsp;&nbsp;
-		<button id="navbut1" onclick="window.open('https://dornhub.github.io/','_self');">首页</button>
-		<button id="navbut2" onclick="window.open('https://dornhub.github.io/study/','_self');">学习资料</button>
-		<button id="navbut3" onclick="window.open('https://dornhub.github.io/dgzl.html','_self');">𣿅国专栏</button>
-		<button id="navbut4" onclick="window.open('https://jkbutter-8.icoc.bz/');">夹克专栏</button>
-		<button id="navbut5" onclick="window.open('https://dornhub.github.io/zhzl/','_self');">整活专栏</button>
-		<button id="navbut6" onclick="window.open('https://dornhub.github.io/classtools/','_self');">课堂工具</button>
-		<button id="navbut7" onclick="window.open('https://dornhub.github.io/dornhub-d1-listening-test.mp4');">语言学习</button>
+		<button id="navbut1">首页</button>
+		<button id="navbut2">自然</button>
+		<button id="navbut3">人文</button>
+		<button id="navbut4">新闻</button>
+		<button id="navbut5">语言</button>
+		<button id="navbut6">科技</button>
+		<button id="navbut7">行政服务</button>
 	</p>
 </div>
 <br><br><br>
 <div id="text">
 	<div id="title" align="center">
-		<p id="title_don">欢迎来到羟基!</p>
+		<p id="title_don">欢迎来到Dornhub!</p>
 	</div>
 	<br>
 	<div id="texte">
-		<p id="texte_don" style="text-align:center;">请您从加速度为a的超级跑车上跳下，骑着猪喝着苯乙胺访问该网站，使用效果更佳。</p>
+		<p id="texte_don" style="text-align:center;">本网站正在大幅更新中，即将复活，敬请期待《重生之我是Dornhub》（？）</p>
 		<br>
 		<p id="texte_don" style="text-align:center;">- 网站暂未搭建完成 -</p>
 	</div>
