@@ -3,145 +3,8 @@
 <head>
 	<title>Dornhub | Donh Gov</title>
 	<link rel="icon" href="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage2.sina.com.cn%2FIT%2Fother%2F2004-06-10%2FU73P2T1D374147F13DT20040610173949.jpg&refer=http%3A%2F%2Fimage2.sina.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672128169&t=72b87204897814c21f69b40aec9b3ef4">
+	<link rel="stylesheet" href="https://dornhub.github.io/css/kernel.css" type="text/css" />
 	<style>
-	body{
-		width:100%;
-		height:100%;
-		background-color:#001;
-    	justify-content: center;
-    	align-items: center;
-	}
-	#nav{
-		position:absolute;
-		top:0px;
-		left:0px;
-		width:100%;
-		height:75px;
-		background-color:#001;
-		position:fixed;
-	}
-	#navname1{
-		margin-left:225px;
-		font-weight:900;
-		background-color:transparent;
-		text-shadow: 0 0 10px rgba(30,144,255,0.95),
-        	0 0 20px rgba(30,144,255,0.80),  
-        	0 0 30px rgba(30,144,255,0.65),  
-        	0 0 40px rgba(30,144,255,0.4),        
-        	0 0 100px rgba(30,144,255,0.2),  
-        	0 0 200px rgba(30,144,255,0.1),  
-        	0 0 300px rgba(30,144,255,0.05);
-		color:#000;
-		font-size:30px;
-	}
-	#navname2{
-		box-shadow: 0 0 10px rgba(30,144,255,0.25),
-        	0 0 20px rgba(30,144,255,0.25),  
-        	0 0 30px rgba(30,144,255,0.15),  
-        	0 0 40px rgba(30,144,255,0.1),        
-        	0 0 100px rgba(30,144,255,0.1),  
-        	0 0 200px rgba(30,144,255,0.05),  
-        	0 0 300px rgba(30,144,255,0.05);
-    	/*color: #fff;*/
-		font-weight:900;
-		width:300px;
-		height:50px;
-		font-size:30px;
-		/*background-color:rgb(102,153,255);*/
-		border: 0px solid #000;
-		/*-webkit-text-stroke:1px #1e90ff;*/
-		border-radius:12px;
-		/*border-image: linear-gradient(to top right, #ffa500, #2d3436, #1565c0) 1;*/
-		text-shadow: 0 0 10px #1e90ff,
-        	0 0 20px #1e90ff,  
-        	0 0 30px #1e90ff,  
-        	0 0 40px #1e90ff,        
-        	0 0 100px #1e90ff,  
-        	0 0 200px #1e90ff,  
-        	0 0 300px #1e90ff,  
-        	0 0 400px #1e90ff;
-	}
-	#navbut1,#navbut2,#navbut3,#navbut4,#navbut5,#navbut6,#navbut7,#navbut8,#navbut9{
-		width:80px;
-		color:white;
-		position:absolute;
-		top:0px;
-		height:75px;
-		background:transparent;
-		border:none;
-		position:stalic;
-		outline:none;
-	}
-	#navbut1{margin-left:5px;}
-	#navbut2{margin-left:85px;}
-	#navbut3{margin-left:165px;}
-	#navbut4{margin-left:245px;}
-	#navbut5{margin-left:325px;color:white;
-		font-weight:900;
-		border: 2px solid #fff;
-		box-shadow: 0 0 10px rgba(30,144,255,0.25),
-        	0 0 20px rgba(30,144,255,0.25),  
-        	0 0 30px rgba(30,144,255,0.25),  
-        	0 0 40px rgba(30,144,255,0.25),        
-        	0 0 100px rgba(30,144,255,0.25),  
-        	0 0 200px rgba(30,144,255,0.25),  
-        	0 0 300px rgba(30,144,255,0.1),  
-        	0 0 400px rgba(30,144,255,0.05);
-		border-image: linear-gradient(to top right, #1565c0, #000, #1565c0) 3;}
-	#navbut6{margin-left:405px;}
-	#navbut7{margin-left:485px;}
-	#navbut8{margin-left:565px;}
-	#navbut9{margin-left:645px;}
-	#navbut1:hover,#navbut2:hover,#navbut3:hover,#navbut4:hover,#navbut5:hover,#navbut6:hover,#navbut7:hover,#navbut8:hover,#navbut9:hover{
-		font-weight:900;
-		color:white;
-		font-weight:900;
-		border: 2px solid #fff;
-		box-shadow: 0 0 10px rgba(30,144,255,0.25),
-        	0 0 20px rgba(30,144,255,0.25),  
-        	0 0 30px rgba(30,144,255,0.25),  
-        	0 0 40px rgba(30,144,255,0.25),        
-        	0 0 100px rgba(30,144,255,0.25),  
-        	0 0 200px rgba(30,144,255,0.25),  
-        	0 0 300px rgba(30,144,255,0.1),  
-        	0 0 400px rgba(30,144,255,0.05);
-		border-image: linear-gradient(to top right, #1565c0, #000, #1565c0) 3;
-	}
-	#text{
-		font-weight:100;
-		color:white;
-	}
-	sup{font-size:10px;}
-	#title{line-height:0px;}
-	/*#texte{margin-left:15%;}*/
-	#title_don{font-size:40px;}
-	#title_chi{font-size:30px;}
-	#texte_don{font-size:18px;text-indent:24px;}
-	#texte_chi{font-size:15px;text-indent:24px;}
-	#bottom_div{
-		background-color:#000001;
-		text-align:center;
-		width:100%;
-		color:rgb(100,100,100);
-		font-size:15px;
-	}
-	a{text-decoration:none;color:rgb(200,200,200);text-shadow: 2px 2px 5px rgba(30,144,255,0.5);}
-	#br{height:5px;}
-	#bg{position: fixed;top: 0;left: 0;z-index: -1;width: 100%;height: 100%;-o-object-fit: cover;object-fit: cover;-webkit-filter: blur(10px);filter: blur(10px);-webkit-transform: scale(1.2);transform: scale(1.2);}
-	.intro{
-		border:3px solid #1e90ff;
-		width:50%;
-		margin:auto;
-		box-shadow: 0 0 10px rgba(30,144,255,0.25),
-        	0 0 20px rgba(30,144,255,0.25),  
-        	0 0 30px rgba(30,144,255,0.25),  
-        	0 0 40px rgba(30,144,255,0.25),        
-        	0 0 100px rgba(30,144,255,0.25),  
-        	0 0 200px rgba(30,144,255,0.25),  
-        	0 0 300px rgba(30,144,255,0.1),  
-        	0 0 400px rgba(30,144,255,0.05);
-		border-image: linear-gradient(to top right, #1565c0, #000, #1565c0) 3;
-	}
 	#errorImg{
 		border-radius:200px;
 		box-shadow: 0 0 10px rgba(30,144,255,0.25),
@@ -176,7 +39,7 @@
 
 <br><br><br><br><br>
 
-<p style="text-align:center;"><img src="C:\Users\dell\Desktop\QQ截图20221211162646.png" id="errorImg"/></p>
+<p style="text-align:center;"><img src="https://dornhub.github.io/images/SatornhLogo.png" id="errorImg"/></p>
 
 <div id="text">
 	<div id="title" align="center">
