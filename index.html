@@ -1,0 +1,892 @@
+<!doctype html>
+<html class="mdui-theme-light">
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>欢迎来到 Dorn !</title>
+    <link rel="icon" href="https://dornhub.github.io/images/SatornhLogo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+
+</head>
+<header>
+    <mdui-top-app-bar style="box-shadow: 0px 1px 0px 0px #000000;">
+        <div class="example-modal">
+            <mdui-navigation-drawer modal close-on-esc close-on-overlay-click>
+                <mdui-button-icon class="close">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </mdui-button-icon>
+                <mdui-list>
+                    <mdui-list-subheader>页面导航</mdui-list-subheader>
+                    <mdui-list-item href="#section-search"><span class="material-symbols-outlined" >search</span>      搜索</mdui-list-item>
+                    <mdui-list-item nonclickable>
+						<mdui-collapse accordion>
+						    <mdui-collapse-item>
+						      <mdui-list-item slot="header"><span class="material-symbols-outlined" >web</span>      常用网址导航</mdui-list-item>
+						      <div style="margin-left: 2.5rem">
+						        <mdui-list-item href="#nav-search-engine"><span class="material-symbols-outlined" >search</span>搜索引擎</mdui-list-item>
+								<mdui-list-item href="#nav-video"><span class="material-symbols-outlined" >smart_display</span>视频</mdui-list-item>
+								<mdui-list-item href="#nav-it"><span class="material-symbols-outlined" >terminal</span>信息技术</mdui-list-item>
+								<mdui-list-item href="#nav-shopping"><span class="material-symbols-outlined" >local_mall</span>购物</mdui-list-item>
+								<mdui-list-item href="#nav-pc"><span class="material-symbols-outlined" >computer</span>手机电脑</mdui-list-item>
+								<mdui-list-item href="#nav-learning"><span class="material-symbols-outlined" >auto_stories</span>学习</mdui-list-item>
+								<mdui-list-item href="#nav-encyclopedia"><span class="material-symbols-outlined" >travel_explore</span>百科</mdui-list-item>
+								<mdui-list-item href="#nav-ai"><span class="material-symbols-outlined" >network_intel_node</span>AI 工具</mdui-list-item>
+								<mdui-list-item href="#nav-games"><span class="material-symbols-outlined" >stadia_controller</span>游戏</mdui-list-item>
+								<mdui-list-item href="#nav-sports"><span class="material-symbols-outlined" >sports_basketball</span>体育</mdui-list-item>
+								<mdui-list-item href="#nav-translate"><span class="material-symbols-outlined" >g_translate</span>翻译</mdui-list-item>
+								<mdui-list-item href="#nav-social"><span class="material-symbols-outlined" >group</span>社交</mdui-list-item>
+								<mdui-list-item href="#nav-communication"><span class="material-symbols-outlined" >alternate_email</span>通讯</mdui-list-item>
+								<mdui-list-item href="#nav-news"><span class="material-symbols-outlined" >full_coverage</span>新闻</mdui-list-item>
+								<mdui-list-item href="#nav-travel"><span class="material-symbols-outlined" >flight_takeoff</span>旅游</mdui-list-item>
+								<mdui-list-item href="#nav-music"><span class="material-symbols-outlined" >music_note</span>音乐</mdui-list-item>
+								<mdui-list-item href="#nav-drive"><span class="material-symbols-outlined" >cloud_upload</span>网盘</mdui-list-item>
+								<mdui-list-item href="#nav-mailbox"><span class="material-symbols-outlined" >mail</span>邮箱</mdui-list-item>
+								<mdui-list-item href="#nav-bank"><span class="material-symbols-outlined" >savings</span>银行</mdui-list-item>
+								<mdui-list-item href="#nav-download"><span class="material-symbols-outlined" >apk_install</span>软件下载</mdui-list-item>
+						      </div>
+						    </mdui-collapse-item>
+						  </mdui-collapse>
+						</mdui-list-item>
+                    <mdui-list-item href="#section-about"><span class="material-symbols-outlined" >info</span>      关于</mdui-list-item>
+                </mdui-list>
+            </mdui-navigation-drawer>
+            <mdui-button-icon class="open">
+                <span class="material-symbols-outlined">
+                    menu
+                </span>
+            </mdui-button-icon>
+        </div>
+        <mdui-top-app-bar-title>
+            <span id="navname1">Dorn</span>
+            <span id="navname2">&nbsp;Hub&nbsp;</span>
+        </mdui-top-app-bar-title>
+        <div style="flex-grow: 1"></div>
+
+        <mdui-dropdown>
+            <mdui-button-icon slot="trigger">
+                <span class="material-symbols-outlined">
+                    palette
+                </span>
+            </mdui-button-icon>
+            <mdui-menu selects="single" id="colorMenu">
+                <mdui-menu-item value="#16DA49" style="color:#16DA49">𣿅国绿</mdui-menu-item>
+                <mdui-menu-item value="#6499FF" style="color:#6499FF">大江蓝</mdui-menu-item>
+                <mdui-menu-item value="#A51515" style="color:#A51515">秋茗红</mdui-menu-item>
+                <mdui-menu-item value="#349DA5" style="color:#349DA5">铁山青</mdui-menu-item>
+                <mdui-menu-item value="#FFB500" style="color:#FFB500">凤凰金</mdui-menu-item>
+            </mdui-menu>
+        </mdui-dropdown>
+        <mdui-dropdown>
+            <mdui-button-icon slot="trigger">
+                <span class="material-symbols-outlined" id="themeIcon">
+                    brightness_auto
+                </span>
+            </mdui-button-icon>
+            <mdui-menu>
+                <mdui-menu-item onclick="setLightMode()">浅色模式</mdui-menu-item>
+                <mdui-menu-item onclick="setDarkMode()">深色模式</mdui-menu-item>
+                <mdui-divider></mdui-divider>
+                <mdui-menu-item onclick="setAutoMode()">跟随系统</mdui-menu-item>
+            </mdui-menu>
+
+        </mdui-dropdown>
+
+        <mdui-dropdown>
+
+            <mdui-button-icon slot="trigger">
+                <span class="material-symbols-outlined">
+                    apps
+                </span>
+            </mdui-button-icon>
+            <mdui-card style="width=800px; height=800px">
+                <mdui-list>
+                    <mdui-list-item href='http://dhof.dorn.rf.gd'><span class="material-symbols-outlined" >crown</span>𣿅国名人堂</mdui-list-item>
+                    <mdui-list-item href='http://election.dorn.rf.gd'><span class="material-symbols-outlined" >how_to_vote</span>𣿅国大选</mdui-list-item>
+                    <mdui-list-item href='http://games.dorn.rf.gd'><span class="material-symbols-outlined" >stadia_controller</span>多恩游戏</mdui-list-item>
+                    <mdui-list-item href='http://museum.dorn.rf.gd'><span class="material-symbols-outlined" >museum</span>𣿅国国家博物馆</mdui-list-item>
+                    <mdui-list-item href='http://music.dorn.rf.gd'><span class="material-symbols-outlined" >music_note</span>多恩音乐</mdui-list-item>
+                    <mdui-list-item href='http://official.dorn.rf.gd'><span class="material-symbols-outlined" >groups</span>多恩团队</mdui-list-item>
+                    <mdui-list-item href='http://random2.dorn.rf.gd'><span class="material-symbols-outlined" >terminal</span>随机抽号器</mdui-list-item>
+                    <mdui-list-item href='http://valencia.dorn.rf.gd'><span class="material-symbols-outlined" >dictionary</span>瓦莱希雅大辞典</mdui-list-item>
+                </mdui-list>
+            </mdui-card>
+
+        </mdui-dropdown>
+        <mdui-button onclick="window.location.href='dorn-old.dorn.rf.gd'">访问旧版 Dorn</mdui-button>
+    </mdui-top-app-bar>
+</header>
+
+<body>
+	
+    <section id="section-search">
+        <mdui-layout>
+			
+            <mdui-layout-item placement="left" class="example-layout-item" style="width: 10%"></mdui-layout-item>
+
+            <mdui-layout-item placement="right" class="example-layout-item" style="width: 10%"></mdui-layout-item>
+            <mdui-layout-main class="example-layout-main" style="min-height: 300px">
+                <div style="align-items: center; justify-content: center; text-align: center;">
+                    <br>
+                    <br>
+                    <h1>欢迎来到 Dorn !</h1>
+                    <mdui-card clickable id="title-card">
+                        <br>
+                        <span id="navname3">Dorn</span>
+                        <span id="navname4">&nbsp;Hub&nbsp;</span>
+                        <br>
+                        <h2 style="color: #16DA49;" id="title">I question everything.</h2>
+                        <br>
+                    </mdui-card>
+                    <br><br><br>
+                    <div style="display:flex;">
+                        <mdui-text-field clearable type="search" spellcheck="boolean" label="搜索 Internet" id="searchInput">
+                            <mdui-button-icon slot="icon">
+                                <span class="material-symbols-outlined" id="searchButton">search</span>
+                            </mdui-button-icon>
+                        </mdui-text-field>
+                        <mdui-select style="width:200px; text-align:left;" value="bing" label="选择搜索引擎" id="engine">
+                            <mdui-menu-item value="bing">Bing</mdui-menu-item>
+                            <mdui-menu-item value="google">Google</mdui-menu-item>
+                            <mdui-menu-item value="baidu">百度</mdui-menu-item>
+                            <mdui-menu-item value="duckduckgo">DuckDuckGo</mdui-menu-item>
+                            <mdui-menu-item value="yandex">Yandex</mdui-menu-item>
+                        </mdui-select>
+                    </div>
+					<br><br><br><br><br><br><br>
+					<mdui-button href="#section-navigation"><span class="material-symbols-outlined">keyboard_arrow_down</span>网址导航<span class="material-symbols-outlined">keyboard_arrow_down</span></mdui-button>
+                </div>
+            </mdui-layout-main>
+        </mdui-layout>
+
+    </section>
+    
+	
+    <section id="section-navigation">
+		<br><br><br><mdui-divider></mdui-divider><br>
+        <div>
+            <h1 style="text-align: center">网址导航</h1>
+            <br>
+			<h2 style="text-align: center">这些是你可能较常用到的网站</h2>
+			<br>
+            <div style="display:flex; align-items: center; justify-content: center;">
+                <mdui-card style="width: 40%;height: 450px;right:2%" id="nav-search-engine">
+                    <mdui-list>
+                        <mdui-list-subheader>搜索引擎</mdui-list-subheader>
+                        <mdui-list-item href="https://www.google.com">
+                            Google
+                        </mdui-list-item>
+                        <mdui-list-item href="https://www.bing.com">
+                            Bing
+                        </mdui-list-item>
+                        <mdui-list-item href="https://hao.360.com/?a1004">
+                            360安全搜索
+                        </mdui-list-item>
+                        <mdui-list-item href="https://www.yandex.com">
+                            Yandex
+                        </mdui-list-item>
+                        <mdui-list-item href="https://www.duckduckgo.com">
+                            DuckDuckGo
+                        </mdui-list-item>
+						<mdui-dropdown>
+						<mdui-list-item slot="trigger">
+						    更多
+						</mdui-list-item>
+						<mdui-menu>
+						    <mdui-menu-item href="https://qwant.com">Qwant</mdui-menu-item>
+						    <mdui-menu-item href="https://yahoo.com">Yahoo</mdui-menu-item>
+							<mdui-menu-item href="https://www.sogou.com">搜狗</mdui-menu-item>
+							<mdui-menu-item href="https://startpage.com">Startpage</mdui-menu-item>
+							<mdui-menu-item href="https://www.baidu.com">百度</mdui-menu-item>
+						  </mdui-menu>
+						</mdui-dropdown>
+                    </mdui-list>
+                </mdui-card>
+                <mdui-card style="width: 40%;height: 450px;left:2%" id="nav-video">
+                    <mdui-list>
+                        <mdui-list-subheader>视频</mdui-list-subheader>
+                        <mdui-list-item href="https://www.youtube.com">
+                            Youtube
+                        </mdui-list-item>
+                        <mdui-list-item href="https://www.bilibili.com">
+                            Bilibili
+                        </mdui-list-item>
+                        <mdui-list-item href="https://haokan.baidu.com">
+                            好看视频
+                        </mdui-list-item>
+                        <mdui-list-item href="https://www.iqiyi.com">
+                            爱奇艺
+                        </mdui-list-item>
+                        <mdui-list-item href="https://v.qq.com">
+                            腾讯视频
+                        </mdui-list-item>
+                    	<mdui-dropdown>
+                    	<mdui-list-item slot="trigger">
+                    	    更多
+                    	</mdui-list-item>
+                    	<mdui-menu>
+							<mdui-menu-item href="https://www.douyin.com">抖音</mdui-menu-item>
+                    	    <mdui-menu-item href="https://www.ixigua.com">西瓜视频</mdui-menu-item>
+                    		<mdui-menu-item href="https://www.youku.com">优酷</mdui-menu-item>
+                    		<mdui-menu-item href="https://www.mgtv.com">芒果TV</mdui-menu-item>
+							<mdui-menu-item href="https://www.miguvideo.com">咪咕视频</mdui-menu-item>
+                    	  </mdui-menu>
+                    	</mdui-dropdown>
+                    </mdui-list>
+                </mdui-card>
+				</div>
+				<br>
+				
+				<div style="display:flex; align-items: center; justify-content: center;">
+				<mdui-card style="width: 40%;height: 450px;right:2%" id="nav-it">
+				    <mdui-list>
+				        <mdui-list-subheader>信息技术</mdui-list-subheader>
+				        <mdui-list-item href="https://github.com">
+				            Github
+				        </mdui-list-item>
+				        <mdui-list-item href="https://gitee.com">
+				            Gitee
+				        </mdui-list-item>
+				        <mdui-list-item href="https://developer.google.cn">
+				            Google Developer
+				        </mdui-list-item>
+				        <mdui-list-item href="https://developer.microsoft.com">
+				            Windows Developer
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.csdn.net">
+				            CSDN
+				        </mdui-list-item>
+				    	<mdui-dropdown>
+				    	<mdui-list-item slot="trigger">
+				    	    更多
+				    	</mdui-list-item>
+				    	<mdui-menu>
+				    	    <mdui-menu-item href="https://www.python.org">Python</mdui-menu-item>
+				    		<mdui-menu-item href="https://dotnet.microsoft.com">.NET</mdui-menu-item>
+				    		<mdui-menu-item href="https://nodejs.org">node.js</mdui-menu-item>
+							<mdui-menu-item href="https://webservices.archive.org">Internet Archive</mdui-menu-item>
+							
+				    	  </mdui-menu>
+				    	</mdui-dropdown>
+				    </mdui-list>
+				</mdui-card>
+				<mdui-card style="width: 40%;height: 450px;left:2%" id="nav-shopping">
+				    <mdui-list>
+				        <mdui-list-subheader>购物</mdui-list-subheader>
+				        <mdui-list-item href="https://www.amazon.com">
+				            Amazon
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.jd.com">
+				            京东
+				        </mdui-list-item>
+				        <mdui-list-item href="https://">
+				            淘宝
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.taobao.com">
+				            天猫
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.goofish.com">
+				            咸鱼
+				        </mdui-list-item>
+				    	<mdui-dropdown>
+				    	<mdui-list-item slot="trigger">
+				    	    更多
+				    	</mdui-list-item>
+				    	<mdui-menu>
+				    	    <mdui-menu-item href="https://www.ebay.com">eBay</mdui-menu-item>
+				    	    <mdui-menu-item href="https://www.smzdm.com">什么值得买</mdui-menu-item>
+				    		<mdui-menu-item href="https://www.dangdang.com">当当网</mdui-menu-item>
+				    	  </mdui-menu>
+				    	</mdui-dropdown>
+				    </mdui-list>
+				</mdui-card>
+            </div>
+            <br>
+			
+			<div style="display:flex; align-items: center; justify-content: center;">
+			    <mdui-card style="width: 40%;height: 450px;right:2%" id="nav-pc">
+			        <mdui-list>
+			            <mdui-list-subheader>手机电脑</mdui-list-subheader>
+			            <mdui-list-item href="https://www.zol.com.cn">
+			                中关村在线
+			            </mdui-list-item>
+			            <mdui-list-item href="https://consumer.huawei.com">
+			                华为
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.mi.com">
+			                小米
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.lenovo.com.cn">
+			                联想中国
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.hihonor.com">
+			                荣耀
+			            </mdui-list-item>
+						<mdui-dropdown>
+						<mdui-list-item slot="trigger">
+						    更多
+						</mdui-list-item>
+						<mdui-menu>
+						    <mdui-menu-item href="https://www.samsung.com">三星</mdui-menu-item>
+						    <mdui-menu-item href="https://www.asus.com.cn">华硕中国</mdui-menu-item>
+							<mdui-menu-item href="https://www.acer.com.cn">宏碁中国</mdui-menu-item>
+							<mdui-menu-item href="https://www.apple.com.cn">苹果中国</mdui-menu-item>
+							<mdui-menu-item href="https://www.dell.com">戴尔</mdui-menu-item>
+							<mdui-menu-item href="https://www.hp.com">惠普</mdui-menu-item>
+							<mdui-menu-item href="https://www.sony.com.cn">索尼中国</mdui-menu-item>
+							<mdui-menu-item href="https://www.microsoft.com/surface">微软 Surface</mdui-menu-item>
+							<mdui-menu-item href="https://store.google.com">Google Pixel</mdui-menu-item>
+							<mdui-menu-item href="https://www.51cube.com">酷比魔方</mdui-menu-item>
+							<mdui-menu-item href="https://www.one-netbook.com">壹号本</mdui-menu-item>
+						  </mdui-menu>
+						</mdui-dropdown>
+			        </mdui-list>
+			    </mdui-card>
+			    <mdui-card style="width: 40%;height: 450px;left:2%" id="nav-learning">
+			        <mdui-list>
+			            <mdui-list-subheader>学习</mdui-list-subheader>
+			            <mdui-list-item href="https://xuexi.cn">
+			                学习强国
+			            </mdui-list-item>
+			            <mdui-list-item href="https://zhixue.com">
+			                智学网
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.zxxk.com">
+			                学科网
+			            </mdui-list-item>
+			            <mdui-list-item href="https://xdf.cn">
+			                新东方
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.zybang.com">
+			                作业帮
+			            </mdui-list-item>
+			        	<mdui-dropdown>
+			        	<mdui-list-item slot="trigger">
+			        	    更多
+			        	</mdui-list-item>
+			        	<mdui-menu>
+			        	    <mdui-menu-item href="https://www.chaoxing.com">超星学习通</mdui-menu-item>
+			        	  </mdui-menu>
+			        	</mdui-dropdown>
+			        </mdui-list>
+			    </mdui-card>
+				</div>
+				<br>
+				
+				<div style="display:flex; align-items: center; justify-content: center;">
+				<mdui-card style="width: 40%;height: 450px;right:2%" id="nav-encyclopedia">
+				    <mdui-list>
+				        <mdui-list-subheader>百科</mdui-list-subheader>
+				        <mdui-list-item href="https://wikipedia.org">
+				            维基百科
+				        </mdui-list-item>
+				        <mdui-list-item href="https://baike.baidu.com">
+				            百度百科
+				        </mdui-list-item>
+				        <mdui-list-item href="https://baike.sogou.com">
+				            搜狗百科
+				        </mdui-list-item>
+				        <mdui-list-item href="https://baike.so.com">
+				            360百科
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.zgbk.com">
+				            中国大百科全书
+				        </mdui-list-item>
+				    	<mdui-dropdown>
+				    	<mdui-list-item slot="trigger">
+				    	    更多
+				    	</mdui-list-item>
+				    	<mdui-menu>
+				    	    <mdui-menu-item href="https://mzh.moegirl.org.cn">萌娘百科</mdui-menu-item>
+				    	  </mdui-menu>
+				    	</mdui-dropdown>
+				    </mdui-list>
+				</mdui-card>
+				<mdui-card style="width: 40%;height: 450px;left:2%" id="nav-ai">
+				    <mdui-list>
+				        <mdui-list-subheader>AI 工具</mdui-list-subheader>
+				        <mdui-list-item href="https://chat.openai.com">
+				            ChatGPT
+				        </mdui-list-item>
+				        <mdui-list-item href="https://copilot.microsoft.com">
+				            Microsoft Copilot
+				        </mdui-list-item>
+				        <mdui-list-item href="https://gemini.google.com">
+				            Google Gemini
+				        </mdui-list-item>
+				        <mdui-list-item href="https://tongyi.aliyun.com">
+				            通义千问
+				        </mdui-list-item>
+				        <mdui-list-item href="https://yiyan.baidu.com">
+				            文心一言
+				        </mdui-list-item>
+				    	<mdui-dropdown>
+				    	<mdui-list-item slot="trigger">
+				    	    更多
+				    	</mdui-list-item>
+				    	<mdui-menu>
+				    	    <mdui-menu-item href="https://www.midjourney.com">Midjourney</mdui-menu-item>
+				    	    <mdui-menu-item href="https://suno.com">Suno</mdui-menu-item>
+				    		<mdui-menu-item href="https://kimi.moonshot.cn">Kimi</mdui-menu-item>
+				    	  </mdui-menu>
+				    	</mdui-dropdown>
+				    </mdui-list>
+				</mdui-card>
+			</div>
+			<br>
+			<div style="display:flex; align-items: center; justify-content: center;">
+			    <mdui-card style="width: 40%;height: 450px;right:2%" id="nav-game">
+			        <mdui-list>
+			            <mdui-list-subheader>游戏</mdui-list-subheader>
+			            <mdui-list-item href="https://store.steampowered.com">
+			                Steam
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.epicgames.com">
+			                Epic
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.3dmgame.com">
+			                3dm
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.gamersky.com">
+			                游民星空
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.ali213.com">
+			                游侠网
+			            </mdui-list-item>
+						<mdui-dropdown>
+						<mdui-list-item slot="trigger">
+						    更多
+						</mdui-list-item>
+						<mdui-menu>
+						    <mdui-menu-item href="https://www.xbox.com">Xbox</mdui-menu-item>
+						    <mdui-menu-item href="https://www.playstation.com">Playstation</mdui-menu-item>
+							<mdui-menu-item href="https://www.4399.com">4399</mdui-menu-item>
+							<mdui-menu-item href="https://www.7k7k.com">7k7k</mdui-menu-item>
+							<mdui-menu-item href="https://steamdb.info">steamDB</mdui-menu-item>
+						  </mdui-menu>
+						</mdui-dropdown>
+			        </mdui-list>
+			    </mdui-card>
+			    <mdui-card style="width: 40%;height: 450px;left:2%" id="nav-sports">
+			        <mdui-list>
+			            <mdui-list-subheader>体育</mdui-list-subheader>
+			            <mdui-list-item href="https://www.msn.cn/sports">
+			                MSN 体育
+			            </mdui-list-item>
+			            <mdui-list-item href="https://tiyu.baidu.com">
+			                百度体育
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.hupu.com">
+			                虎扑体育
+			            </mdui-list-item>
+			            <mdui-list-item href="https://sports.cctv.com">
+			                央视体育
+			            </mdui-list-item>
+			            <mdui-list-item href="https://sports.sina.com.cn">
+			                新浪体育
+			            </mdui-list-item>
+			        	<mdui-dropdown>
+			        	<mdui-list-item slot="trigger">
+			        	    更多
+			        	</mdui-list-item>
+			        	<mdui-menu>
+			        	    <mdui-menu-item href="https://sports.qq.com">腾讯体育</mdui-menu-item>
+			        	    <mdui-menu-item href="https://sports.163.com">网易体育</mdui-menu-item>
+			        		<mdui-menu-item href="https://sports.ifeng.com">凤凰体育</mdui-menu-item>
+			        		<mdui-menu-item href="https://olympics.com">奥林匹克官网</mdui-menu-item>
+			        		<mdui-menu-item href="https://www.sport.gov.cn">国家体育总局</mdui-menu-item>
+			        	  </mdui-menu>
+			        	</mdui-dropdown>
+			        </mdui-list>
+			    </mdui-card>
+				</div>
+				<br>
+				
+				<div style="display:flex; align-items: center; justify-content: center;">
+				<mdui-card style="width: 40%;height: 450px;right:2%" id="nav-translate">
+				    <mdui-list>
+				        <mdui-list-subheader>翻译</mdui-list-subheader>
+				        <mdui-list-item href="https://www.bing.com/translator">
+				            Bing 翻译
+				        </mdui-list-item>
+				        <mdui-list-item href="https://translate.google.com">
+				            Google Translate
+				        </mdui-list-item>
+				        <mdui-list-item href="https://fanyi.youdao.com">
+				            有道翻译
+				        </mdui-list-item>
+						<mdui-list-item href="https://fanyi.baidu.com">
+						    百度翻译
+						</mdui-list-item>
+						<mdui-dropdown>
+							<mdui-list-item slot="trigger">
+							    更多
+							</mdui-list-item>
+							<mdui-menu>
+							    <mdui-menu-item href="https://fanyi.sogou.com.com">搜狗翻译</mdui-menu-item>
+							    <mdui-menu-item href="https://fanyi.so.com">360翻译</mdui-menu-item>
+							  </mdui-menu>
+							</mdui-dropdown>
+						</mdui-list>
+				</mdui-card>
+				<mdui-card style="width: 40%;height: 450px;left:2%" id="nav-social">
+				    <mdui-list>
+				        <mdui-list-subheader>社交</mdui-list-subheader>
+				        <mdui-list-item href="https://www.youyin.com">
+				            抖音
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.weibo.com">
+				            新浪微博
+				        </mdui-list-item>
+				        <mdui-list-item href="https://tieba.baidu.com">
+				            百度贴吧
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.zhihu.com">
+				            知乎
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.xiaohongshu.com">
+				            小红书
+				        </mdui-list-item>
+				    	<mdui-dropdown>
+				    	<mdui-list-item slot="trigger">
+				    	    更多
+				    	</mdui-list-item>
+				    	<mdui-menu>
+				    	    <mdui-menu-item href="https://discord.com">Discord</mdui-menu-item>
+				    	    <mdui-menu-item href="https://web.telegram.org">Telegram</mdui-menu-item>
+				    		<mdui-menu-item href="https://facebook.com">Facebook</mdui-menu-item>
+							<mdui-menu-item href="https://x.com">X</mdui-menu-item>
+							<mdui-menu-item href="https://reddit.com">Reddit</mdui-menu-item>
+							<mdui-menu-item href="https://www.quora.com">Quora</mdui-menu-item>
+				    	  </mdui-menu>
+				    	</mdui-dropdown>
+				    </mdui-list>
+				</mdui-card>
+			</div>
+			<br>
+			
+			<div style="display:flex; align-items: center; justify-content: center;">
+			    <mdui-card style="width: 40%;height: 450px;right:2%" id="nav-communication">
+			        <mdui-list>
+			            <mdui-list-subheader>通讯</mdui-list-subheader>
+			            <mdui-list-item href="https://www.qq.com">
+			                QQ
+			            </mdui-list-item>
+			            <mdui-list-item href="https://wx.qq.com">
+			                微信
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.dingtalk.com/?a1004">
+			                钉钉
+			            </mdui-list-item>
+			            <mdui-list-item href="https://teams.microsoft.com">
+			                Microsoft Teams
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.whatsapp.com">
+			                Whatsapp
+			            </mdui-list-item>
+						<mdui-dropdown>
+						<mdui-list-item slot="trigger">
+						    更多
+						</mdui-list-item>
+						<mdui-menu>
+						    <mdui-menu-item href="https://line.me">Line</mdui-menu-item>
+						    <mdui-menu-item href="https://www.skype.com">Skype</mdui-menu-item>
+							<mdui-menu-item href="https://meeting.tencent.com">腾讯会议</mdui-menu-item>
+							<mdui-menu-item href="https://www.linkedin.com">LinkedIn</mdui-menu-item>
+							<mdui-menu-item href="https://www.messenger.com">Messenger</mdui-menu-item>
+							<mdui-menu-item href="https://chat.google.com">Google Chat</mdui-menu-item>
+							
+						  </mdui-menu>
+						</mdui-dropdown>
+			        </mdui-list>
+			    </mdui-card>
+			    <mdui-card style="width: 40%;height: 450px;left:2%" id="nav-news">
+			        <mdui-list>
+			            <mdui-list-subheader>新闻</mdui-list-subheader>
+			            <mdui-list-item href="https://www.people.com.cn">
+			                人民网
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.cctv.com">
+			                央视网
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.xinhuanet.com">
+			                新华网
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.chinadaily.com.cn">
+			                中国日报
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.china.com.cn">
+			                中国网
+			            </mdui-list-item>
+			        	<mdui-dropdown>
+			        	<mdui-list-item slot="trigger">
+			        	    更多
+			        	</mdui-list-item>
+			        	<mdui-menu>
+			        	    <mdui-menu-item href="https://www.gmw.cn">光明网</mdui-menu-item>
+			        	    <mdui-menu-item href="https://www.cnr.cn">央广网</mdui-menu-item>
+			        		<mdui-menu-item href="https://www.qstheory.cn">求是网</mdui-menu-item>
+			        		<mdui-menu-item href="https://www.youth.cn">中青网</mdui-menu-item>
+			        		<mdui-menu-item href="https://www.huanqiu.com">环球网</mdui-menu-item>
+							<mdui-menu-item href="https://www.cankaoxiaoxi.com">参考消息</mdui-menu-item>
+							<mdui-menu-item href="https://news.sina.com.cn">新浪新闻</mdui-menu-item>
+							<mdui-menu-item href="https://news.qq.com">腾讯新闻</mdui-menu-item>
+							<mdui-menu-item href="https://news.163.com">网易新闻</mdui-menu-item>
+							<mdui-menu-item href="https://www.msn.com">MSN</mdui-menu-item>
+							<mdui-menu-item href="https://www.bbc.com">BBC</mdui-menu-item>
+							<mdui-menu-item href="https://www.cnn.com">CNN</mdui-menu-item>
+							<mdui-menu-item href="https://www.cnbc.com">CNBC</mdui-menu-item>
+							
+							
+			        	  </mdui-menu>
+			        	</mdui-dropdown>
+			        </mdui-list>
+			    </mdui-card>
+				</div>
+				<br>
+				
+				<div style="display:flex; align-items: center; justify-content: center;">
+				<mdui-card style="width: 40%;height: 450px;right:2%" id="nav-travel">
+				    <mdui-list>
+				        <mdui-list-subheader>旅游</mdui-list-subheader>
+				        <mdui-list-item href="https://www.ctrip.com">
+				            携程
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.12306.cn">
+				            12306
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.qunar.com">
+				            去哪儿
+				        </mdui-list-item>
+				        <mdui-list-item href="https://booking.com">
+				            Booking.com
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.amap.com">
+				            高德地图
+				        </mdui-list-item>
+				    	<mdui-dropdown>
+				    	<mdui-list-item slot="trigger">
+				    	    更多
+				    	</mdui-list-item>
+				    	<mdui-menu>
+				    	    <mdui-menu-item href="https://map.baidu.com">百度地图</mdui-menu-item>
+				    	    <mdui-menu-item href="https://maps.google.com">Google Maps</mdui-menu-item>
+				    		<mdui-menu-item href="https://www.bing.com/travel">Bing 旅游</mdui-menu-item>
+				    	  </mdui-menu>
+				    	</mdui-dropdown>
+				    </mdui-list>
+				</mdui-card>
+				<mdui-card style="width: 40%;height: 450px;left:2%" id="nav-music">
+				    <mdui-list>
+				        <mdui-list-subheader>音乐</mdui-list-subheader>
+				        <mdui-list-item href="https://music.163.com">
+				            网易云
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.kugou.com">
+				            酷狗
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.kuwo.cn">
+				            酷我
+				        </mdui-list-item>
+				        <mdui-list-item href="https://y.qq.com">
+				            QQ音乐
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.spotify.com">
+				            Spotify
+				        </mdui-list-item>
+				    	<mdui-dropdown>
+				    	<mdui-list-item slot="trigger">
+				    	    更多
+				    	</mdui-list-item>
+				    	<mdui-menu>
+				    	    <mdui-menu-item href="https://music.youtube.com">Youtube Music</mdui-menu-item>
+				    	    <mdui-menu-item href="https://tidal.com">Tidal</mdui-menu-item>
+				    	  </mdui-menu>
+				    	</mdui-dropdown>
+				    </mdui-list>
+				</mdui-card>
+			</div>
+			<br>
+			
+			<div style="display:flex; align-items: center; justify-content: center;">
+			    <mdui-card style="width: 40%;height: 450px;right:2%" id="nav-drives">
+			        <mdui-list>
+			            <mdui-list-subheader>网盘</mdui-list-subheader>
+			            <mdui-list-item href="https://onedrive.live.com">
+			                Onedrive
+			            </mdui-list-item>
+			            <mdui-list-item href="https://drive.google.com">
+			                Google Drive
+			            </mdui-list-item>
+			            <mdui-list-item href="https://pan.baidu.com">
+			                百度网盘
+			            </mdui-list-item>
+			            <mdui-list-item href="https://cloud.189.cn">
+			                天翼云盘
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.lanzoui.com">
+			                蓝奏云网盘
+			            </mdui-list-item>
+						<mdui-dropdown>
+						<mdui-list-item slot="trigger">
+						    更多
+						</mdui-list-item>
+						<mdui-menu>
+						    <mdui-menu-item href="https://pan.quark.cn">夸克网盘</mdui-menu-item>
+						  </mdui-menu>
+						</mdui-dropdown>
+			        </mdui-list>
+			    </mdui-card>
+			    <mdui-card style="width: 40%;height: 450px;left:2%" id="nav-mailbox">
+			        <mdui-list>
+			            <mdui-list-subheader>邮箱</mdui-list-subheader>
+			            <mdui-list-item href="https://mail.qq.com">
+			                QQ邮箱
+			            </mdui-list-item>
+			            <mdui-list-item href="https://mail.163.com">
+			                163邮箱
+			            </mdui-list-item>
+			            <mdui-list-item href="https://126.com">
+			                126邮箱
+			            </mdui-list-item>
+			            <mdui-list-item href="https://mail.10086.cn">
+			                139邮箱
+			            </mdui-list-item>
+			            <mdui-list-item href="https://www.outlook.com">
+			                Outlook
+			            </mdui-list-item>
+			        	<mdui-dropdown>
+			        	<mdui-list-item slot="trigger">
+			        	    更多
+			        	</mdui-list-item>
+			        	<mdui-menu>
+			        	    <mdui-menu-item href="https://mail.google.com">Gmail</mdui-menu-item>
+			        	    <mdui-menu-item href="https://360.yandex.com/mail/">Yandex Mail</mdui-menu-item>
+			        		<mdui-menu-item href="https://proton.mail.me">Proton Mail</mdui-menu-item>
+							<mdui-menu-item href="https://mail.yahoo.com">Yahoo Mail</mdui-menu-item>
+			        	  </mdui-menu>
+			        	</mdui-dropdown>
+			        </mdui-list>
+			    </mdui-card>
+				</div>
+				<br>
+				
+				<div style="display:flex; align-items: center; justify-content: center;">
+				<mdui-card style="width: 40%;height: 450px;right:2%" id="nav-bank">
+				    <mdui-list>
+				        <mdui-list-subheader>银行</mdui-list-subheader>
+				        <mdui-list-item href="https://www.boc.cn">
+				            中国银行
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.ccb.com">
+				            建设银行
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.icbc.com.cn">
+				            工商银行
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.abchina.com">
+				            农业银行
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.bankcomm.com">
+				            交通银行
+				        </mdui-list-item>
+				    	<mdui-dropdown>
+				    	<mdui-list-item slot="trigger">
+				    	    更多
+				    	</mdui-list-item>
+				    	<mdui-menu>
+				    	    <mdui-menu-item href="https://www.cmbchina.com">招商银行</mdui-menu-item>
+				    	    <mdui-menu-item href="https://www.cib.com.cn">兴业银行</mdui-menu-item>
+				    		<mdui-menu-item href="https://www.spdb.com.cn">浦发银行</mdui-menu-item>
+				    		<mdui-menu-item href="https://www.hsbc.com.cn">汇丰银行</mdui-menu-item>
+				    		<mdui-menu-item href="https://www.psbc.com">邮政储蓄银行</mdui-menu-item>
+				    	  </mdui-menu>
+				    	</mdui-dropdown>
+				    </mdui-list>
+				</mdui-card>
+				<mdui-card style="width: 40%;height: 450px;left:2%" id="nav-download">
+				    <mdui-list>
+				        <mdui-list-subheader>软件下载</mdui-list-subheader>
+				        <mdui-list-item href="https://apkpure.com">
+				            Apkpure
+				        </mdui-list-item>
+				        <mdui-list-item href="https://www.apkmirror.com">
+				            Apkmirror
+				        </mdui-list-item>
+				        <mdui-list-item href="https://play.google.com">
+				            Google Play
+				        </mdui-list-item>
+				        <mdui-list-item href="https://apps.microsoft.com">
+				            微软应用商店
+				        </mdui-list-item>
+				        <mdui-list-item href="https://sj.qq.com">
+				            腾讯应用宝
+				        </mdui-list-item>
+				    	<mdui-dropdown>
+				    	<mdui-list-item slot="trigger">
+				    	    更多
+				    	</mdui-list-item>
+				    	<mdui-menu>
+				    	    <mdui-menu-item href="https://www.coolapk.com">酷安</mdui-menu-item>
+				    	    <mdui-menu-item href="https://apps.apple.com">Appstore</mdui-menu-item>
+				    	  </mdui-menu>
+				    	</mdui-dropdown>
+				    </mdui-list>
+				</mdui-card>
+			</div>
+			<br>
+			
+			
+			</div>
+			<mdui-divider></mdui-divider>
+
+    </section>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+	<mdui-button id="back-to-top" href="javascript:void(0);" class="back-to-top-button"><span class="material-symbols-outlined" >vertical_align_top</span>回到顶端</mdui-button>
+    <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
+    <script src="js/script.js"></script>
+</body>
+<footer>
+    <section id="section-about">
+        <mdui-card clickable style="width: 100%;height: 250px; text-align:center; justify-content:center; align-items:center;">
+			<br>
+			<div style="display:flex; align-items:center; justify-content:center;">
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >search</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >computer</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >terminal</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >ramen_dining</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >icecream</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >lunch_dining</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >local_bar</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >hub</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >globe_asia</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >flight</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >browse</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >tablet</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >keyboard</span></mdui-button>
+			<mdui-button slot="icon"><span class="material-symbols-outlined" >headphones</span></mdui-button>
+			</div>
+			<br>
+			Copyright &copy; 2022-2025 Dornhub, All Rights Reserved.
+			<br>
+			Produced by Dornhub. | Version 4
+			<br>
+			Powered by Google Material Design.
+			<br><br>
+			<span id="navname5">Dorn</span>
+			<span id="navname6">&nbsp;Hub&nbsp;</span>
+			<br>
+		</mdui-card>
+    </section>
+</footer>
+
+</html>
