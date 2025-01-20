@@ -119,11 +119,11 @@ html {
 }
 
 @media (max-width: 540px) {
-    #navname2, #navname4, #navname6 {
+    #navname2 {
         display: none;
     }
-    #navname1, #navname3, #navname5 {
-        font-size: 20px;
+    #navname1 {
+        font-size: 16px;
     }
 	#title {
 		font-size: 15px;
