@@ -1,3 +1,35 @@
+
+
+
+
+const dialog = document.querySelector(".example-fullscreen");
+  const openButton = dialog.nextElementSibling;
+  const closeButton = dialog.querySelector("mdui-button");
+
+  openButton.addEventListener("click", () => dialog.open = true);
+  closeButton.addEventListener("click", () => dialog.open = false);
+
+
+document.getElementById('title-card').addEventListener('click', function() {
+  var navname3 = document.getElementById('navname3');
+  var navname4 = document.getElementById('navname4');
+
+  // 添加动画类
+  navname3.classList.add('bounce-animation');
+  navname4.classList.add('bounce-animation');
+
+  setTimeout(function() {
+    navname3.classList.remove('bounce-animation');
+    navname4.classList.remove('bounce-animation');
+    // 重置位置
+    navname3.style.transform = 'translateY(0)';
+    navname4.style.transform = 'translateY(0)';
+  }, 1000); 
+});
+
+
+
+
 (function() {
     // 立即执行代码，设置默认配色方案
     mdui.setColorScheme('#16DA49');
@@ -77,6 +109,9 @@
     document.getElementById("back-to-top").onclick = function() {
         window.scrollTo({top: 0, behavior: 'smooth'});
     };
+	document.getElementById("back-to-top-logo").onclick = function() {
+	    window.scrollTo({top: 0, behavior: 'smooth'});
+	};
 
     document.getElementById('engine').addEventListener('change', function(event) {
         const engine = event.target.value;
@@ -115,6 +150,21 @@
             case 'yandex':
                 searchUrl = `https://yandex.com/search/?text=${encodeURIComponent(query)}`;
                 break;
+			case 'bilibili':
+			    searchUrl = `https://search.bilibili.com/all?keyword=${encodeURIComponent(query)}`;
+			    break;
+			case 'wikipedia':
+			    searchUrl = `https://zh.wikipedia.org/w/index.php?search=${encodeURIComponent(query)}`;
+			    break;
+			case 'qwant':
+			    searchUrl = `https://www.qwant.com/?q=${encodeURIComponent(query)}`;
+			    break;
+			case 'swisscows':
+			    searchUrl = `https://swisscows.com/web?query=${encodeURIComponent(query)}`;
+			    break;
+			case 'youtube':
+			    searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+			    break;
             default:
                 searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
         }
@@ -122,21 +172,21 @@
     }
 
     window.setLightMode = function() {
-        document.documentElement.className = "mdui-theme-light";
+        mdui.setTheme('light');
         document.getElementById("themeIcon").innerHTML = "light_mode";
         localStorage.setItem('themeMode', 'mdui-theme-light'); // 保存明暗模式到 localStorage
         applyCurrentColor();
     }
 
     window.setDarkMode = function() {
-        document.documentElement.className = "mdui-theme-dark";
+        mdui.setTheme('dark');
         document.getElementById("themeIcon").innerHTML = "dark_mode";
         localStorage.setItem('themeMode', 'mdui-theme-dark'); // 保存明暗模式到 localStorage
         applyCurrentColor();
     }
 
     window.setAutoMode = function() {
-        document.documentElement.className = "mdui-theme-auto";
+        mdui.setTheme('auto');
         document.getElementById("themeIcon").innerHTML = "brightness_auto";
         localStorage.setItem('themeMode', 'mdui-theme-auto'); // 保存明暗模式到 localStorage
         applyCurrentColor();
