@@ -32,7 +32,7 @@ document.getElementById('title-card').addEventListener('click', function() {
 
 (function() {
     // 立即执行代码，设置默认配色方案
-    mdui.setColorScheme('#16DA49');
+    mdui.setColorScheme('#6750a4');
     
     // 页面加载时应用用户设置
     window.onload = function() {
@@ -42,8 +42,8 @@ document.getElementById('title-card').addEventListener('click', function() {
             setColorScheme(savedColor);
             document.getElementById('colorMenu').value = savedColor;
         } else {
-            setColorScheme('#16DA49'); // 默认配色方案
-            document.getElementById('colorMenu').value = '#16DA49'; // 确保选项也显示为默认颜色
+            setColorScheme('#6750a4'); // 默认配色方案
+            document.getElementById('colorMenu').value = '#6750a4'; // 确保选项也显示为默认颜色
         }
 
         // 加载明暗模式
