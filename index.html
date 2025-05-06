@@ -2118,6 +2118,207 @@
 	<mdui-button id="back-to-top" href="javascript:void(0);" class="back-to-top-button"><span class="material-symbols-outlined" >vertical_align_top</span>回到顶端</mdui-button>
     <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
     <script src="js/script.js"></script>
+	<style>
+		/*:root,
+.mdui-theme-light {
+  #navname1 {
+    margin-left: 10px;
+    font-weight: 900;
+    background-color: transparent;
+    color: rgb(102, 153, 255);
+    font-size: 30px;
+    font-family: Microsoft Yahei;
+  }
+  #navname2 {
+    margin-left: 10px;
+    font-weight: 900;
+    height: 50px;
+    color: white;
+    font-size: 30px;
+    background-color: rgb(102, 153, 255);
+    border-radius: 10px;
+    font-family: Microsoft Yahei;
+  }
+}
+
+.mdui-theme-dark {
+  #navname1 {
+    font-family: Microsoft Yahei;
+    margin-left: 10px;
+    font-weight: 900;
+    background-color: transparent;
+    text-shadow: 0 0 10px rgba(30, 144, 255, 0.95),
+      0 0 20px rgba(30, 144, 255, 0.8), 0 0 30px rgba(30, 144, 255, 0.65),
+      0 0 40px rgba(30, 144, 255, 0.4), 0 0 100px rgba(30, 144, 255, 0.2),
+      0 0 200px rgba(30, 144, 255, 0.1), 0 0 300px rgba(30, 144, 255, 0.05);
+    color: #000;
+    font-size: 30px;
+  }
+  #navname2 {
+    font-family: Microsoft Yahei;
+    color: #000000;
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.25), 0 0 20px rgba(30, 144, 255, 0.25),
+      0 0 30px rgba(30, 144, 255, 0.15), 0 0 40px rgba(30, 144, 255, 0.1),
+      0 0 100px rgba(30, 144, 255, 0.1), 0 0 200px rgba(30, 144, 255, 0.05),
+      0 0 300px rgba(30, 144, 255, 0.05);
+    font-weight: 900;
+    width: 300px;
+    height: 50px;
+    font-size: 30px;
+    border: 0px solid #000;
+    border-radius: 12px;
+    text-shadow: 0 0 10px #1e90ff, 0 0 20px #1e90ff, 0 0 30px #1e90ff, 0 0 40px #1e90ff,
+      0 0 100px #1e90ff, 0 0 200px #1e90ff, 0 0 300px #1e90ff, 0 0 400px #1e90ff;
+  }
+}
+
+@media (prefers-color-scheme: auto) {
+  .mdui-theme-auto {
+    #navname1 {
+      margin-left: 10px;
+      font-weight: 900;
+      background-color: transparent;
+      color: rgb(102, 153, 255);
+      font-size: 30px;
+      font-family: Microsoft Yahei;
+    }
+    #navname2 {
+      margin-left: 10px;
+      font-weight: 900;
+      height: 50px;
+      color: white;
+      font-size: 30px;
+      background-color: rgb(102, 153, 255);
+      border-radius: 10px;
+      font-family: Microsoft Yahei;
+    }
+  }
+}*/
+#navname1, #navname3, #navname5 {
+      margin-left: 10px;
+      font-weight: 900;
+	  background-color: transparent;
+      color: #6750a4;
+      font-size: 30px;
+      font-family: Microsoft Yahei;
+    }
+    #navname2, #navname4, #navname6 {
+      margin-left: 10px;
+      font-weight: 900;
+      height: 42px;
+      color: white;
+      font-size: 30px;
+      background-color: #6750a4;
+      font-family: Microsoft Yahei;
+	  border-radius: 10px;
+    }
+	
+
+@keyframes bounce {
+  0%, 30%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-20px);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+}
+
+#navname3, #navname4, #navname5, #navname6 {
+  display: inline-block;
+}
+
+.bounce-animation {
+  animation: bounce 0.8s forwards;
+}
+	
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap');
+
+html {
+  font-family: "Noto Sans SC", serif;
+  scroll-behavior: smooth;
+}
+
+  .back-to-top-button {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+	z-index: 1;
+  }
+  .back-to-top-button.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+#title-card {
+	width: 80%;
+	height: 150px;
+}
+
+@media (max-width: 540px) {
+    #navname2 {
+        display: none;
+    }
+    #navname1 {
+        font-size: 16px;
+    }
+	#title {
+		font-size: 15px;
+	}
+	#title-card {
+		height: 120px;
+	}
+		/*  #engine {
+	    width: 250px;
+	} */
+	
+}
+
+.noselect {
+            user-select: none; 
+            -webkit-user-select: none; /* Safari/Chrome */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Edge */
+        }
+		
+header, footer {
+	user-select: none;
+	-webkit-user-select: none; /* Safari/Chrome */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Edge */
+}
+
+
+
+.nav-option {
+    --shape-corner: 10px; 
+    height: 50px; 
+    width: 180px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.button-content {
+    display: flex; 
+    align-items: center;
+}
+
+.button-content mdui-avatar {
+    margin-right: 10px;
+}
+
+.button-content span {
+    line-height: 50px;
+}
+
+		
+	</style>
 
 </body>
 <footer>
