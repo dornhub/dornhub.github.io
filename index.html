@@ -79,14 +79,23 @@
                     palette
                 </span>
             </mdui-button-icon>
-            <mdui-menu selects="single" id="colorMenu" value="#16DA49">
+            <mdui-menu selects="single" id="colorMenu" value="#6750a4">
+                <mdui-menu-item value="#6750a4" style="color:#6750a4">默认配色</mdui-menu-item>
                 <mdui-menu-item value="#16DA49" style="color:#16DA49">𣿅国绿</mdui-menu-item>
                 <mdui-menu-item value="#6499FF" style="color:#6499FF">大江蓝</mdui-menu-item>
                 <mdui-menu-item value="#A51515" style="color:#A51515">秋茗红</mdui-menu-item>
                 <mdui-menu-item value="#349DA5" style="color:#349DA5">铁山青</mdui-menu-item>
                 <mdui-menu-item value="#FFB500" style="color:#FFB500">凤凰金</mdui-menu-item>
-            </mdui-menu>
+            
+                <mdui-menu-item value="#DA70D6" style="color:#DA70D6">兰花紫</mdui-menu-item>
+            
+                <mdui-menu-item value="#FF69B4" style="color:#FF69B4">晚霞粉</mdui-menu-item>
+            
+            
+  <mdui-menu-item disabled>自定义</mdui-menu-item>
+        </mdui-menu>
         </mdui-dropdown>
+        
         <mdui-dropdown>
             <mdui-button-icon slot="trigger">
                 <span class="material-symbols-outlined" id="themeIcon">
@@ -136,19 +145,17 @@
 
         </mdui-dropdown>
         
-		<mdui-dialog close-on-esc close-on-overlay-click class="example-fullscreen">
-		  <mdui-button>
+		<mdui-dialog close-on-esc fullscreen class="example-fullscreen">
+		  <mdui-button style="position:fixed;  top:10px; right:10px;">
 		  			  <span class="material-symbols-outlined">
 		                close
 		            </span>关闭此窗口
 		  					</mdui-button>
-		  <iframe width="90%px" height="1000px" src="https://forms.office.com/Pages/ResponsePage.aspx?id=wqt2H8J_RUOHg7DsTX-T7JrXsqelRvlCqFrx2tRXuUVUM09YWVY1STY2RTBKTE0zTEpBM1ZEOFpVWC4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%;" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+		  <iframe style="position:fixed; top:100px;" width="90%px" height="1000px" src="https://forms.office.com/Pages/ResponsePage.aspx?id=wqt2H8J_RUOHg7DsTX-T7JrXsqelRvlCqFrx2tRXuUVUM09YWVY1STY2RTBKTE0zTEpBM1ZEOFpVWC4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%;" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
 
 		</mdui-dialog>
 		
-		<mdui-button><span class="material-symbols-outlined">
-		                emoticon
-		            </span>我喜欢Dorn！</mdui-button>
+		<mdui-button>我喜欢Dorn</mdui-button>
 		
     </mdui-top-app-bar>
 </header>
@@ -171,12 +178,12 @@
                         <span id="navname3">Dorn</span>
                         <span id="navname4">&nbsp;Hub&nbsp;</span>
                         <br>
-                        <h2 style="color: #16DA49;" id="title">I question everything.</h2>
+                        <h2 style="color: #6750a4;" id="title">I question everything.</h2>
                         <br>
                     </mdui-card>
                     <br><br><br>
                     <div style="display:flex;" class="noselect">
-                        <mdui-text-field clearable type="search" placeholder="I question everything." spellcheck="boolean" label="搜索" id="searchInput">
+                        <mdui-text-field clearable type="search" placeholder="" spellcheck="boolean" label="搜索" id="searchInput">
                             <mdui-button-icon slot="icon">
                                 <span class="material-symbols-outlined" id="searchButton">search</span>
                             </mdui-button-icon>
@@ -227,14 +234,14 @@
 			    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-dev">
 			        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >terminal</span>开发</mdui-list-subheader>
 			        <mdui-tabs value="tab-1">
-			            <mdui-tab value="tab-1">开发平台</mdui-tab>
+			            <mdui-tab value="tab-1">开发平台与社区</mdui-tab>
 			            <mdui-tab value="tab-2">开发者</mdui-tab>
 						<mdui-tab value="tab-3">系统</mdui-tab>
 						<mdui-tab value="tab-4">各语言</mdui-tab>
 						<mdui-tab value="tab-5">设计</mdui-tab>
 						<mdui-tab value="tab-6">云&网络</mdui-tab>
 						<mdui-tab value="tab-7">相关的网站</mdui-tab>
-						<mdui-tab value="tab-8">论坛</mdui-tab>
+						<mdui-tab value="tab-8">学习与资讯</mdui-tab>
 			
 			            <mdui-tab-panel slot="panel" value="tab-1">
 			                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
@@ -256,6 +263,24 @@
 								        <span style="line-height: 50px;">Gitlab</span>
 								    </div>
 								</mdui-button>
+								<mdui-button variant="tonal" class="nav-option" href="" disabled>
+									  <div class="button-content">
+									    <mdui-avatar src=""></mdui-avatar>
+									    <span style="line-height: 50px;">Stack Overflow</span>
+									  </div>
+									</mdui-button>
+									<mdui-button variant="tonal" class="nav-option" href="" disabled>
+									  <div class="button-content">
+									    <mdui-avatar src=""></mdui-avatar>
+									    <span style="line-height: 50px;">Dev Community</span>
+									  </div>
+									</mdui-button>
+									<mdui-button variant="tonal" class="nav-option" href="https://www.csdn.net">
+			                        <div class="button-content">
+			                            <mdui-avatar src="https://www.csdn.net/favicon.ico"></mdui-avatar>
+			                            <span style="line-height: 50px;">CSDN</span>
+			                        </div>
+			                    </mdui-button>
 			                </mdui-list>
 			            </mdui-tab-panel>
 			
@@ -279,7 +304,12 @@
 			                            <span style="line-height: 50px;">.NET</span>
 			                        </div>
 			                    </mdui-button>
-			                    
+			                    <mdui-button variant="tonal" class="nav-option" href="" disabled>
+									  <div class="button-content">
+									    <mdui-avatar src=""></mdui-avatar>
+									    <span style="line-height: 50px;">MDN Web Docs</span>
+									  </div>
+									</mdui-button>
 			                </mdui-list>
 			            </mdui-tab-panel>
 						<mdui-tab-panel slot="panel" value="tab-3">
@@ -493,12 +523,19 @@
 						</mdui-tab-panel>
 						<mdui-tab-panel slot="panel" value="tab-8">
 						    <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-						        <mdui-button variant="tonal" class="nav-option" href="https://www.csdn.net">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://www.csdn.net/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">CSDN</span>
-			                        </div>
-			                    </mdui-button>
+						        <mdui-button variant="tonal" class="nav-option" href="" disabled>
+					    <div class="button-content">
+					      <mdui-avatar src=""></mdui-avatar>
+					      <span style="line-height: 50px;">FreeCodeCamp</span>
+					    </div>
+					  </mdui-button>
+					  <mdui-button variant="tonal" class="nav-option" href="" disabled>
+					    <div class="button-content">
+					      <mdui-avatar src=""></mdui-avatar>
+					      <span style="line-height: 50px;">Leet Code</span>
+					    </div>
+					  </mdui-button>
+					  
 						    </mdui-list>
 						</mdui-tab-panel>
 			        </mdui-tabs>
@@ -2081,207 +2118,12 @@
 	<mdui-button id="back-to-top" href="javascript:void(0);" class="back-to-top-button"><span class="material-symbols-outlined" >vertical_align_top</span>回到顶端</mdui-button>
     <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
     <script src="js/script.js"></script>
-	<style>
-		/*:root,
-.mdui-theme-light {
-  #navname1 {
-    margin-left: 10px;
-    font-weight: 900;
-    background-color: transparent;
-    color: rgb(102, 153, 255);
-    font-size: 30px;
-    font-family: Microsoft Yahei;
-  }
-  #navname2 {
-    margin-left: 10px;
-    font-weight: 900;
-    height: 50px;
-    color: white;
-    font-size: 30px;
-    background-color: rgb(102, 153, 255);
-    border-radius: 10px;
-    font-family: Microsoft Yahei;
-  }
-}
 
-.mdui-theme-dark {
-  #navname1 {
-    font-family: Microsoft Yahei;
-    margin-left: 10px;
-    font-weight: 900;
-    background-color: transparent;
-    text-shadow: 0 0 10px rgba(30, 144, 255, 0.95),
-      0 0 20px rgba(30, 144, 255, 0.8), 0 0 30px rgba(30, 144, 255, 0.65),
-      0 0 40px rgba(30, 144, 255, 0.4), 0 0 100px rgba(30, 144, 255, 0.2),
-      0 0 200px rgba(30, 144, 255, 0.1), 0 0 300px rgba(30, 144, 255, 0.05);
-    color: #000;
-    font-size: 30px;
-  }
-  #navname2 {
-    font-family: Microsoft Yahei;
-    color: #000000;
-    box-shadow: 0 0 10px rgba(30, 144, 255, 0.25), 0 0 20px rgba(30, 144, 255, 0.25),
-      0 0 30px rgba(30, 144, 255, 0.15), 0 0 40px rgba(30, 144, 255, 0.1),
-      0 0 100px rgba(30, 144, 255, 0.1), 0 0 200px rgba(30, 144, 255, 0.05),
-      0 0 300px rgba(30, 144, 255, 0.05);
-    font-weight: 900;
-    width: 300px;
-    height: 50px;
-    font-size: 30px;
-    border: 0px solid #000;
-    border-radius: 12px;
-    text-shadow: 0 0 10px #1e90ff, 0 0 20px #1e90ff, 0 0 30px #1e90ff, 0 0 40px #1e90ff,
-      0 0 100px #1e90ff, 0 0 200px #1e90ff, 0 0 300px #1e90ff, 0 0 400px #1e90ff;
-  }
-}
-
-@media (prefers-color-scheme: auto) {
-  .mdui-theme-auto {
-    #navname1 {
-      margin-left: 10px;
-      font-weight: 900;
-      background-color: transparent;
-      color: rgb(102, 153, 255);
-      font-size: 30px;
-      font-family: Microsoft Yahei;
-    }
-    #navname2 {
-      margin-left: 10px;
-      font-weight: 900;
-      height: 50px;
-      color: white;
-      font-size: 30px;
-      background-color: rgb(102, 153, 255);
-      border-radius: 10px;
-      font-family: Microsoft Yahei;
-    }
-  }
-}*/
-#navname1, #navname3, #navname5 {
-      margin-left: 10px;
-      font-weight: 900;
-	  background-color: transparent;
-      color: #16DA49;
-      font-size: 30px;
-      font-family: Microsoft Yahei;
-    }
-    #navname2, #navname4, #navname6 {
-      margin-left: 10px;
-      font-weight: 900;
-      height: 42px;
-      color: white;
-      font-size: 30px;
-      background-color: #16DA49;
-      font-family: Microsoft Yahei;
-	  border-radius: 10px;
-    }
-	
-@keyframes bounce {
-  0%, 30%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  20% {
-    transform: translateY(-20px);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-}
-
-#navname3, #navname4, #navname5, #navname6 {
-  display: inline-block;
-}
-
-.bounce-animation {
-  animation: bounce 1s forwards;
-}
-	
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap');
-
-html {
-  font-family: "Noto Sans SC", serif;
-  scroll-behavior: smooth;
-}
-
-  .back-to-top-button {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-	z-index: 1;
-  }
-  .back-to-top-button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-
-#title-card {
-	width: 80%;
-	height: 150px;
-}
-
-@media (max-width: 540px) {
-    #navname2 {
-        display: none;
-    }
-    #navname1 {
-        font-size: 16px;
-    }
-	#title {
-		font-size: 15px;
-	}
-	#title-card {
-		height: 120px;
-	}
-}
-
-.noselect {
-            user-select: none; 
-            -webkit-user-select: none; /* Safari/Chrome */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* Edge */
-        }
-		
-header, footer {
-	user-select: none;
-	-webkit-user-select: none; /* Safari/Chrome */
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* Edge */
-}
-
-
-
-.nav-option {
-    --shape-corner: 10px; 
-    height: 50px; 
-    width: 180px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-}
-
-.button-content {
-    display: flex; 
-    align-items: center;
-}
-
-.button-content mdui-avatar {
-    margin-right: 10px;
-}
-
-.button-content span {
-    line-height: 50px;
-}
-
-
-	</style>
 </body>
 <footer>
     <section id="section-about">
-        <mdui-card clickable style="width: 100%;height: 250px; text-align:center; justify-content:center; align-items:center;" id="footer-card">
-			<br>
+        <mdui-card clickable style="width: 100%;height: 300px; text-align:center; justify-content:center; align-items:center;" id="footer-card">
+			<br><br>
 			<div style="display:flex; align-items:center; justify-content:center;">
 			<mdui-button slot="icon"><span class="material-symbols-outlined" >search</span></mdui-button>
 			<mdui-button slot="icon"><span class="material-symbols-outlined" >computer</span></mdui-button>
@@ -2301,13 +2143,13 @@ header, footer {
 			<br>
 			Copyright &copy; 2022-2025 Dornhub, All Rights Reserved.
 			<br>
-			Produced by Dornhub. | Version 4.2.2505
+			Produced by Dornhub. | Version 4.3.2505
 			<br>
-			Powered by Google Material Design.
+			网站尚不完善，正在改进中。
 			<br><br>
 			<span id="navname5">Dorn</span>
 			<span id="navname6">&nbsp;Hub&nbsp;</span>
-			<br>
+			<br><br><br>
 		</mdui-card>
     </section>
 </footer>
