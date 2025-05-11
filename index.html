@@ -7,15 +7,147 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>Dorn 搜索与网站导航</title>
-	<meta name="description" content="Dorn 搜索与网站导航，专为信息技术爱好者打造。网站采用现代设计，集成Google、Bing、DuckDuckGo等多源搜索引擎，并精准聚合GitHub、Stack Overflow、Hacker News等开发者高频访问站点。本平台注重隐私保护，不收集任何用户信息，致力于为技术爱好者构建高效、清爽的互联网入口。初创阶段导航网址尚不齐全，正在努力添加中。站内整活内容请忽略。">
+	<meta name="description" content="Dorn 搜索与网站导航。网站采用 Material Design 设计，并集成多源搜索引擎。">
 	<meta name="Keywords" content="网页导航,搜索,Dorn,Dornhub,多恩,主页,𣿅国,donh,tonh">
     <link rel="icon" href="https://dornhub.github.io/images/SatornhLogo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+<style>
+  #loading-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 调整背景颜色以更接近云母的柔和半透明感 */
+  background-color: rgba(230, 230, 230, 0.7); /* 柔和的白色半透明 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+  backdrop-filter: blur(10px) saturate(180%) contrast(80%); /* 调整模糊度和色彩饱和度对比度 */
+  -webkit-backdrop-filter: blur(50px) saturate(180%) contrast(80%); /* 兼容旧版 Safari */
+  overflow: hidden; /* 阻止页面在加载时滚动 */
+  text-align: center; /* 将内部元素水平居中 */
+}
+
+.spinner-text {
+  display: flex;
+  justify-content: center; /* 水平居中 Dorn 和 Hub */
+  align-items: center; /* 垂直居中 (如果需要) */
+}
+
+.spinner-text span {
+  animation: slideUpDown 0.65s infinite alternate ease-in-out;
+}
+
+#loading-text-1 {
+  margin-left: 10px;
+  font-weight: 900;
+  background-color: transparent;
+  color: #16DA49;
+  font-size: 30px;
+  font-family: Microsoft Yahei;
+  animation-delay: 0s;
+}
+
+#loading-text-2 {
+  margin-left: 10px;
+  font-weight: 900;
+  height: 42px;
+  color: white;
+  font-size: 30px;
+  background-color: #16DA49;
+  font-family: Microsoft Yahei;
+  border-radius: 10px;
+  animation-delay: 0.65s;
+}
+
+@keyframes slideUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-30px);
+  }
+}
+
+#loading-mask p {
+  margin-top: 20px;
+  color: #000;
+}
+
+#stop-button {
+  display: none; /* 初始时隐藏按钮 */
+}
+
+#stop-text {
+  display: none; /* 初始时隐藏文字 */
+}
+
+
+
+</style>
+<script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const loadingMask = document.getElementById('loading-mask');
+  const content = document.getElementById('content');
+  const body = document.body;
+  const interruptButton = document.getElementById('stop-button');
+  const stopText = document.getElementById('stop-text');
+
+  // 初始时隐藏中断按钮和提示文字
+  interruptButton.style.display = 'none';
+  stopText.style.display = 'none';
+
+  // 在加载遮罩显示时禁用 body 滚动
+  body.style.overflow = 'hidden';
+
+  // 设置一个定时器，在 10 秒后显示中断按钮和提示文字
+  const timer = setTimeout(function() {
+    interruptButton.style.display = 'block';
+    stopText.style.display = 'block';
+  }, 10000); 
+
+  // 监听中断加载按钮的点击事件
+  interruptButton.addEventListener('click', function() {
+    clearTimeout(timer); // 清除定时器，防止在点击后继续执行显示按钮的操作
+    // 尝试停止页面加载 (这是一个尽力而为的方法)
+    window.stop(); // 现代浏览器
+    document.execCommand("Stop"); // 兼容旧版本浏览器
+
+    // 渐变退出加载遮罩
+    loadingMask.style.opacity = '0';
+    body.style.overflow = 'auto'; // 恢复 body 滚动
+
+    setTimeout(() => {
+      loadingMask.style.display = 'none';
+      content.style.display = 'block'; // 即使加载中断，也显示内容区域（可能不完整）
+    }, 300);
+  });
+
+  window.addEventListener('load', function() {
+    clearTimeout(timer); // 页面正常加载完成时，清除定时器，防止按钮显示
+    loadingMask.style.opacity = '0';
+    body.style.overflow = 'auto'; // 页面正常加载完成，恢复 body 滚动
+    setTimeout(() => {
+      loadingMask.style.display = 'none';
+      content.style.display = 'block';
+    }, 300);
+  });
+});
+
+
+
+</script>
 
 </head>
 <header>
@@ -73,31 +205,202 @@
         </mdui-top-app-bar-title>
         <div style="flex-grow: 1"></div>
 
-        <mdui-dropdown>
-            <mdui-button-icon slot="trigger">
-                <span class="material-symbols-outlined">
-                    palette
-                </span>
-            </mdui-button-icon>
-            <mdui-menu selects="single" id="colorMenu" value="#6750a4">
-                <mdui-menu-item value="#6750a4" style="color:#6750a4">默认配色</mdui-menu-item>
-                <mdui-menu-item value="#16DA49" style="color:#16DA49">𣿅国绿</mdui-menu-item>
-                <mdui-menu-item value="#6499FF" style="color:#6499FF">大江蓝</mdui-menu-item>
-                <mdui-menu-item value="#A51515" style="color:#A51515">秋茗红</mdui-menu-item>
-                <mdui-menu-item value="#349DA5" style="color:#349DA5">铁山青</mdui-menu-item>
-                <mdui-menu-item value="#FFB500" style="color:#FFB500">凤凰金</mdui-menu-item>
-            
-                <mdui-menu-item value="#DA70D6" style="color:#DA70D6">兰花紫</mdui-menu-item>
-            
-                <mdui-menu-item value="#FF69B4" style="color:#FF69B4">晚霞粉</mdui-menu-item>
-            
-            
-  <mdui-menu-item disabled>自定义</mdui-menu-item>
-        </mdui-menu>
-        </mdui-dropdown>
+		<mdui-dropdown placement="auto">
+		  <mdui-button slot="trigger" variant="text" id="weather" style="right:10px; width:150px;">
+		      <div class="button-content">
+		          <mdui-avatar>
+					  
+					  <span id="weather-icon-1" class="material-symbols-outlined">
+					      sunny
+					  </span>
+				  </mdui-avatar>
+		          <span id="weather-icon-2" style="line-height: 50px;">当前天气</span>
+		      </div>
+		  </mdui-button>
+		  <mdui-card id="weather-card">
+			  <div style="display:flex;">
+			  		  <h1 style="position:relative; left:20px;"><span id="weather-type-1" class="material-symbols-outlined">
+					      sunny
+					  </span></h1><h1 id="weather-type-2" style="position:relative; left:30px;"></h1>
+					  <h1 style="position:relative; left:50px;"><span class="material-symbols-outlined">
+					      thermometer
+					  </span></h1><h1 id="temperature" style="position:relative; left:60px;"></h1>
+					  
+					  
+					  
+					  
+				</div>
+				<div style="display:flex;">
+				<h1 style="position:relative; left:20px; top:-20px;"><span class="material-symbols-outlined">
+				    location_on
+				</span></h1><h3 id="weather-location" style="position:relative; left:30px; font-size:20px; top:-10px;"></h3>
+				</div>
+				<mdui-tooltip id="location-tip"
+				  variant="rich"
+				  headline="点击以进行定位"
+				  content="点击后将获取你的位置信息，否则则会使用你的ip地址判断大致位置。当前经纬度:"
+				>
+				<mdui-button variant=tonal id="get-location" style="position:relative; left:10px; top:-20px;"><span class="material-symbols-outlined">
+				    my_location
+				</span>获取位置信息</mdui-button>
+				</mdui-tooltip>
+				<mdui-tabs value="tab-1" full-width>
+				  <mdui-tab value="tab-1">未来5小时</mdui-tab>
+				  <mdui-tab value="tab-2">未来5天</mdui-tab>
+				
+				  <mdui-tab-panel slot="panel" value="tab-1">
+					  <div id="weather-list-main">
+						  <mdui-list>
+						  											<mdui-list-subheader><span class="material-symbols-outlined">
+					      schedule
+					  </span>时间</mdui-list-subheader>
+						  											<mdui-list-item active nonclickable>11:00</mdui-list-item>
+						  											<mdui-list-item nonclickable>12:00</mdui-list-item>
+						  											<mdui-list-item active nonclickable>13:00</mdui-list-item>
+						  											<mdui-list-item nonclickable>14:00</mdui-list-item>
+						  											<mdui-list-item active nonclickable>15:00</mdui-list-item>
+						  </mdui-list>
+					  <mdui-list>
+											<mdui-list-subheader><span class="material-symbols-outlined">
+					      thermometer
+					  </span>温度</mdui-list-subheader>
+											<mdui-list-item active nonclickable>25℃</mdui-list-item>
+											<mdui-list-item nonclickable>25℃</mdui-list-item>
+											<mdui-list-item active nonclickable>25℃</mdui-list-item>
+											<mdui-list-item nonclickable>25℃</mdui-list-item>
+											<mdui-list-item active nonclickable>25℃</mdui-list-item>
+					  </mdui-list>
+					  <mdui-list>
+					  						<mdui-list-subheader><span class="material-symbols-outlined">
+					      humidity_mid
+					  </span>降水量</mdui-list-subheader>
+											<mdui-list-item active nonclickable>10mm</mdui-list-item>
+											<mdui-list-item nonclickable>10mm</mdui-list-item>
+					  						<mdui-list-item active nonclickable>10mm</mdui-list-item>
+					  						<mdui-list-item nonclickable>10mm</mdui-list-item>
+					  						<mdui-list-item active nonclickable>10mm</mdui-list-item>
+					  </mdui-list>
+					  <mdui-list>
+					  						<mdui-list-subheader><span class="material-symbols-outlined">
+					      humidity_percentage
+					  </span>降水概率</mdui-list-subheader>
+											<mdui-list-item active nonclickable>10%</mdui-list-item>
+											<mdui-list-item nonclickable>10%</mdui-list-item>
+					  						<mdui-list-item active nonclickable>10%</mdui-list-item>
+					  						<mdui-list-item nonclickable>10%</mdui-list-item>
+					  						<mdui-list-item active nonclickable>10%</mdui-list-item>
+					  </mdui-list>
+					  <mdui-list>
+					  						<mdui-list-subheader><span class="material-symbols-outlined">
+					      wind_power
+					  </span>风向/风速</mdui-list-subheader>
+											<mdui-list-item active nonclickable>北/5节</mdui-list-item>
+											<mdui-list-item nonclickable>北/5节</mdui-list-item>
+					  						<mdui-list-item active nonclickable>北/5节</mdui-list-item>
+					  						<mdui-list-item nonclickable>北/5节</mdui-list-item>
+					  						<mdui-list-item active nonclickable>北/5节</mdui-list-item>
+					  </mdui-list>
+					  </div>
+				  </mdui-tab-panel>
+				  <mdui-tab-panel slot="panel" value="tab-2">
+					  <div style="display:flex; justify-content:center;">
+						  <mdui-list>
+						  											<mdui-list-subheader><span class="material-symbols-outlined">
+					      calendar_month
+					  </span>日期</mdui-list-subheader>
+						  											<mdui-list-item active nonclickable>2025-12-21</mdui-list-item>
+						  											<mdui-list-item nonclickable>2025-12-22</mdui-list-item>
+						  											<mdui-list-item active nonclickable>2025-12-23</mdui-list-item>
+						  											<mdui-list-item nonclickable>2025-12-24</mdui-list-item>
+						  											<mdui-list-item active nonclickable>2025-12-25</mdui-list-item>
+						  </mdui-list>
+						<mdui-list>
+												<mdui-list-subheader><span class="material-symbols-outlined">
+					      sunny
+					  </span>天气</mdui-list-subheader>
+												<mdui-list-item active nonclickable>晴</mdui-list-item>
+												<mdui-list-item nonclickable>晴</mdui-list-item>
+												<mdui-list-item active nonclickable>晴</mdui-list-item>
+												<mdui-list-item nonclickable>晴</mdui-list-item>
+												<mdui-list-item active nonclickable>晴</mdui-list-item>
+						</mdui-list>
+					  <mdui-list>
+					  						<mdui-list-subheader><span class="material-symbols-outlined">
+					      thermometer
+					  </span>温度</mdui-list-subheader>
+											<mdui-list-item active nonclickable>25℃</mdui-list-item>
+											<mdui-list-item nonclickable>25℃</mdui-list-item>
+					  						<mdui-list-item active nonclickable>25℃</mdui-list-item>
+					  						<mdui-list-item nonclickable>25℃</mdui-list-item>
+					  						<mdui-list-item active nonclickable>25℃</mdui-list-item>
+					  </mdui-list>
+					  
+					  <mdui-list>
+					  						<mdui-list-subheader><span class="material-symbols-outlined">
+					      humidity_percentage
+					  </span>降水概率</mdui-list-subheader>
+											<mdui-list-item active nonclickable>10%</mdui-list-item>
+											<mdui-list-item nonclickable>10%</mdui-list-item>
+					  						<mdui-list-item active nonclickable>10%</mdui-list-item>
+					  						<mdui-list-item nonclickable>10%</mdui-list-item>
+					  						<mdui-list-item active nonclickable>10%</mdui-list-item>
+					  </mdui-list>
+					  <mdui-list>
+					  						<mdui-list-subheader><span class="material-symbols-outlined">
+					      wind_power
+					  </span>风向/风速</mdui-list-subheader>
+											<mdui-list-item active nonclickable>北/5节</mdui-list-item>
+											<mdui-list-item nonclickable>北/5节</mdui-list-item>
+					  						<mdui-list-item active nonclickable>北/5节</mdui-list-item>
+					  						<mdui-list-item nonclickable>北/5节</mdui-list-item>
+					  						<mdui-list-item active nonclickable>北/5节</mdui-list-item>
+					  </mdui-list>
+					  </div>
+				  </mdui-tab-panel>
+				</mdui-tabs>
+				<div style="font-size:10px;">
+			  <p>
+			      > 地理位置（IP 定位）信息来源于 <a href="https://freeipapi.com/" target="_blank" rel="noopener noreferrer">Free IP API</a>。
+			      
+			  </p>
+			  
+			  <p>
+			      > 城市名称的反向地理编码服务由 <a href="https://nominatim.openstreetmap.org/" target="_blank" rel="noopener noreferrer">Nominatim (OpenStreetMap)</a> 提供。
+			      
+			  </p>
+			  
+			  <p>
+			      > 天气预报数据来源于 <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>。
+			      
+			  </p>
+			  </div>
+		  </mdui-card>
+		</mdui-dropdown>
+
+
+        <mdui-dropdown stay-open-on-click>
+    <mdui-button-icon slot="trigger" style="right:10px;">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+    </mdui-button-icon>
+    <mdui-menu selects="single" id="colorMenu" value="#6750a4">
+        <mdui-menu-item value="#6750a4" style="color:#6750a4">默认配色</mdui-menu-item>
+        <mdui-menu-item value="#16DA49" style="color:#16DA49">𣿅国绿</mdui-menu-item>
+        <mdui-menu-item value="#6499FF" style="color:#6499FF">大江蓝</mdui-menu-item>
+        <mdui-menu-item value="#A51515" style="color:#A51515">秋茗红</mdui-menu-item>
+        <mdui-menu-item value="#349DA5" style="color:#349DA5">铁山青</mdui-menu-item>
+        <mdui-menu-item value="#FFB500" style="color:#FFB500">凤凰金</mdui-menu-item>
+        <mdui-menu-item value="#DA70D6" style="color:#DA70D6">兰花紫</mdui-menu-item>
+        <mdui-menu-item value="#FF69B4" style="color:#FF69B4">梨花粉</mdui-menu-item>
+        <mdui-menu-item id="customColorTrigger">自定义</mdui-menu-item>
+    </mdui-menu>
+</mdui-dropdown>
+
+
         
         <mdui-dropdown>
-            <mdui-button-icon slot="trigger">
+            <mdui-button-icon slot="trigger" style="right:10px;">
                 <span class="material-symbols-outlined" id="themeIcon">
                     brightness_auto
                 </span>
@@ -125,7 +428,7 @@
 
         <mdui-dropdown>
 
-            <mdui-button-icon slot="trigger">
+            <mdui-button-icon slot="trigger" style="right:10px;">
                 <span class="material-symbols-outlined">
                     apps
                 </span>
@@ -155,13 +458,32 @@
 
 		</mdui-dialog>
 		
-		<mdui-button>我喜欢Dorn</mdui-button>
+		<mdui-button id="i-like-dorn">我喜欢Dorn</mdui-button>
 		
     </mdui-top-app-bar>
 </header>
 
 <body>
-	
+	<div id="loading-mask">
+  <div class="spinner-text">
+    <span id="loading-text-1">Dorn</span>
+    <span id="loading-text-2">&nbsp;Hub&nbsp;</span>
+  </div>
+  <br>
+  <p>好东西就要来了……</p>
+
+      <br><br><br>
+      <div style="display:flex;">
+
+      <mdui-fab size="large" loading variant="surface"></mdui-fab>
+      </div>
+      <br><br><br>
+      <mdui-button id="stop-button" variant="elevated">中断加载*</mdui-button>
+
+      <p id="stop-text" style="font-size:10px; margin-left:80px; margin-right:80px; text-align:center;">*页面加载时间过长时，可点击此按钮以中断加载。这会导致页面部分功能无法正常使用。</p>
+
+</div>
+
     <section id="section-search">
         <mdui-layout>
 			
@@ -170,49 +492,69 @@
             <mdui-layout-item placement="right" class="example-layout-item" style="width: 10%"></mdui-layout-item>
             <mdui-layout-main class="example-layout-main" style="min-height: 300px">
                 <div style="align-items: center; justify-content: center; text-align: center;">
-                    <br>
-                    <br>
-                    <h1>Dorn 搜索与网站导航</h1>
-                    <mdui-card clickable id="title-card" class="noselect">
-                        <br>
-                        <span id="navname3">Dorn</span>
-                        <span id="navname4">&nbsp;Hub&nbsp;</span>
-                        <br>
-                        <h2 style="color: #6750a4;" id="title">I question everything.</h2>
-                        <br>
-                    </mdui-card>
-                    <br><br><br>
-                    <div style="display:flex;" class="noselect">
-                        <mdui-text-field clearable type="search" placeholder="" spellcheck="boolean" label="搜索" id="searchInput">
-                            <mdui-button-icon slot="icon">
-                                <span class="material-symbols-outlined" id="searchButton">search</span>
-                            </mdui-button-icon>
-                        </mdui-text-field>
-                        <mdui-select style="width:200px; text-align:left;" value="bing" label="选择搜索引擎" id="engine">
-                            <mdui-menu-item value="bing">Bing</mdui-menu-item>
-                            <mdui-menu-item value="baidu">百度</mdui-menu-item>
-							<mdui-menu-item value="bilibili">Bilibili</mdui-menu-item>
-                            <mdui-menu-item value="yandex">Yandex</mdui-menu-item>
-							<mdui-menu-item value="swisscows">Swisscows</mdui-menu-item>
-							<mdui-divider></mdui-divider>
-							<mdui-menu-item value="google">Google</mdui-menu-item>
-							<mdui-menu-item value="youtube">Youtube</mdui-menu-item>
-							<mdui-menu-item value="duckduckgo">DuckDuckGo</mdui-menu-item>
-							<mdui-menu-item value="qwant">Qwant</mdui-menu-item>
-							<mdui-menu-item value="wikipedia">维基百科</mdui-menu-item>
-                        </mdui-select>
-                    </div>
-					<br><br><br><br>
-					
-				    <!--<mdui-card style="width: 100%; padding: 10px; min-height: 50px;" id="nav-pinned">
-						<div style="display: flex; justify-content: center;">
-				        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >keep</span>已固定</mdui-list-subheader>
+        <br>
+        <br>
+        <h1>Dorn 搜索与网站导航</h1>
+        <mdui-card clickable id="title-card" class="noselect">
+            <br>
+            <span id="navname3">Dorn</span>
+            <span id="navname4"> Hub </span>
+            <br>
+            <h2 style="color: #6750a4;" id="title">I question everything.</h2>
+            <br>
+        </mdui-card>
+        <br><br><br>
+        <div style="display:flex;" class="noselect">
+            <mdui-text-field clearable type="search" placeholder="" spellcheck="boolean" label="搜索" id="searchInput">
+                <mdui-button-icon slot="icon">
+                    <span class="material-symbols-outlined" id="searchButton">search</span>
+                </mdui-button-icon>
+            </mdui-text-field>
+            <mdui-select style="width:200px; text-align:left;" value="bing" label="选择搜索引擎" id="engine">
+                <mdui-menu-item value="bing">Bing</mdui-menu-item>
+                <mdui-menu-item value="baidu">百度</mdui-menu-item>
+                <mdui-menu-item value="bilibili">Bilibili</mdui-menu-item>
+                <mdui-menu-item value="yandex">Yandex</mdui-menu-item>
+                <mdui-menu-item value="swisscows">Swisscows</mdui-menu-item>
+                <mdui-divider></mdui-divider>
+                <mdui-menu-item value="google">Google</mdui-menu-item>
+                <mdui-menu-item value="youtube">Youtube</mdui-menu-item>
+                <mdui-menu-item value="duckduckgo">DuckDuckGo</mdui-menu-item>
+                <mdui-menu-item value="qwant">Qwant</mdui-menu-item>
+                <mdui-menu-item value="wikipedia">维基百科</mdui-menu-item>
+            </mdui-select>
+        </div>
+    
+
+    <div id="easter-egg-container">
+        <div id="easter-egg-message"></div>
+    </div>
+    
+					<br><br>
+					<!-- 
+				    <mdui-card style="width: 100%; padding: 10px; min-height: 50px;" id="nav-pinned">
+						<div style="display: flex; width:100%;">
+				        <mdui-list-subheader style="font-size:18px; left:10px;">已固定
+				        <mdui-button-icon variant="tonal" style="right:-10px;"><span class="material-symbols-outlined" >edit</span></mdui-button-icon>
+				        <mdui-button-icon variant="tonal" style="right:-20px;"><span class="material-symbols-outlined" >add</span></mdui-button-icon>
+
+				        </mdui-list-subheader>
 						
 						</mdui-list>
+						
 						</div>
-				    </mdui-card>-->
+						<mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+			                    <mdui-button variant="tonal" class="pinned-option" href="">
+			                        <div class="button-content">
+			                            <mdui-avatar><span class="material-symbols-outlined" >web</span></mdui-avatar>
+			                            <span style="line-height: 50px;">example</span>
+			                        </div>
+			                    </mdui-button>
+			                    
+			                  </mdui-list>
+				    </mdui-card> -->
 				
-				<br><br><br>
+				<br><br><br><br><br>
 					<mdui-button href="#section-navigation"><span class="material-symbols-outlined">keyboard_arrow_down</span>网址导航<span class="material-symbols-outlined">keyboard_arrow_down</span></mdui-button>
                 </div>
             </mdui-layout-main>
@@ -263,15 +605,15 @@
 								        <span style="line-height: 50px;">Gitlab</span>
 								    </div>
 								</mdui-button>
-								<mdui-button variant="tonal" class="nav-option" href="" disabled>
+								<mdui-button variant="tonal" class="nav-option" href="https://stackoverflow.org.cn/">
 									  <div class="button-content">
-									    <mdui-avatar src=""></mdui-avatar>
+									    <mdui-avatar src="https://stackoverflow.org.cn/favicon.ico"></mdui-avatar>
 									    <span style="line-height: 50px;">Stack Overflow</span>
 									  </div>
 									</mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="" disabled>
+									<mdui-button variant="tonal" class="nav-option" href="https://dev.to/">
 									  <div class="button-content">
-									    <mdui-avatar src=""></mdui-avatar>
+									    <mdui-avatar src="https://media2.dev.to/dynamic/image/width=32,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"></mdui-avatar>
 									    <span style="line-height: 50px;">Dev Community</span>
 									  </div>
 									</mdui-button>
@@ -304,9 +646,9 @@
 			                            <span style="line-height: 50px;">.NET</span>
 			                        </div>
 			                    </mdui-button>
-			                    <mdui-button variant="tonal" class="nav-option" href="" disabled>
+			                    <mdui-button variant="tonal" class="nav-option" href="https://developer.mozilla.org/">
 									  <div class="button-content">
-									    <mdui-avatar src=""></mdui-avatar>
+									    <mdui-avatar src="https://developer.mozilla.org/favicon-48x48.bc390275e955dacb2e65.png"></mdui-avatar>
 									    <span style="line-height: 50px;">MDN Web Docs</span>
 									  </div>
 									</mdui-button>
@@ -523,15 +865,15 @@
 						</mdui-tab-panel>
 						<mdui-tab-panel slot="panel" value="tab-8">
 						    <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-						        <mdui-button variant="tonal" class="nav-option" href="" disabled>
+						        <mdui-button variant="tonal" class="nav-option" href="https://www.freecodecamp.org/">
 					    <div class="button-content">
-					      <mdui-avatar src=""></mdui-avatar>
+					      <mdui-avatar src="https://www.freecodecamp.org/favicon-32x32.png?v=6cba562cbd10e31af925a976f3db73f7"></mdui-avatar>
 					      <span style="line-height: 50px;">FreeCodeCamp</span>
 					    </div>
 					  </mdui-button>
-					  <mdui-button variant="tonal" class="nav-option" href="" disabled>
+					  <mdui-button variant="tonal" class="nav-option" href="https://leetcode.cn/">
 					    <div class="button-content">
-					      <mdui-avatar src=""></mdui-avatar>
+					      <mdui-avatar src="https://static.leetcode.cn/cn-frontendx-assets/production/_next/static/images/logo-711e116152be014f445f50aa6a369231.png?x-oss-process=image%2Fformat%2Cwebp"></mdui-avatar>
 					      <span style="line-height: 50px;">Leet Code</span>
 					    </div>
 					  </mdui-button>
@@ -1022,729 +1364,1855 @@
 			<br>
 			
 			<div style="display: flex; justify-content: center;">
-			  <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-drive">
-			    <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >cloud_upload</span>网盘</mdui-list-subheader>
-				<mdui-tabs value="tab-1">
-			      <mdui-tab value="tab-1">国内</mdui-tab>
-			      <mdui-tab value="tab-2">国外</mdui-tab>
-			
-			      <mdui-tab-panel slot="panel" value="tab-1">
-			        <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-			          
-			          <mdui-button variant="tonal" class="nav-option" href="https://pan.baidu.com">
-			            <div class="button-content">
-			              <mdui-avatar src="favicon/pan-baidu.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">百度网盘</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://cloud.189.cn">
-			            <div class="button-content">
-			              <mdui-avatar src="https://cloud.189.cn/web/logo.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">天翼云盘</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://www.lanzoui.com">
-			            <div class="button-content">
-			              <mdui-avatar src="https://www.lanzoui.com/favicon.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">蓝奏云网盘</span>
-			            </div>
-			          </mdui-button>
-					  <mdui-button variant="tonal" class="nav-option" href="https://pan.quark.cn">
+    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-drive">
+        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >cloud_upload</span>网盘</mdui-list-subheader>
+        <mdui-tabs value="tab-1">
+            <mdui-tab value="tab-1">国内常用</mdui-tab>
+            <mdui-tab value="tab-2">国外常用</mdui-tab>
+            <mdui-tab value="tab-3">同步盘/效率</mdui-tab>
+            <mdui-tab value="tab-4">开源/自建</mdui-tab>
+            <mdui-tab value="tab-5">技术/平台相关</mdui-tab>
+
+            <mdui-tab-panel slot="panel" value="tab-1">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://pan.baidu.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/pan-baidu.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">百度网盘</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://cloud.189.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://cloud.189.cn/web/logo.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">天翼云盘</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.lanzoui.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.lanzoui.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">蓝奏云网盘</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://pan.quark.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://pan.quark.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">夸克网盘</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://cloud.tencent.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://cloudcache.tencent-cloud.com/qcloud/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">腾讯微云</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.uc.cn/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://image.uc.cn/s/uae/g/61/uc-logo-v2.png"></mdui-avatar>
+                            <span style="line-height: 50px;">UC 网盘</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://pan.xunlei.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://pan.xunlei.com/icon.png"></mdui-avatar>
+                            <span style="line-height: 50px;">迅雷云盘</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.alipan.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://img.alicdn.com/imgextra/i1/O1CN01JDQCi21Dc8EfbRwvF_!!6000000000236-73-tps-64-64.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">阿里云盘</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-2">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://onedrive.live.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/onedrive.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">OneDrive</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://drive.google.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/google-drive.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Google Drive</span>
+                        </div>
+                    </mdui-button>
+					<mdui-button variant="tonal" class="nav-option" href="https://icloud.com/">
 					    <div class="button-content">
-					      <mdui-avatar src="https://pan.quark.cn/favicon.ico"></mdui-avatar>
-					      <span style="line-height: 50px;">夸克网盘</span>
+					        <mdui-avatar src="https://www.icloud.com/favicon.ico"></mdui-avatar>
+					        <span style="line-height: 50px;">iCloud</span>
 					    </div>
-					  </mdui-button>
-			        </mdui-list>
-			      </mdui-tab-panel>
-			
-			      <mdui-tab-panel slot="panel" value="tab-2">
-			        <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-			          
-					  <mdui-button variant="tonal" class="nav-option" href="https://onedrive.live.com">
-					    <div class="button-content">
-					      <mdui-avatar src="favicon/onedrive.ico"></mdui-avatar>
-					      <span style="line-height: 50px;">Onedrive</span>
-					    </div>
-					  </mdui-button>
-					  <mdui-button variant="tonal" class="nav-option" href="https://drive.google.com">
-					    <div class="button-content">
-					      <mdui-avatar src="favicon/google-drive.png"></mdui-avatar>
-					      <span style="line-height: 50px;">Google Drive</span>
-					    </div>
-					  </mdui-button>
-			        </mdui-list>
-			      </mdui-tab-panel>
-			    </mdui-tabs>
-			  </mdui-card>
-			</div>
-			<br>
+					</mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.dropbox.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/dropbox.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Dropbox</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://mega.io/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/mega.png"></mdui-avatar>
+                            <span style="line-height: 50px;">MEGA</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://icedrive.net/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/icedrive.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Icedrive</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://pcloud.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/pcloud.png"></mdui-avatar>
+                            <span style="line-height: 50px;">pCloud</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://box.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.box.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Box</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://sync.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.sync.com/hubfs/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Sync.com</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-3">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://nextcloud.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Nextcloud</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://seafile.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.seafile.com/media/img/favicon.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Seafile</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://owncloud.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://owncloud.com/wp-content/themes/ownCloud/dist/assets/img/favicon/favicon-16x16.png"></mdui-avatar>
+                            <span style="line-height: 50px;">ownCloud</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://syncthing.net/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Syncthing</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://resilio.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Resilio Sync</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.workdrive.zoho.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Zoho WorkDrive</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.egnyte.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.egnyte.com/sites/default/files/2020-03/favicon-32x32.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Egnyte</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-4">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://filebrowser.org/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://filebrowser.org/~gitbook/image?url=https%3A%2F%2F1513098801-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fspaces%252F-M8KDxOujDoPpJyJJ5_i%252Favatar-1590579241040.png%3Fgeneration%3D1590579241552005%26alt%3Dmedia&width=48&height=48&sign=44a72d22&sv=2"></mdui-avatar>
+                            <span style="line-height: 50px;">Filebrowser</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://minio.io/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://min.io/resources/favs/favicon-32x32.png"></mdui-avatar>
+                            <span style="line-height: 50px;">MinIO</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://seaweedfs.org/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">SeaweedFS</span>
+                        </div>
+                    </mdui-button>
+                    
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-5">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://hub.docker.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/docker-hub.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Docker Hub</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://github.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/github.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">GitHub</span>
+                        </div>
+                    </mdui-button>
+                    
+                    <mdui-button variant="tonal" class="nav-option" href="https://bitbucket.org/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://wac-cdn.atlassian.com/assets/img/favicons/bitbucket/favicon-32x32.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Bitbucket</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://aws.amazon.com/cn/s3/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://a0.awsstatic.com/libra-css/images/site/fav/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">AWS S3</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://cloud.google.com/storage/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/google-cloud.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Google Cloud</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://azure.microsoft.com/zh-cn/products/storage/blobs/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://azure.microsoft.com/favicon.ico?v2"></mdui-avatar>
+                            <span style="line-height: 50px;">Azure Blob Storage</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.npmjs.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://static-production.npmjs.com/da3ab40fb0861d15c83854c29f5f2962.png"></mdui-avatar>
+                            <span style="line-height: 50px;">npm</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://pypi.org/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://pypi.org/static/images/favicon.35549fe8.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">PyPI</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+        </mdui-tabs>
+    </mdui-card>
+</div>
+<br>
+
+
 			
 			<div style="display: flex; justify-content: center;">
-			  <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-mailbox">
-			    <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >mail</span>邮箱</mdui-list-subheader>
-			    <mdui-tabs value="tab-1">
-			      <mdui-tab value="tab-1">常用</mdui-tab>
-			      <mdui-tab value="tab-2">更多</mdui-tab>
-			
-			      <mdui-tab-panel slot="panel" value="tab-1">
-			        <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-			          <mdui-button variant="tonal" class="nav-option" href="https://mail.qq.com">
-			            <div class="button-content">
-			              <mdui-avatar src="https://mail.qq.com/favicon.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">QQ邮箱</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://mail.163.com">
-			            <div class="button-content">
-			              <mdui-avatar src="https://mail.163.com/favicon.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">163邮箱</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://126.com">
-			            <div class="button-content">
-			              <mdui-avatar src="https://126.com/favicon.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">126邮箱</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://mail.10086.cn">
-			            <div class="button-content">
-			              <mdui-avatar src="https://mail.10086.cn/favicon.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">139邮箱</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://www.outlook.com">
-			            <div class="button-content">
-			              <mdui-avatar src="https://www.outlook.com/favicon.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">Outlook</span>
-			            </div>
-			          </mdui-button>
-			        </mdui-list>
-			      </mdui-tab-panel>
-			
-			      <mdui-tab-panel slot="panel" value="tab-2">
-			        <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-			          <mdui-button variant="tonal" class="nav-option" href="https://mail.google.com">
-			            <div class="button-content">
-			              <mdui-avatar src="favicon/gmail.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">Gmail</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://360.yandex.com/mail/">
-			            <div class="button-content">
-			              <mdui-avatar src="https://yastatic.net/s3/psf/ps-tuning/a128d6c206b66fcf3154.png"></mdui-avatar>
-			              <span style="line-height: 50px;">Yandex Mail</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://proton.mail.me">
-			            <div class="button-content">
-			              <mdui-avatar src="favicon/proton-mail.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">Proton Mail</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://mail.yahoo.com">
-			            <div class="button-content">
-			              <mdui-avatar src="favicon/yahoo.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">Yahoo Mail</span>
-			            </div>
-			          </mdui-button>
-			        </mdui-list>
-			      </mdui-tab-panel>
-			    </mdui-tabs>
-			  </mdui-card>
-			</div>
-			<br>
-			
-			
-			<div style="display: flex; justify-content: center;">
-			    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-search-engine">
-			        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >search</span>搜索引擎</mdui-list-subheader>
-					<mdui-tabs value="tab-1">
-					  <mdui-tab value="tab-1">国内可用</mdui-tab>
-					  <mdui-tab value="tab-2">通过魔法使用</mdui-tab>
-					
-					  <mdui-tab-panel slot="panel" value="tab-1">
-						  <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-						  <mdui-button variant="tonal" class="nav-option" href="https://www.bing.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="https://www.bing.com/favicon.ico" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">Bing</span>
-						      </div>
-						  </mdui-button>
-						  <mdui-button variant="tonal" class="nav-option" href="https://www.yandex.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="https://yastatic.net/s3/home-static/_/nova/CKig_nVR.png" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">Yandex</span>
-						      </div>
-						  </mdui-button>
-						  <mdui-button variant="tonal" class="nav-option" href="https://www.swisscows.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="https://www.swisscows.com/favicon.ico" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">Swisscows</span>
-						      </div>
-						  </mdui-button>
-						  <mdui-button variant="tonal" class="nav-option" href="https://hao.360.cn/?a1004">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="https://hao1.qhimg.com/t01235035a3d7539037.png" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">360安全搜索</span>
-						      </div>
-						  </mdui-button>
-						  <mdui-button variant="tonal" class="nav-option" href="https://www.sogou.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="https://www.sogou.com/favicon.ico" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">搜狗</span>
-						      </div>
-						  </mdui-button>
-						  <mdui-button variant="tonal" class="nav-option" href="https://www.baidu.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="favicon/baidu.ico" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">百度</span>
-						      </div>
-						  </mdui-button>
-						  </mdui-list>
-					  </mdui-tab-panel>
-					  <mdui-tab-panel slot="panel" value="tab-2">
-						  <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-						  <mdui-button variant="tonal" class="nav-option" href="https://www.google.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="favicon/google.ico" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">Google</span>
-						      </div>
-						  </mdui-button>
-						  <mdui-button variant="tonal" class="nav-option" href="https://duckduckgo.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="favicon/duckduckgo.png" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">DuckDuckGo</span>
-						      </div>
-						  </mdui-button>
-						  <mdui-button variant="tonal" class="nav-option" href="https://qwant.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="favicon/qwant.png" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">Qwant</span>
-						      </div>
-						  </mdui-button>
-						  <mdui-button variant="tonal" class="nav-option" href="https://yahoo.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="favicon/yahoo.ico" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">Yahoo</span>
-						      </div>
-						  </mdui-button>
-						  <mdui-button variant="tonal" class="nav-option" href="https://startpage.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="favicon/startpage.ico" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">Startpage</span>
-						      </div>
-						  </mdui-button>
-						  <mdui-button variant="tonal" class="nav-option" href="https://www.ask.com">
-						      <div style="display: flex; align-items: center;">
-						          <mdui-avatar src="favicon/ask.webp" style="margin-right: 10px;"></mdui-avatar>
-						          <span style="line-height: 50px;">ask.com</span>
-						      </div>
-						  </mdui-button>
-						  </mdui-list>
-					  </mdui-tab-panel>
-					</mdui-tabs>
-			    </mdui-card>
-			</div>
-			<br>
-			
-			
-			
-			<div style="display: flex; justify-content: center;">
-			    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-pc">
-			        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >computer</span>手机电脑</mdui-list-subheader>
-			        <mdui-tabs value="tab-1">
-			            <mdui-tab value="tab-1">手机</mdui-tab>
-			            <mdui-tab value="tab-2">电脑</mdui-tab>
-						<mdui-tab value="tab-3">评测</mdui-tab>
-			
-			            <mdui-tab-panel slot="panel" value="tab-1">
-			                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-			                    
-			                    <mdui-button variant="tonal" class="nav-option" href="https://consumer.huawei.com">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://consumer.huawei.com/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">华为</span>
-			                        </div>
-			                    </mdui-button>
-			                    <mdui-button variant="tonal" class="nav-option" href="https://www.mi.com">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://www.mi.com/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">小米</span>
-			                        </div>
-			                    </mdui-button>
-			                    
-			                    <mdui-button variant="tonal" class="nav-option" href="https://www.hihonor.com">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://www.honor.com/etc/designs/honor-site/assets/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">荣耀</span>
-			                        </div>
-			                    </mdui-button>
-								<mdui-button variant="tonal" class="nav-option" href="https://www.samsung.com">
-								    <div class="button-content">
-								        <mdui-avatar src="https://www.samsung.com/etc.clientlibs/samsung/clientlibs/consumer/global/clientlib-common/resources/images/Favicon.png"></mdui-avatar>
-								        <span style="line-height: 50px;">三星</span>
-								    </div>
-								</mdui-button>
-								<mdui-button variant="tonal" class="nav-option" href="https://www.sony.com.cn">
-								    <div class="button-content">
-								        <mdui-avatar src="https://www.sony.com.cn/favicon.ico"></mdui-avatar>
-								        <span style="line-height: 50px;">索尼中国</span>
-								    </div>
-								</mdui-button>
-								<mdui-button variant="tonal" class="nav-option" href="https://store.google.com">
-								    <div class="button-content">
-								        <mdui-avatar src="favicon/google.ico"></mdui-avatar>
-								        <span style="line-height: 50px;">Google Store</span>
-								    </div>
-								</mdui-button>
-			                </mdui-list>
-			            </mdui-tab-panel>
-			
-			            <mdui-tab-panel slot="panel" value="tab-2">
-			                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-								<mdui-button variant="tonal" class="nav-option" href="https://www.lenovo.com.cn">
-								    <div class="button-content">
-								        <mdui-avatar src="https://www.lenovo.com.cn/favicon.ico"></mdui-avatar>
-								        <span style="line-height: 50px;">联想中国</span>
-								    </div>
-								</mdui-button>
-			                    <mdui-button variant="tonal" class="nav-option" href="https://consumer.huawei.com">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://consumer.huawei.com/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">华为</span>
-			                        </div>
-			                    </mdui-button>
-								<mdui-button variant="tonal" class="nav-option" href="https://www.hihonor.com">
-								    <div class="button-content">
-								        <mdui-avatar src="https://www.honor.com/etc/designs/honor-site/assets/favicon.ico"></mdui-avatar>
-								        <span style="line-height: 50px;">荣耀</span>
-								    </div>
-								</mdui-button>
-			                    <mdui-button variant="tonal" class="nav-option" href="https://www.asus.com.cn">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://www.asus.com.cn/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">华硕</span>
-			                        </div>
-			                    </mdui-button>
-			                    <mdui-button variant="tonal" class="nav-option" href="https://www.acer.com.cn">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://gwcache.acer.com.cn/images/acer.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">宏碁</span>
-			                        </div>
-			                    </mdui-button>
-			                    <mdui-button variant="tonal" class="nav-option" href="https://www.apple.com.cn">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://www.apple.com.cn/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">苹果</span>
-			                        </div>
-			                    </mdui-button>
-			                    <mdui-button variant="tonal" class="nav-option" href="https://www.dell.com">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://www.dell.com/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">戴尔</span>
-			                        </div>
-			                    </mdui-button>
-			                    <mdui-button variant="tonal" class="nav-option" href="https://www.hp.com">
-			                        <div class="button-content">
-			                            <mdui-avatar src="favicon/hp.png"></mdui-avatar>
-			                            <span style="line-height: 50px;">惠普</span>
-			                        </div>
-			                    </mdui-button>
-			                    
-			                    <mdui-button variant="tonal" class="nav-option" href="https://www.microsoft.com/surface">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://www.microsoft.com/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">微软 Surface</span>
-			                        </div>
-			                    </mdui-button>
-			                    
-			                    <mdui-button variant="tonal" class="nav-option" href="https://www.51cube.com">
-			                        <div class="button-content">
-			                            <mdui-avatar src="https://www.51cube.com/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">酷比魔方</span>
-			                        </div>
-			                    </mdui-button>
-			                    <mdui-button variant="tonal" class="nav-option" href="http://www.one-netbook.com">
-			                        <div class="button-content">
-			                            <mdui-avatar src="http://www.one-netbook.com/favicon.ico"></mdui-avatar>
-			                            <span style="line-height: 50px;">壹号本</span>
-			                        </div>
-			                    </mdui-button>
-			                </mdui-list>
-			            </mdui-tab-panel>
-						<mdui-tab-panel slot="panel" value="tab-3">
-							<mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-							<mdui-button variant="tonal" class="nav-option" href="https://www.zol.com.cn">
-							    <div class="button-content">
-							        <mdui-avatar src="https://www.zol.com.cn/favicon.ico"></mdui-avatar>
-							        <span style="line-height: 50px;">中关村在线</span>
-							    </div>
-							</mdui-button>
-							</mdui-list>
-						</mdui-tab-panel>
-			        </mdui-tabs>
-			    </mdui-card>
-			</div>
-			<br>
+    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-mailbox">
+        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >mail</span>邮箱</mdui-list-subheader>
+        <mdui-tabs value="tab-1">
+            <mdui-tab value="tab-1">常用</mdui-tab>
+            <mdui-tab value="tab-2">安全/隐私</mdui-tab>
+            <mdui-tab value="tab-3">开发者/技术</mdui-tab>
+            <mdui-tab value="tab-4">更多</mdui-tab>
+
+            <mdui-tab-panel slot="panel" value="tab-1">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://mail.qq.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://mail.qq.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">QQ邮箱</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://mail.163.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://mail.163.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">163邮箱</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://126.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://126.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">126邮箱</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://mail.10086.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://mail.10086.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">139邮箱</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.outlook.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.outlook.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Outlook</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://mail.google.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/gmail.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Gmail</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-2">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://proton.me/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/proton-mail.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Proton Mail</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://tutanota.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://tuta.com/favicon/logo-favicon-192.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Tutanota</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://mailfence.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://mailfence.com/c/mailfence/images/favicon/favicon-32x32.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Mailfence</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.startmail.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.startmail.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">StartMail</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://posteo.de/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://posteo.de/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Posteo</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://runbox.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://runbox.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Runbox</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-3">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://mail.zoho.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://mail.zoho.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Zoho Mail</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://yandex.com/mail/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://yastatic.net/s3/psf/ps-tuning/a128d6c206b66fcf3154.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Yandex Mail</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://mail.privateemail.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://privateemail.com/appsuite/login-assets/images/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Private-Email</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.fastmail.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.fastmail.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Fastmail</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.mail.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://s.uicdn.com/mailint/1.0.0/assets/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Mail.com</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.gmx.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://s.uicdn.com/mailint/1.0.0/assets/favicon_gmxcom.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">GMX</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://cock.li/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/cock-li.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Cock.li</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-4">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://mail.yahoo.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/yahoo.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Yahoo Mail</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://aol.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/yahoo.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">AOL Mail</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://icloud.com/mail">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.icloud.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">iCloud Mail</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://hushmail.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.hushmail.com/favicon.ico/"></mdui-avatar>
+                            <span style="line-height: 50px;">Hushmail</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://mailbox.org/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://mailbox.org/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Mailbox.org</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://kolabnow.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://kolabnow.com/themes/kolabnow/images/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Kolab Now</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://riseup.net/en/email">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/riseup.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Riseup</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.rediffmailpro.com/">
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Rediffmail Pro</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+        </mdui-tabs>
+    </mdui-card>
+</div>
+<br>
+
 			
 			
 			<div style="display: flex; justify-content: center;">
-			  <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-translate">
-			    <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >g_translate</span>翻译</mdui-list-subheader>
-			    <mdui-tabs value="tab-1">
-			      <mdui-tab value="tab-1">国内可用</mdui-tab>
-			      <mdui-tab value="tab-2">通过魔法使用</mdui-tab>
+    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-search-engine">
+        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >search</span>搜索引擎</mdui-list-subheader>
+        <mdui-tabs value="tab-1">
+            <mdui-tab value="tab-1">常用</mdui-tab>
+            <mdui-tab value="tab-2">隐私优先</mdui-tab>
+            <mdui-tab value="tab-3">开发者/技术</mdui-tab>
+            <mdui-tab value="tab-4">学术/专业</mdui-tab>
+            <mdui-tab value="tab-5">更多</mdui-tab>
+
+            <mdui-tab-panel slot="panel" value="tab-1">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.bing.com">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="https://www.bing.com/favicon.ico" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Bing</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.baidu.com">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="favicon/baidu.ico" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">百度</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.google.com">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="favicon/google.ico" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Google</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://duckduckgo.com">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="favicon/duckduckgo.png" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">DuckDuckGo</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.yandex.com">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="https://yastatic.net/s3/home-static/_/nova/CKig_nVR.png" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Yandex</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.sogou.com">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="https://www.sogou.com/favicon.ico" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">搜狗</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-2">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://duckduckgo.com">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="favicon/duckduckgo.png" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">DuckDuckGo</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://startpage.com">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="favicon/startpage.ico" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Startpage</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://searxng.org/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">SearXNG</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://metager.org/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">MetaGer</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://qwant.com">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="favicon/qwant.png" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Qwant</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.swisscows.com">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="https://www.swisscows.com/favicon.ico" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Swisscows</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://brave.com/search/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Brave Search</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-3">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://searchcode.com/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">SearchCode</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://grep.app/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Grep.app</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://sourcegraph.com/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Sourcegraph</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://libraries.io/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Libraries.io</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://cdnjs.com/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">cdnjs</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://devdocs.io/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">DevDocs</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-4">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://scholar.google.com/">
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="favicon/google-scholar.ico" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Google 学术</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.semanticscholar.org/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Semantic Scholar</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://pubmed.ncbi.nlm.nih.gov/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">PubMed</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://arxiv.org/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">arXiv</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.wolframalpha.com/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">WolframAlpha</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-5">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://searx.me/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">SearX</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://gigablast.com/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Gigablast</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://mojeek.com/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Mojeek</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://yippy.com/" disabled>
+                        <div style="display: flex; align-items: center;">
+                            <mdui-avatar src="" style="margin-right: 10px;"></mdui-avatar>
+                            <span style="line-height: 50px;">Yippy</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+        </mdui-tabs>
+    </mdui-card>
+</div>
+<br>
+
 			
-			      <mdui-tab-panel slot="panel" value="tab-1">
-			        <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-			          <mdui-button variant="tonal" class="nav-option" href="https://www.bing.com/translator">
-			            <div class="button-content">
-			              <mdui-avatar src="https://www.bing.com/favicon.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">Bing 翻译</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://fanyi.youdao.com">
-			            <div class="button-content">
-			              <mdui-avatar src="https://ydlunacommon-cdn.nosdn.127.net/31cf4b56e6c0b3af668aa079de1a898c.png"></mdui-avatar>
-			              <span style="line-height: 50px;">有道翻译</span>
-			            </div>
-			          </mdui-button>
-			          <mdui-button variant="tonal" class="nav-option" href="https://fanyi.baidu.com">
-			            <div class="button-content">
-			              <mdui-avatar src="favicon/baidu-fanyi.ico"></mdui-avatar>
-			              <span style="line-height: 50px;">百度翻译</span>
-			            </div>
-			          </mdui-button>
-					    <mdui-button variant="tonal" class="nav-option" href="https://fanyi.sogou.com">
-					      <div class="button-content">
-					        <mdui-avatar src="https://fanyi.sogou.com/favicon.ico"></mdui-avatar>
-					        <span style="line-height: 50px;">搜狗翻译</span>
-					      </div>
-					    </mdui-button>
-					    <mdui-button variant="tonal" class="nav-option" href="https://fanyi.so.com">
-					      <div class="button-content">
-					        <mdui-avatar src="https://fanyi.so.com/favicon.ico"></mdui-avatar>
-					        <span style="line-height: 50px;">360翻译</span>
-					      </div>
-					    </mdui-button>
-			        </mdui-list>
-			      </mdui-tab-panel>
-			
-			      <mdui-tab-panel slot="panel" value="tab-2">
-					  <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-					  <mdui-button variant="tonal" class="nav-option" href="https://translate.google.com">
-					    <div class="button-content">
-					      <mdui-avatar src="favicon/google-translate.ico"></mdui-avatar>
-					      <span style="line-height: 50px;">Google Translate</span>
-					    </div>
-					  </mdui-button>
-					  <mdui-button variant="tonal" class="nav-option" href="https://translate.google.cn">
-					    <div class="button-content">
-					      <mdui-avatar src="favicon/google-translate.ico"></mdui-avatar>
-					      <span style="line-height: 50px;">Google Translate CN</span>
-					    </div>
-					  </mdui-button>
-			        
-			        </mdui-list>
-			      </mdui-tab-panel>
-			    </mdui-tabs>
-			  </mdui-card>
-			</div>
-			<br>
 			
 			
-                <div style="display: flex; justify-content: center;">
-                    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-video">
-                        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >smart_display</span>视频</mdui-list-subheader>
-                        <mdui-tabs value="tab-1">
-                            <mdui-tab value="tab-1">国内可用</mdui-tab>
-                            <mdui-tab value="tab-2">通过魔法使用</mdui-tab>
-                
-                            <mdui-tab-panel slot="panel" value="tab-1">
-                                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-                                    <mdui-button variant="tonal" class="nav-option" href="https://www.bilibili.com">
-                                        <div class="button-content">
-                                            <mdui-avatar src="https://www.bilibili.com/favicon.ico"></mdui-avatar>
-                                            <span style="line-height: 50px;">Bilibili</span>
-                                        </div>
-                                    </mdui-button>
-                                    <mdui-button variant="tonal" class="nav-option" href="https://haokan.baidu.com">
-                                        <div class="button-content">
-                                            <mdui-avatar src="favicon/haokan.ico"></mdui-avatar>
-                                            <span style="line-height: 50px;">好看视频</span>
-                                        </div>
-                                    </mdui-button>
-                                    <mdui-button variant="tonal" class="nav-option" href="https://www.iqiyi.com">
-                                        <div class="button-content">
-                                            <mdui-avatar src="https://www.iqiyi.com/favicon.ico"></mdui-avatar>
-                                            <span style="line-height: 50px;">爱奇艺</span>
-                                        </div>
-                                    </mdui-button>
-                                    <mdui-button variant="tonal" class="nav-option" href="https://v.qq.com">
-                                        <div class="button-content">
-                                            <mdui-avatar src="https://v.qq.com/favicon.ico"></mdui-avatar>
-                                            <span style="line-height: 50px;">腾讯视频</span>
-                                        </div>
-                                    </mdui-button>
-                                    <mdui-button variant="tonal" class="nav-option" href="https://www.youku.com">
-                                        <div class="button-content">
-                                            <mdui-avatar src="https://www.youku.com/favicon.ico"></mdui-avatar>
-                                            <span style="line-height: 50px;">优酷</span>
-                                        </div>
-                                    </mdui-button>
-                                    <mdui-button variant="tonal" class="nav-option" href="https://www.mgtv.com">
-                                        <div class="button-content">
-                                            <mdui-avatar src="https://www.mgtv.com/favicon.ico"></mdui-avatar>
-                                            <span style="line-height: 50px;">芒果TV</span>
-                                        </div>
-                                    </mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://www.douyin.com">
-									    <div class="button-content">
-									        <mdui-avatar src="https://www.douyin.com/favicon.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">抖音</span>
-									    </div>
-									</mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://www.ixigua.com">
-									    <div class="button-content">
-									        <mdui-avatar src="https://www.ixigua.com/favicon.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">西瓜视频</span>
-									    </div>
-									</mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://www.miguvideo.com">
-									    <div class="button-content">
-									        <mdui-avatar src="https://www.miguvideo.com/favicon.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">咪咕视频</span>
-									    </div>
-									</mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://www.acfun.cn">
-									    <div class="button-content">
-									        <mdui-avatar src="https://cdn.aixifan.com/ico/favicon.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">AcFun</span>
-									    </div>
-									</mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://tv.sohu.com/">
-									    <div class="button-content">
-									        <mdui-avatar src="https://css.tv.itc.cn/channel/v1/images/logo.png"></mdui-avatar>
-									        <span style="line-height: 50px;">搜狐视频</span>
-									    </div>
-									</mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://www.le.com/">
-									    <div class="button-content">
-									        <mdui-avatar src="https://www.le.com/favicon.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">乐视视频</span>
-									    </div>
-									</mdui-button>
-                                </mdui-list>
-                            </mdui-tab-panel>
-                            <mdui-tab-panel slot="panel" value="tab-2">
-                                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-                                    <mdui-button variant="tonal" class="nav-option" href="https://www.youtube.com">
-                                        <div class="button-content">
-                                            <mdui-avatar src="favicon/youtube.ico"></mdui-avatar>
-                                            <span style="line-height: 50px;">Youtube</span>
-                                        </div>
-                                    </mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://vimeo.com">
-									    <div class="button-content">
-									        <mdui-avatar src="https://f.vimeocdn.com/logo.svg"></mdui-avatar>
-									        <span style="line-height: 50px;">Vimeo</span>
-									    </div>
-									</mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://www.netflix.com">
-									    <div class="button-content">
-									        <mdui-avatar src="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2023.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">Netflix</span>
-									    </div>
-									</mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://www.hulu.com">
-									    <div class="button-content">
-									        <mdui-avatar src="https://assetshuluimcom-a.akamaihd.net/h3o/icons/favicon.ico.png"></mdui-avatar>
-									        <span style="line-height: 50px;">Hulu</span>
-									    </div>
-									</mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://www.disneyplus.com">
-									    <div class="button-content">
-									        <mdui-avatar src="https://static-assets.bamgrid.com/product/disneyplus/favicons/favicon_dis_48x48_@2X.2eebc912779d4f2ee8d9c6204d443ab6.png"></mdui-avatar>
-									        <span style="line-height: 50px;">Disney+</span>
-									    </div>
-									</mdui-button>
-                                </mdui-list>
-                            </mdui-tab-panel>
-                        </mdui-tabs>
-                    </mdui-card>
-                </div>
-                <br>
+			<div style="display: flex; justify-content: center;">
+    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-pc">
+        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >computer</span>手机电脑</mdui-list-subheader>
+        <mdui-tabs value="tab-1">
+            <mdui-tab value="tab-1">手机品牌</mdui-tab>
+            <mdui-tab value="tab-2">电脑品牌</mdui-tab>
+            <mdui-tab value="tab-3">操作系统</mdui-tab>
+            <mdui-tab value="tab-4">硬件/配件</mdui-tab>
+            <mdui-tab value="tab-5">综合评测</mdui-tab>
+            <mdui-tab value="tab-6">专业评测</mdui-tab>
+
+            <mdui-tab-panel slot="panel" value="tab-1">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://consumer.huawei.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://consumer.huawei.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">华为</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.mi.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.mi.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">小米</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.hihonor.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.honor.com/etc/designs/honor-site/assets/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">荣耀</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.samsung.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.samsung.com/etc.clientlibs/samsung/clientlibs/consumer/global/clientlib-common/resources/images/Favicon.png"></mdui-avatar>
+                            <span style="line-height: 50px;">三星</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.apple.com.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.apple.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">苹果</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.oppo.com/cn/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.oppo.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">OPPO</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.vivo.com.cn/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.vivo.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">vivo</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://store.google.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/google.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Google Pixel</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.sony.com.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.sony.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">索尼 Xperia</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-2">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.lenovo.com.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.lenovo.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">联想</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://consumer.huawei.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://consumer.huawei.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">华为</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.hihonor.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.honor.com/etc/designs/honor-site/assets/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">荣耀</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.asus.com.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.asus.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">华硕</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.acer.com.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://gwcache.acer.com.cn/images/acer.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">宏碁</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.apple.com.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.apple.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">苹果</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.dell.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.dell.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">戴尔</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.hp.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/hp.png"></mdui-avatar>
+                            <span style="line-height: 50px;">惠普</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.microsoft.com/surface">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.microsoft.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">微软 Surface</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-3">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.android.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/android.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Android</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.apple.com/ios/china/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.apple.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">iOS</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.windows.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.microsoft.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Windows</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.apple.com/macos/china/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.apple.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">macOS</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.linux.org/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.linux.org/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Linux</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-4">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.intel.cn/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.intel.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Intel</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.amd.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.amd.com/content/dam/code/images/favicon/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">AMD</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.nvidia.cn/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.nvidia.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">NVIDIA</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.corsair.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.corsair.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Corsair</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.logitech.com.cn/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.logitech.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Logitech</span>
+                        </div>
+                    </mdui-button>
+                     <mdui-button variant="tonal" class="nav-option" href="https://www.asus.com.cn/accessories/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.asus.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">华硕配件</span>
+                        </div>
+                    </mdui-button>
+                    
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.newegg.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.newegg.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Newegg</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.jd.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.jd.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">京东电脑数码</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.tmall.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.tmall.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">天猫数码家电</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-5">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.zol.com.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.zol.com.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">中关村在线</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.ifanr.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.ifanr.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">爱范儿</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.leiphone.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.leiphone.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">雷锋网</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.cnbeta.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">cnBeta</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.ithome.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.ithome.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">IT之家</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.theverge.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.theverge.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">The Verge</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-6">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.anandtech.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.anandtech.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">AnandTech</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.notebookcheck.net/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.notebookcheck.net/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Notebookcheck</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.techspot.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/techspot.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">TechSpot</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.gsmarena.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.gsmarena.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">GSMArena</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.dxomark.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.dxomark.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">DXOMARK</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.tomshardware.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.tomshardware.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Tom's Hardware</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+        </mdui-tabs>
+    </mdui-card>
+</div>
+<br>
+
+			
+			
+			<div style="display: flex; justify-content: center;">
+    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-translate">
+        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >g_translate</span>翻译/转换</mdui-list-subheader>
+        <mdui-tabs value="tab-1">
+            <mdui-tab value="tab-1">常用语言翻译</mdui-tab>
+            <mdui-tab value="tab-2">编码转换</mdui-tab>
+            <mdui-tab value="tab-3">进制转换</mdui-tab>
+            <mdui-tab value="tab-4">文件格式转换</mdui-tab>
+            <mdui-tab value="tab-5">更多转换工具</mdui-tab>
+
+            <mdui-tab-panel slot="panel" value="tab-1">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://translate.google.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/google-translate.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Google 翻译</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://translate.google.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/google-translate.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Google 翻译 CN</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.bing.com/translator">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.bing.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Bing 翻译</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://fanyi.youdao.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://ydlunacommon-cdn.nosdn.127.net/31cf4b56e6c0b3af668aa079de1a898c.png"></mdui-avatar>
+                            <span style="line-height: 50px;">有道翻译</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://fanyi.baidu.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/baidu-fanyi.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">百度翻译</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://fanyi.sogou.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://fanyi.sogou.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">搜狗翻译</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-2">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://tool.chinaz.com/Tools/Unicode.aspx">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/chinaz.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">站长之家 Unicode</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.bejson.com/convert/unicode_chinese/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.bejson.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">BeJSON Unicode</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.bejson.com/convert/base64/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.bejson.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">BeJSON Base64</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://tool.chinaz.com/Tools/Base64.aspx">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/chinaz.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">站长之家 Base64</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.bejson.com/convert/urlencode/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.bejson.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">BeJSON URL Encode</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://tool.chinaz.com/Tools/URLEncode.aspx">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/chinaz.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">站长之家 URL Encode</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-3">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://tool.oschina.net/hexconvert/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://tool.oschina.net/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">OSChina 进制转换</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.bejson.com/convert/jinzhi/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.bejson.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">BeJSON 进制转换</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://tool.chinaz.com/Tools/Hex.aspx">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/chinaz.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">站长之家 进制转换</span>
+                        </div>
+                    </mdui-button>
+                    
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-4">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.ilovepdf.com/zh-cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.ilovepdf.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">iLovePDF</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://smallpdf.com/cn/pdf-tools">
+                        <div class="button-content">
+                            <mdui-avatar src="https://smallpdf.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Smallpdf</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://convertio.co/zh/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://convertio.co/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Convertio</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://cloudconvert.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/cloud-convert.png"></mdui-avatar>
+                            <span style="line-height: 50px;">CloudConvert</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://anyconv.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://anyconv.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">AnyConv</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-5">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.json.cn/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.json.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">JSON 在线解析</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.xml.cn/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">XML 在线解析</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://tool.css-js.com/format.html">
+                        <div class="button-content">
+                            <mdui-avatar src="https://tool.css-js.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">CSS/JS 格式化</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://timestamp.online/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://timestamp.online/static/Alarm-64x64.png"></mdui-avatar>
+                            <span style="line-height: 50px;">时间戳转换</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://qr.liantu.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">二维码生成/解码</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+        </mdui-tabs>
+    </mdui-card>
+</div>
+<br>
+
+			
+			
+<div style="display: flex; justify-content: center;">
+    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-video">
+        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >smart_display</span>视频</mdui-list-subheader>
+        <mdui-tabs value="tab-1">
+            <mdui-tab value="tab-1">国内综合</mdui-tab>
+            <mdui-tab value="tab-2">国外综合</mdui-tab>
+            <mdui-tab value="tab-3">技术/教育</mdui-tab>
+            <mdui-tab value="tab-4">电影/剧集</mdui-tab>
+            <mdui-tab value="tab-5">动漫/二次元</mdui-tab>
+
+            <mdui-tab-panel slot="panel" value="tab-1">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.bilibili.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.bilibili.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Bilibili</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.iqiyi.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.iqiyi.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">爱奇艺</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://v.qq.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://v.qq.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">腾讯视频</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.youku.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.youku.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">优酷</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.mgtv.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.mgtv.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">芒果TV</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.douyin.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.douyin.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">抖音</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.ixigua.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.ixigua.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">西瓜视频</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.acfun.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://cdn.aixifan.com/ico/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">AcFun</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-2">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.youtube.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/youtube.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">YouTube</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://vimeo.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://f.vimeocdn.com/logo.svg"></mdui-avatar>
+                            <span style="line-height: 50px;">Vimeo</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.dailymotion.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/daily-motion.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Dailymotion</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://rumble.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/rumble.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Rumble</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-3">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.coursera.org/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.coursera.org/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Coursera</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.udemy.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.udemy.com/staticx/udemy/images/v8/favicon-32x32.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Udemy</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.edx.org/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.edx.org/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">edX</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.khanacademy.org/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Khan Academy</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.pluralsight.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Pluralsight</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://laracasts.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Laracasts</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-4">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.netflix.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2023.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Netflix</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.hulu.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://assetshuluimcom-a.akamaihd.net/h3o/icons/favicon.ico.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Hulu</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.disneyplus.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://static-assets.bamgrid.com/product/disneyplus/favicons/favicon_dis_48x48_@2X.2eebc912779d4f2ee8d9c6204d443ab6.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Disney+</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.amazon.com/gp/video/storefront">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.amazon.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Amazon Prime Video</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://tv.apple.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/apple-tv-plus.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Apple TV+</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-5">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.bilibili.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.bilibili.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Bilibili</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.acfun.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://cdn.aixifan.com/ico/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">AcFun</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.crunchyroll.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Crunchyroll</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://funimation.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Funimation</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.nicovideo.jp/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Niconico</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+        </mdui-tabs>
+    </mdui-card>
+</div>
+<br>
+
 				
 				
 
 				<div style="display: flex; justify-content: center;">
-				    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-encyclopedia">
-				        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >travel_explore</span>百科</mdui-list-subheader>
-				        <mdui-tabs value="tab-1">
-				            <mdui-tab value="tab-1">国内可用</mdui-tab>
-				            <mdui-tab value="tab-2">通过魔法使用</mdui-tab>
-				
-				            <mdui-tab-panel slot="panel" value="tab-1">
-				                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-				                    
-				                    <mdui-button variant="tonal" class="nav-option" href="https://baike.baidu.com">
-				                        <div class="button-content">
-				                            <mdui-avatar src="favicon/baidu.ico"></mdui-avatar>
-				                            <span style="line-height: 50px;">百度百科</span>
-				                        </div>
-				                    </mdui-button>
-				                    <mdui-button variant="tonal" class="nav-option" href="https://baike.sogou.com">
-				                        <div class="button-content">
-				                            <mdui-avatar src="https://baike.sogou.com/favicon.ico"></mdui-avatar>
-				                            <span style="line-height: 50px;">搜狗百科</span>
-				                        </div>
-				                    </mdui-button>
-				                    <mdui-button variant="tonal" class="nav-option" href="https://baike.so.com">
-				                        <div class="button-content">
-				                            <mdui-avatar src="https://baike.so.com/favicon.ico"></mdui-avatar>
-				                            <span style="line-height: 50px;">360百科</span>
-				                        </div>
-				                    </mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://mzh.moegirl.org.cn">
-									    <div class="button-content">
-									        <mdui-avatar src="https://mzh.moegirl.org.cn/favicon.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">萌娘百科</span>
-									    </div>
-									</mdui-button>
-				                    <mdui-button variant="tonal" class="nav-option" href="https://www.zgbk.com">
-				                        <div class="button-content">
-				                            <mdui-avatar src="https://www.zgbk.com/images/favicon.ico"></mdui-avatar>
-				                            <span style="line-height: 50px;">中国大百科全书</span>
-				                        </div>
-				                    </mdui-button>
-				                </mdui-list>
-				            </mdui-tab-panel>
-				
-				            <mdui-tab-panel slot="panel" value="tab-2">
-				                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-				                    
-									<mdui-button variant="tonal" class="nav-option" href="https://wikipedia.org">
-									    <div class="button-content">
-									        <mdui-avatar src="favicon/wikipedia.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">维基百科</span>
-									    </div>
-									</mdui-button>
-				                </mdui-list>
-				            </mdui-tab-panel>
-				        </mdui-tabs>
-				    </mdui-card>
-				</div>
-				<br>
+    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-encyclopedia">
+        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >travel_explore</span>百科</mdui-list-subheader>
+        <mdui-tabs value="tab-1">
+            <mdui-tab value="tab-1">综合百科</mdui-tab>
+            <mdui-tab value="tab-2">技术/IT 百科</mdui-tab>
+            <mdui-tab value="tab-3">二次元百科</mdui-tab>
+            <mdui-tab value="tab-4">开放知识图谱</mdui-tab>
+            <mdui-tab value="tab-5">其他百科</mdui-tab>
+
+            <mdui-tab-panel slot="panel" value="tab-1">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://wikipedia.org">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/wikipedia.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">维基百科</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://baike.baidu.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/baidu.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">百度百科</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://baike.sogou.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://baike.sogou.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">搜狗百科</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://baike.so.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://baike.so.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">360百科</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.zgbk.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.zgbk.com/images/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">中国大百科全书</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-2">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://techopedia.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Techopedia</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.computerhope.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Computer Hope</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://whatis.techtarget.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">TechTarget</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://wikileaks.org/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">WikiLeaks</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.gartner.com/en/information-technology">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.gartner.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Gartner IT</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-3">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://mzh.moegirl.org.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://mzh.moegirl.org.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">萌娘百科</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://zh.moegirl.org.cn">
+                        <div class="button-content">
+                            <mdui-avatar src="https://zh.moegirl.org.cn/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">萌娘百科 (简体)</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://zh.touhouwiki.net/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/touhouwiki.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">东方维基</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://genshin-impact.fandom.com/wiki/Genshin_Impact_Wiki">
+                        <div class="button-content">
+                            <mdui-avatar src="https://genshin-impact.fandom.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Genshin Impact Wiki</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://azurlane.koumakan.jp/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://azurlane.koumakan.jp/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Azur Lane Wiki</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-4">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.wikidata.org/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Wikidata</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://dbpedia.org/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">DBpedia</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://freebase.google.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Freebase</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://conceptnet.org/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">ConceptNet</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-5">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.britannica.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.britannica.com/favicon.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Britannica</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.conservapedia.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/conservapedia.png"></mdui-avatar>
+                            <span style="line-height: 50px;">Conservapedia</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://rationalwiki.org/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">RationalWiki</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://wikitravel.org/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/wikitravel.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Wikitravel</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+        </mdui-tabs>
+    </mdui-card>
+</div>
+<br>
+
 
 			    <div style="display: flex; justify-content: center;">
-			        <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-game">
-			            <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >stadia_controller</span>游戏</mdui-list-subheader>
-			            <mdui-tabs value="tab-1">
-			                <mdui-tab value="tab-1">平台</mdui-tab>
-			                <mdui-tab value="tab-2">论坛</mdui-tab>
-							<mdui-tab value="tab-3">小游戏</mdui-tab>
-							<mdui-tab value="tab-4">数据库</mdui-tab>
-							<mdui-tab value="tab-5">游戏工具</mdui-tab>
-			    
-			                <mdui-tab-panel slot="panel" value="tab-1">
-			                    <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-			                        <mdui-button variant="tonal" class="nav-option" href="https://store.steampowered.com">
-			                            <div class="button-content">
-			                                <mdui-avatar src="favicon/steam.ico"></mdui-avatar>
-			                                <span style="line-height: 50px;">Steam</span>
-			                            </div>
-			                        </mdui-button>
-			                        <mdui-button variant="tonal" class="nav-option" href="https://www.epicgames.com">
-			                            <div class="button-content">
-			                                <mdui-avatar src="https://www.epicgames.com/favicon.ico"></mdui-avatar>
-			                                <span style="line-height: 50px;">Epic</span>
-			                            </div>
-			                        </mdui-button>
-			                        <mdui-button variant="tonal" class="nav-option" href="https://www.xbox.com">
-			                            <div class="button-content">
-			                                <mdui-avatar src="https://www.xbox.com/favicon.ico"></mdui-avatar>
-			                                <span style="line-height: 50px;">Xbox</span>
-			                            </div>
-			                        </mdui-button>
-			                        <mdui-button variant="tonal" class="nav-option" href="https://www.playstation.com">
-			                            <div class="button-content">
-			                                <mdui-avatar src="https://gmedia.playstation.com/is/image/SIEPDC/ps-logo-favicon?$icon-96-96--t$"></mdui-avatar>
-			                                <span style="line-height: 50px;">Playstation</span>
-			                            </div>
-			                        </mdui-button>
-			                    </mdui-list>
-			                </mdui-tab-panel>
-			    
-			                <mdui-tab-panel slot="panel" value="tab-2">
-			                    <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-									<mdui-button variant="tonal" class="nav-option" href="https://www.3dmgame.com">
-									    <div class="button-content">
-									        <mdui-avatar src="https://www.3dmgame.com/favicon.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">3dm</span>
-									    </div>
-									</mdui-button>
-			                        <mdui-button variant="tonal" class="nav-option" href="https://www.gamersky.com">
-			                            <div class="button-content">
-			                                <mdui-avatar src="https://www.gamersky.com/favicon.ico"></mdui-avatar>
-			                                <span style="line-height: 50px;">游民星空</span>
-			                            </div>
-			                        </mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://www.msn.cn/zh-cn/gaming">
-									    <div class="button-content">
-									        <mdui-avatar src="https://www.msn.cn/favicon.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">MSN游戏</span>
-									    </div>
-									</mdui-button>
-			                    </mdui-list>
-			                </mdui-tab-panel>
-							<mdui-tab-panel slot="panel" value="tab-3">
-							    <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-							        <mdui-button variant="tonal" class="nav-option" href="https://www.4399.com">
-							            <div class="button-content">
-							                <mdui-avatar src="https://www.4399.com/favicon.ico"></mdui-avatar>
-							                <span style="line-height: 50px;">4399</span>
-							            </div>
-							        </mdui-button>
-							        <mdui-button variant="tonal" class="nav-option" href="https://www.7k7k.com">
-							            <div class="button-content">
-							                <mdui-avatar src="https://www.7k7k.com/favicon.ico"></mdui-avatar>
-							                <span style="line-height: 50px;">7k7k</span>
-							            </div>
-							        </mdui-button>
-									<mdui-button variant="tonal" class="nav-option" href="https://www.msn.cn/zh-cn/play?cgfrom=cg_msn_pivot">
-									    <div class="button-content">
-									        <mdui-avatar src="https://www.msn.cn/favicon.ico"></mdui-avatar>
-									        <span style="line-height: 50px;">MSN小游戏</span>
-									    </div>
-									</mdui-button>
-							    </mdui-list>
-							</mdui-tab-panel>
-							<mdui-tab-panel slot="panel" value="tab-4">
-							    <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-							        <mdui-button variant="tonal" class="nav-option" href="https://steamdb.info">
-							            <div class="button-content">
-							                <mdui-avatar src="https://steamdb.info/favicon.ico"></mdui-avatar>
-							                <span style="line-height: 50px;">steamDB</span>
-							            </div>
-							        </mdui-button>
-							    </mdui-list>
-							</mdui-tab-panel>
-							<mdui-tab-panel slot="panel" value="tab-5">
-							    <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
-							        <mdui-button variant="tonal" class="nav-option" href="https://steampp.net/">
-							            <div class="button-content">
-							                <mdui-avatar src="https://steampp.net/favicon.ico"></mdui-avatar>
-							                <span style="line-height: 50px;">Watt Toolkit</span>
-							            </div>
-							        </mdui-button>
-									
-							    </mdui-list>
-							</mdui-tab-panel>
-			            </mdui-tabs>
-			        </mdui-card>
-			    </div>
-			    <br>
+    <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-game">
+        <mdui-list-subheader style="font-size:20px;"><span class="material-symbols-outlined" >stadia_controller</span>游戏</mdui-list-subheader>
+        <mdui-tabs value="tab-1">
+            <mdui-tab value="tab-1">游戏平台</mdui-tab>
+            <mdui-tab value="tab-2">游戏社区/论坛</mdui-tab>
+            <mdui-tab value="tab-3">小游戏/休闲</mdui-tab>
+            <mdui-tab value="tab-4">游戏数据库/资讯</mdui-tab>
+            <mdui-tab value="tab-5">游戏工具</mdui-tab>
+            <mdui-tab value="tab-6">MOD 社区</mdui-tab>
+            <mdui-tab value="tab-7">云游戏</mdui-tab>
+            <mdui-tab value="tab-8">游戏引擎/开发</mdui-tab>
+
+            <mdui-tab-panel slot="panel" value="tab-1">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://store.steampowered.com">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/steam.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Steam</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.epicgames.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.epicgames.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Epic Games Store</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.xbox.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.xbox.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Xbox</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.playstation.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://gmedia.playstation.com/is/image/SIEPDC/ps-logo-favicon?$icon-96-96--t$"></mdui-avatar>
+                            <span style="line-height: 50px;">Playstation</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.nintendo.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.nintendo.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Nintendo</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.gog.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.gog.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">GOG.com</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-2">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.3dmgame.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.3dmgame.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">3DM 论坛</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.gamersky.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.gamersky.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">游民星空</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://steamcommunity.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/steam.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Steam 社区</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.reddit.com/r/gaming/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Reddit Gaming</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-3">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.4399.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.4399.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">4399 小游戏</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.7k7k.com">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.7k7k.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">7k7k 小游戏</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://play.google.com/store/apps/category/GAME" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Google Play Games</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.apple.com/favicon.ico" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">App Store Games</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.kongregate.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.kongregate.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Kongregate</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://armorgames.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://armorgames.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Armor Games</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-4">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://steamdb.info">
+                        <div class="button-content">
+                            <mdui-avatar src="https://steamdb.info/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">SteamDB</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.igdb.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.igdb.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">IGDB</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.metacritic.com/game">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.metacritic.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Metacritic Games</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.giantbomb.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.giantbomb.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Giant Bomb</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://opencritic.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://img.opencritic.com/app-icons/favicon-32x32.png"></mdui-avatar>
+                            <span style="line-height: 50px;">OpenCritic</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-5">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://steampp.net/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://steampp.net/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Watt Toolkit</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://reshade.me/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://reshade.me/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">ReShade</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.nexusmods.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Nexus Mods</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://lutris.net/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://lutris.net/static/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Lutris</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://geforceexperience.nvidia.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.nvidia.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">NVIDIA GeForce</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-6">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.nexusmods.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Nexus Mods</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://steamcommunity.com/workshop/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/steam.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Steam Workshop</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.moddb.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.moddb.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">ModDB</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://gamebanana.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">GameBanana</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <mdui-tab-panel slot="panel" value="tab-7">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.nvidia.cn/geforce-now/">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.nvidia.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">NVIDIA GeForce NOW</span>
+                        </div>
+                    </mdui-button>
+                                        <mdui-button variant="tonal" class="nav-option" href="https://cloud.tencent.com/product/cyun">
+                        <div class="button-content">
+                            <mdui-avatar src="https://cloud.tencent.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">腾讯云游戏</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.stadia.com/" disabled>
+                        <div class="button-content">
+                            <mdui-avatar src=""></mdui-avatar>
+                            <span style="line-height: 50px;">Google Stadia</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.xbox.com/zh-CN/cloud-gaming">
+                        <div class="button-content">
+                            <mdui-avatar src="https://www.xbox.com/favicon.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Xbox Cloud Gaming</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel>
+
+            <!-- <mdui-tab-panel slot="panel" value="tab-8">
+                <mdui-list style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <mdui-button variant="tonal" class="nav-option" href="https://unity.com/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/unity.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Unity</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.unrealengine.com/zh-CN/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/unrealengine.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Unreal Engine</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://godotengine.org/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/godotengine.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Godot Engine</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.construct.net/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/construct.net.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Construct</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://www.blender.org/">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/blender.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Blender</span>
+                        </div>
+                    </mdui-button>
+                    <mdui-button variant="tonal" class="nav-option" href="https://docs.unity3d.com/Manual/index.html">
+                        <div class="button-content">
+                            <mdui-avatar src="favicon/unity-docs.ico"></mdui-avatar>
+                            <span style="line-height: 50px;">Unity Documentation</span>
+                        </div>
+                    </mdui-button>
+                </mdui-list>
+            </mdui-tab-panel> -->
+        </mdui-tabs>
+    </mdui-card>
+</div>
+<br>
+
+
 
 			    <!--<div style="display: flex; justify-content: center;">
 			        <mdui-card style="width: 90%; padding: 10px; min-height: 50px;" id="nav-sports">
@@ -2116,209 +3584,8 @@
     </section>
     <br><br><br><br><br><br><br><br><br><br><br><br>
 	<mdui-button id="back-to-top" href="javascript:void(0);" class="back-to-top-button"><span class="material-symbols-outlined" >vertical_align_top</span>回到顶端</mdui-button>
-    <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
+    
     <script src="js/script.js"></script>
-	<style>
-		/*:root,
-.mdui-theme-light {
-  #navname1 {
-    margin-left: 10px;
-    font-weight: 900;
-    background-color: transparent;
-    color: rgb(102, 153, 255);
-    font-size: 30px;
-    font-family: Microsoft Yahei;
-  }
-  #navname2 {
-    margin-left: 10px;
-    font-weight: 900;
-    height: 50px;
-    color: white;
-    font-size: 30px;
-    background-color: rgb(102, 153, 255);
-    border-radius: 10px;
-    font-family: Microsoft Yahei;
-  }
-}
-
-.mdui-theme-dark {
-  #navname1 {
-    font-family: Microsoft Yahei;
-    margin-left: 10px;
-    font-weight: 900;
-    background-color: transparent;
-    text-shadow: 0 0 10px rgba(30, 144, 255, 0.95),
-      0 0 20px rgba(30, 144, 255, 0.8), 0 0 30px rgba(30, 144, 255, 0.65),
-      0 0 40px rgba(30, 144, 255, 0.4), 0 0 100px rgba(30, 144, 255, 0.2),
-      0 0 200px rgba(30, 144, 255, 0.1), 0 0 300px rgba(30, 144, 255, 0.05);
-    color: #000;
-    font-size: 30px;
-  }
-  #navname2 {
-    font-family: Microsoft Yahei;
-    color: #000000;
-    box-shadow: 0 0 10px rgba(30, 144, 255, 0.25), 0 0 20px rgba(30, 144, 255, 0.25),
-      0 0 30px rgba(30, 144, 255, 0.15), 0 0 40px rgba(30, 144, 255, 0.1),
-      0 0 100px rgba(30, 144, 255, 0.1), 0 0 200px rgba(30, 144, 255, 0.05),
-      0 0 300px rgba(30, 144, 255, 0.05);
-    font-weight: 900;
-    width: 300px;
-    height: 50px;
-    font-size: 30px;
-    border: 0px solid #000;
-    border-radius: 12px;
-    text-shadow: 0 0 10px #1e90ff, 0 0 20px #1e90ff, 0 0 30px #1e90ff, 0 0 40px #1e90ff,
-      0 0 100px #1e90ff, 0 0 200px #1e90ff, 0 0 300px #1e90ff, 0 0 400px #1e90ff;
-  }
-}
-
-@media (prefers-color-scheme: auto) {
-  .mdui-theme-auto {
-    #navname1 {
-      margin-left: 10px;
-      font-weight: 900;
-      background-color: transparent;
-      color: rgb(102, 153, 255);
-      font-size: 30px;
-      font-family: Microsoft Yahei;
-    }
-    #navname2 {
-      margin-left: 10px;
-      font-weight: 900;
-      height: 50px;
-      color: white;
-      font-size: 30px;
-      background-color: rgb(102, 153, 255);
-      border-radius: 10px;
-      font-family: Microsoft Yahei;
-    }
-  }
-}*/
-#navname1, #navname3, #navname5 {
-      margin-left: 10px;
-      font-weight: 900;
-	  background-color: transparent;
-      color: #6750a4;
-      font-size: 30px;
-      font-family: Microsoft Yahei;
-    }
-    #navname2, #navname4, #navname6 {
-      margin-left: 10px;
-      font-weight: 900;
-      height: 42px;
-      color: white;
-      font-size: 30px;
-      background-color: #6750a4;
-      font-family: Microsoft Yahei;
-	  border-radius: 10px;
-    }
-	
-
-@keyframes bounce {
-  0%, 30%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  20% {
-    transform: translateY(-20px);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-}
-
-#navname3, #navname4, #navname5, #navname6 {
-  display: inline-block;
-}
-
-.bounce-animation {
-  animation: bounce 0.8s forwards;
-}
-	
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap');
-
-html {
-  font-family: "Noto Sans SC", serif;
-  scroll-behavior: smooth;
-}
-
-  .back-to-top-button {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-	z-index: 1;
-  }
-  .back-to-top-button.show {
-    opacity: 1;
-    visibility: visible;
-  }
-
-#title-card {
-	width: 80%;
-	height: 150px;
-}
-
-@media (max-width: 540px) {
-    #navname2 {
-        display: none;
-    }
-    #navname1 {
-        font-size: 16px;
-    }
-	#title {
-		font-size: 15px;
-	}
-	#title-card {
-		height: 120px;
-	}
-		/*  #engine {
-	    width: 250px;
-	} */
-	
-}
-
-.noselect {
-            user-select: none; 
-            -webkit-user-select: none; /* Safari/Chrome */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* Edge */
-        }
-		
-header, footer {
-	user-select: none;
-	-webkit-user-select: none; /* Safari/Chrome */
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* Edge */
-}
-
-
-
-.nav-option {
-    --shape-corner: 10px; 
-    height: 50px; 
-    width: 180px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-}
-
-.button-content {
-    display: flex; 
-    align-items: center;
-}
-
-.button-content mdui-avatar {
-    margin-right: 10px;
-}
-
-.button-content span {
-    line-height: 50px;
-}
-
-		
-	</style>
 
 </body>
 <footer>
