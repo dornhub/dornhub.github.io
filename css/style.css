@@ -73,202 +73,259 @@
     }
   }
 }*/
- #navname1, #navname3, #navname5 {
-            margin-left: 10px;
-            font-weight: 900;
-            background-color: transparent;
-            color: #6750a4;
-            font-size: 30px;
-            font-family: Microsoft Yahei;
-        }
-        #navname2, #navname4, #navname6 {
-            margin-left: 10px;
-            font-weight: 900;
-            height: 42px;
-            color: white;
-            font-size: 30px;
-            background-color: #6750a4;
-            font-family: Microsoft Yahei;
-            border-radius: 10px;
-        }
+#navname1,
+#navname3,
+#navname5 {
+	margin-left: 10px;
+	font-weight: 900;
+	background-color: transparent;
+	color: #6750a4;
+	font-size: 30px;
+	font-family: Microsoft Yahei;
+}
 
-        @keyframes bounce {
-            0%, 30%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            20% {
-                transform: translateY(-20px);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-        }
+#navname2,
+#navname4,
+#navname6 {
+	margin-left: 10px;
+	font-weight: 900;
+	height: 42px;
+	color: white;
+	font-size: 30px;
+	background-color: #6750a4;
+	font-family: Microsoft Yahei;
+	border-radius: 10px;
+}
 
-        #navname3, #navname4, #navname5, #navname6 {
-            display: inline-block;
-        }
+@keyframes bounce {
 
-        .bounce-animation {
-            animation: bounce 1s forwards;
-        }
+	0%,
+	30%,
+	50%,
+	80%,
+	100% {
+		transform: translateY(0);
+	}
 
-        /* 彩蛋样式 */
-        #easter-egg-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* 允许点击穿透到下层元素 */
-        }
+	20% {
+		transform: translateY(-20px);
+	}
 
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            opacity: 0;
-            animation: confetti-fall 1s ease-out forwards, confetti-rotate 1s ease-out infinite;
-        }
+	40% {
+		transform: translateY(-10px);
+	}
+}
 
-        @keyframes confetti-fall {
-            0% { top: -10px; opacity: 1; }
-            100% { top: 100vh; opacity: 0; }
-        }
+#navname3,
+#navname4,
+#navname5,
+#navname6 {
+	display: inline-block;
+}
 
-        @keyframes confetti-rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+.bounce-animation {
+	animation: bounce 1s forwards;
+}
 
-        .falling-text {
-            position: absolute;
-            font-size: 2em;
-            opacity: 0;
-            animation: text-fall 2s linear forwards;
-        }
+/* 彩蛋样式 */
+#easter-egg-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	/* 允许点击穿透到下层元素 */
+}
 
-        @keyframes text-fall {
-            0% { top: -2em; opacity: 1; }
-            100% { top: 100vh; opacity: 0; }
-        }
+.confetti {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	opacity: 0;
+	animation: confetti-fall 1s ease-out forwards, confetti-rotate 1s ease-out infinite;
+}
 
-        #easter-egg-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2em;
-            font-weight: bold;
-            color: #16DA49;
-            opacity: 0;
-            animation: fade-in 0.5s 0.5s forwards, fade-out 0.5s 9.5s forwards;
-        }
+@keyframes confetti-fall {
+	0% {
+		top: -10px;
+		opacity: 1;
+	}
 
-        @keyframes fade-in {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+	100% {
+		top: 100vh;
+		opacity: 0;
+	}
+}
 
-        @keyframes fade-out {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-	
+@keyframes confetti-rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.falling-text {
+	position: absolute;
+	font-size: 2em;
+	opacity: 0;
+	animation: text-fall 2s linear forwards;
+}
+
+@keyframes text-fall {
+	0% {
+		top: -2em;
+		opacity: 1;
+	}
+
+	100% {
+		top: 100vh;
+		opacity: 0;
+	}
+}
+
+#easter-egg-message {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 2em;
+	font-weight: bold;
+	color: #16DA49;
+	opacity: 0;
+	animation: fade-in 0.5s 0.5s forwards, fade-out 0.5s 9.5s forwards;
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-out {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap');
 
 html {
-  font-family: "Noto Sans SC", serif;
-  scroll-behavior: smooth;
+	font-family: "Noto Sans SC", serif;
+	scroll-behavior: smooth;
 }
 
-  .back-to-top-button {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+.back-to-top-button {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 	z-index: 1;
-  }
-  .back-to-top-button.show {
-    opacity: 1;
-    visibility: visible;
-  }
+}
+
+.back-to-top-button.show {
+	opacity: 1;
+	visibility: visible;
+}
 
 #title-card {
 	width: 80%;
 	height: 150px;
 }
 
-#weather-card {
-	position:relative; width: 650px; height: 480px; top:20px; right:30px; overflow:auto;
+
+#weather-list-hourly,
+#weather-list-daily {
+	display: flex;
+	justify-content: center;
+	width: 100%;
 }
 
-#weather-list-main {
-	display:flex;
-	justify-content:center;
-}
 
 @media (max-width: 600px) {
-    #navname2 {
-        display: none;
-    }
-    #navname1 {
-        font-size: 16px;
-    }
+	#navname2 {
+		display: none;
+	}
+
+	#navname1 {
+		font-size: 16px;
+	}
+
 	#title {
 		font-size: 15px;
 	}
+
 	#title-card {
 		height: 120px;
 	}
-		/*  #engine {
-	    width: 250px;
-	} */
-	#weather-card {
-		width:400px;
+
+	#weather-list-hourly,
+	#weather-list-daily {
+		justify-content: left;
+		width: 650px;
 	}
-	#weather-list-main {
-	        justify-content: flex-start; /* 在屏幕宽度小于 650px 时左对齐 */
-	    }
 }
 
+/*  #engine {
+	    width: 250px;
+	} */
+
+
 .noselect {
-            user-select: none; 
-            -webkit-user-select: none; /* Safari/Chrome */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* Edge */
-        }
-		
-header, footer {
 	user-select: none;
-	-webkit-user-select: none; /* Safari/Chrome */
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* Edge */
+	-webkit-user-select: none;
+	/* Safari/Chrome */
+	-moz-user-select: none;
+	/* Firefox */
+	-ms-user-select: none;
+	/* Edge */
+}
+
+header,
+footer {
+	user-select: none;
+	-webkit-user-select: none;
+	/* Safari/Chrome */
+	-moz-user-select: none;
+	/* Firefox */
+	-ms-user-select: none;
+	/* Edge */
 }
 
 
 
 .nav-option {
-    --shape-corner: 10px; 
-    height: 50px; 
-    width: 180px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
+	--shape-corner: 10px;
+	height: 50px;
+	width: 180px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .button-content {
-    display: flex; 
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .button-content mdui-avatar {
-    margin-right: 10px;
+	margin-right: 10px;
 }
 
 .button-content span {
-    line-height: 50px;
+	line-height: 50px;
 }
-
