@@ -2056,6 +2056,7 @@
 				<a href="http://id.dorn.rf.gd" style="background-color: white;">还没有𣿅国账号？点此注册</a>
                 <div class="form-actions">
                     <button class="btn btn-secondary" id="cancelLoginBtn">取消</button>
+					<button class="btn btn-primary" id="submitLoginBtn">登录</button>
                     <a href="https://dorn.rf.gd"><button class="btn btn-primary">跳转至dorn.rf.gd进行登录</button></a>
                 </div>
                 <div id="loginMessage" style="margin-top: 15px; text-align: center;"></div>
@@ -3322,7 +3323,7 @@
             })
             .catch(error => {
                 console.error('登录请求失败:', error);
-                loginMessage.textContent = '网络错误，请稍后重试';
+                loginMessage.textContent = '由于Github网页无法使用php，故无法登录。登录请前往https://dorn.rf.gd';
                 loginMessage.style.color = '#d13438';
             });
         });
@@ -3591,4 +3592,5 @@
     </script>
 </body>
 </html>
+
 
