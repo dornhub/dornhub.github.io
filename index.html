@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" href="https://dornhub.github.io/images/SatornhLogo.png">
+	<link rel="icon" href="SatornhLogo.png">
 	
 	
     <title>Dorn 网址导航</title>
@@ -1914,9 +1914,9 @@
             </div>
         </div>
 		
-
+		
         
-
+        
     </div>
     
     <!-- 设置模态框 -->
@@ -2005,9 +2005,11 @@
                 </div>
                 
                 <button class="btn clear-data-btn" id="clearDataBtn">清除所有数据</button>
+				
+				
 				<p>Copyright © 2022-2025 Dornhub, All Rights Reserved.</p>
-			<p>Produced by Dornhub. | 版本号: 5.1 | 更新号: 2511.2</p>
-			<p>网站尚不完善，正在改进中。</p>
+				<p>Produced by Dornhub. | 版本号: 5.1 | 更新号: 2511.3</p>
+				<p>网站尚不完善，正在改进中。</p>
             </div>
         </div>
     </div>
@@ -2040,23 +2042,22 @@
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>由于Github不支持网页调用php，故无法登陆。</h2>
+                <h2>登录</h2>
                 <button class="close-btn" id="closeLoginBtn">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="idNumber">𣿅国身份证号</label>
-                    <input type="text" id="idNumber" placeholder="由于Github不支持网页调用php，故无法登陆。">
+                    <input type="text" id="idNumber" placeholder="请输入𣿅国身份证号">
                 </div>
                 <div class="form-group">
                     <label for="password">密码</label>
-                    <input type="password" id="password" placeholder="由于Github不支持网页调用php，故无法登陆。">
+                    <input type="password" id="password" placeholder="请输入密码">
                 </div>
 				<a href="http://id.dorn.rf.gd" style="background-color: white;">还没有𣿅国账号？点此注册</a>
                 <div class="form-actions">
                     <button class="btn btn-secondary" id="cancelLoginBtn">取消</button>
-					<button class="btn btn-primary" id="submitLoginBtn">登录</button>
-                    <a href="https://dorn.rf.gd"><button class="btn btn-primary">跳转至dorn.rf.gd进行登录</button></a>
+                    <button class="btn btn-primary" id="submitLoginBtn">登录</button>
                 </div>
                 <div id="loginMessage" style="margin-top: 15px; text-align: center;"></div>
             </div>
@@ -2067,28 +2068,37 @@
         // 网站数据
         const websites = [
             { name: "𣿅国电子文史资料库", url: "https://dorn.rf.gd/cloud", icon: "fa-book" },
+			{ name: "𣿅国电子文史资料库-文件上传", url: "https://dorn.rf.gd/upload", icon: "fa-upload" },
             { name: "𣿅国小百科竞赛", url: "http://contest.dorn.rf.gd", icon: "fa-trophy" },
-            { name: "𣿅国名人堂", url: "http://dhof.dorn.rf.gd", icon: "fa-star" },
-            { name: "旧版Dorn主页", url: "http://dorn-old.dorn.rf.gd", icon: "fa-home" },
+			{ name: "𣿅国公民绿卡系统", url: "http://id.dorn.rf.gd", icon: "fa-id-card" },
+            { name: "𣿅国名人堂-1站", url: "http://dhof.dorn.rf.gd", icon: "fa-star" },
+			{ name: "𣿅国名人堂-2站", url: "https://cgy22.github.io/dhof/", icon: "fa-star" },
+			{ name: "瓦莱希雅大辞典-1站", url: "http://valencia.dorn.rf.gd", icon: "fa-book-open" },
+			{ name: "瓦莱希雅大辞典-2站", url: "https://cgy22.github.io/valencia/", icon: "fa-book-open" },
+			{ name: "博饼", url: "https://dorngames.github.io/boabia/index.html", icon: "fa-dice" },
+			{ name: "𣿅国国运模拟器", url: "https://dornhub.github.io/valeriette/donh-destiny-forecast.html", icon: "fa-chart-line" },
             { name: "𣿅国大总统选举", url: "http://election.dorn.rf.gd", icon: "fa-vote-yea" },
             { name: "多恩游戏", url: "http://games.dorn.rf.gd", icon: "fa-gamepad" },
             { name: "Dorn主页-1站", url: "http://dorn.rf.gd", icon: "fa-globe" },
             { name: "Dorn主页-2站", url: "https://dornhub.github.io", icon: "fa-globe-asia" },
-            { name: "𣿅国公民绿卡系统", url: "http://id.dorn.rf.gd", icon: "fa-id-card" },
-            { name: "𣿅国国家博物馆", url: "http://museum.dorn.rf.gd", icon: "fa-landmark" },
-            { name: "多恩音乐", url: "http://music.dorn.rf.gd", icon: "fa-music" },
-            { name: "多恩官方", url: "http://official.dorn.rf.gd", icon: "fa-crown" },
-            { name: "多恩官方-旧", url: "https://dornhub.github.io/index2", icon: "fa-crown" },
+			{ name: "Dorn主页-版本4.3", url: "https://dorn.rf.gd/index-v4.3.html", icon: "fas fa-search" },
+			{ name: "Dorn主页-版本4", url: "https://dorn.rf.gd/index-v4.html", icon: "fas fa-search" },
+			{ name: "Dorn主页-版本3.2", url: "http://dorn-old.dorn.rf.gd", icon: "fa-home" },
+			{ name: "Dorn主页-版本3", url: "https://cgy22.github.io/dorn/dornsearch", icon: "fas fa-search" },
+			{ name: "Dorn主页-版本2", url: "https://cgy22.github.io/dorn/dornsearch_en", icon: "fas fa-search" },
             { name: "随机抽号器", url: "http://random.dorn.rf.gd", icon: "fa-random" },
             { name: "随机抽号器2", url: "http://random2.dorn.rf.gd", icon: "fa-random" },
             { name: "远古时期-随机抽号器", url: "https://dornhub.github.io/classtools/get-random-number.html", icon: "fa-random" },
             { name: "远古时期-随机抽皓器", url: "https://dornhub.github.io/classtools/get-random-tonh.html", icon: "fa-random" },
-            { name: "𣿅国电子文史资料库-文件上传", url: "https://dorn.rf.gd/upload", icon: "fa-upload" },
-            { name: "瓦莱希雅大辞典", url: "http://valencia.dorn.rf.gd", icon: "fa-book-open" },
-            { name: "博饼", url: "https://dorngames.github.io/boabia/index.html", icon: "fa-dice" },
-            { name: "𣿅国国运模拟器", url: "https://dornhub.github.io/valeriette/donh-destiny-forecast.html", icon: "fa-chart-line" },
-            { name: "远古时期-𣿅国主页", url: "https://dornhub.github.io/dgzl.html", icon: "fa-flag" }, 
-            { name: "远古时期-多功能机器人小懂", url: "https://dornhub.github.io/valeriette/index.html", icon: "fa-smile" }, 
+			{ name: "𣿅国国家博物馆", url: "http://museum.dorn.rf.gd", icon: "fa-landmark" },
+			{ name: "多恩音乐", url: "http://music.dorn.rf.gd", icon: "fa-music" },
+			{ name: "多恩官方", url: "http://official.dorn.rf.gd", icon: "fa-crown" },
+			{ name: "多恩官方-旧", url: "https://dornhub.github.io/index2", icon: "fa-crown" },
+			{ name: "𣿅国画廊-总统篇", url: "https://cgy22.github.io/paintings/tonh", icon: "fa-palette" }, 
+			{ name: "远古时期-𣿅国主页", url: "https://dornhub.github.io/dgzl.html", icon: "fa-flag" },
+			{ name: "远古时期-多功能机器人小懂", url: "https://dornhub.github.io/valeriette/index.html", icon: "fa-smile" },
+			{ name: "远古时期-𣿅国商城", url: "https://dornstore.wordpress.com", icon: "fa-shopping-bag" }, 
+			{ name: "远古时期-𣿅国百科", url: "https://dornhubpedia.wordpress.com", icon: "fas fa-atlas" },
             { name: "羟基人快乐老家", url: "https://dornhub.github.io/irelav/", icon: "fa-smile" }
         ];
     
@@ -3322,7 +3332,7 @@
             })
             .catch(error => {
                 console.error('登录请求失败:', error);
-                loginMessage.textContent = '由于Github网页无法使用php，故无法登录。登录请前往https://dorn.rf.gd';
+                loginMessage.textContent = '网络错误，请稍后重试';
                 loginMessage.style.color = '#d13438';
             });
         });
@@ -3591,7 +3601,3 @@
     </script>
 </body>
 </html>
-
-
-
-
