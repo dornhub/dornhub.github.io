@@ -408,11 +408,60 @@
 		    box-shadow: 0 4px 12px var(--shadow-color);
 		    z-index: 1000;
 		    display: none;
-		    min-width: 180px;
+		    min-width: 220px;
 		    width: 100%; /* 添加这行，让下拉菜单与按钮同宽 */
 		    margin-top: 5px;
 		    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		    overflow: hidden; /* 添加这行，防止内容溢出 */
+		}
+		
+		/* 用户信息区域样式 */
+		.user-info-section {
+		    padding: 16px;
+		    background: var(--secondary-color);
+		    border-bottom: 1px solid var(--border-color);
+		}
+		
+		.user-nickname {
+		    font-size: 16px;
+		    font-weight: 600;
+		    color: var(--primary-color);
+		    margin-bottom: 8px;
+		    text-align: center;
+		}
+		
+		.user-certification {
+		    font-size: 12px;
+		    color: #ff6b35;
+		    background: rgba(255, 107, 53, 0.1);
+		    padding: 4px 8px;
+		    border-radius: 12px;
+		    text-align: center;
+		    margin-bottom: 8px;
+		    display: none; /* 默认隐藏，有认证时才显示 */
+		}
+		
+		.user-funds {
+		    font-size: 14px;
+		    color: var(--text-color);
+		    text-align: center;
+		    margin-bottom: 6px;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    gap: 4px;
+		}
+		
+		.user-funds i {
+		    color: #ffd700;
+		}
+		
+		.user-days {
+		    font-size: 12px;
+		    color: var(--text-color);
+		    opacity: 0.8;
+		    text-align: center;
+		    font-style: italic;
 		}
 		
 		.user-dropdown.active {
@@ -594,7 +643,7 @@
 		    position: absolute;
 		    top: -50px;
 		    font-weight: bold;
-		    color: #ff6b6b;
+		    color: #16DA49;
 		    opacity: 0.8;
 		    animation: falling-text 3s linear forwards;
 		    pointer-events: none;
@@ -1827,11 +1876,15 @@
                             <i class="fas fa-chevron-down" id="dropdownArrow"></i>
                         </button>
                         <div class="user-dropdown" id="userDropdown">
-                            <div class="user-info">
-                                <span id="userNameDisplay"></span>
+                            <!-- 用户信息区域 -->
+                            <div class="user-info-section">
+                                <div class="user-nickname" id="userNicknameDisplay"></div>
+                                <div class="user-certification" id="userCertificationDisplay"></div>
+                                <div class="user-funds" id="userFundsDisplay"></div>
+                                <div class="user-days" id="userDaysDisplay"></div>
                             </div>
                             <div class="dropdown-divider"></div>
-                            <div class="dropdown-item disabled">
+                            <div class="dropdown-item" id="personalCenterBtn">
                                 <i class="fas fa-user"></i>
                                 <span>个人中心</span>
                             </div>
@@ -1930,14 +1983,14 @@
                 <div class="setting-group">
                     <h3>配色方案</h3>
                     <div class="color-options" id="colorOptions">
-                        <div class="color-option active" style="background-color:#16DA49;" data-color="#16DA49"></div>
-                        <div class="color-option" style="background-color:#6499FF;" data-color="#6499FF"></div>
-                        <div class="color-option" style="background-color:#A51515;" data-color="#A51515"></div>
-                        <div class="color-option" style="background-color:#349DA5;" data-color="#349DA5"></div>
-                        <div class="color-option" style="background-color:#FFB500;" data-color="#FFB500"></div>
-                        <div class="color-option" style="background-color:#DA70D6;" data-color="#DA70D6"></div>
-                        <div class="color-option" style="background-color:#FF69B4;" data-color="#FF69B4"></div>
-                        <div class="color-option" style="background-color:#0078d4;" data-color="#0078d4"></div>
+                        <div class="color-option active" style="background-color:#16DA49;" data-color="#16DA49">𣿅国绿</div>
+                        <div class="color-option" style="background-color:#6499FF;" data-color="#6499FF">大江蓝</div>
+                        <div class="color-option" style="background-color:#A51515;" data-color="#A51515">秋茗红</div>
+                        <div class="color-option" style="background-color:#349DA5;" data-color="#349DA5">铁山青</div>
+                        <div class="color-option" style="background-color:#FFB500;" data-color="#FFB500">凤凰金</div>
+                        <div class="color-option" style="background-color:#DA70D6;" data-color="#DA70D6">兰花紫</div>
+                        <div class="color-option" style="background-color:#FF69B4;" data-color="#FF69B4">梨花粉</div>
+                        <div class="color-option" style="background-color:#0078d4;" data-color="#0078d4">深蓝色</div>
                     </div>
                     <div class="custom-color-container">
                         <div class="custom-color-btn" id="customColorBtn" style="background-color: var(--primary-color);"></div>
@@ -2008,7 +2061,7 @@
 				
 				
 				<p>Copyright © 2022-2025 Dornhub, All Rights Reserved.</p>
-				<p>Produced by Dornhub. | 版本号: 5.1 | 更新号: 2511.3</p>
+				<p>Produced by Dornhub. | 版本号: 5.2 | 更新号: 2511.4</p>
 				<p>网站尚不完善，正在改进中。</p>
             </div>
         </div>
@@ -2359,16 +2412,62 @@
                 addPinnedBtn.title = "";
             }
         }
+		
+		// 计算成为公民的天数
+		function calculateCitizenDays(issueDate) {
+		    const issue = new Date(issueDate);
+		    const today = new Date();
+		    const diffTime = Math.abs(today - issue);
+		    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+		    return diffDays;
+		}
+		
+		// 更新用户信息显示
+		function updateUserInfoDisplay() {
+		    if (!isLoggedIn || !currentUser) return;
+		    
+		    // 显示昵称
+		    const nicknameDisplay = document.getElementById('userNicknameDisplay');
+		    nicknameDisplay.textContent = currentUser.nickname || currentUser.name;
+		    
+		    // 显示认证信息（如果有）
+		    const certificationDisplay = document.getElementById('userCertificationDisplay');
+		    if (currentUser.certification && currentUser.certification.trim() !== '') {
+		        certificationDisplay.textContent = currentUser.certification;
+		        certificationDisplay.style.display = 'block';
+		    } else {
+		        certificationDisplay.style.display = 'none';
+		    }
+		    
+		    // 显示资金
+		    const fundsDisplay = document.getElementById('userFundsDisplay');
+		    const funds = currentUser.funds || 10.00;
+		    fundsDisplay.innerHTML = `<i class="fas fa-coins"></i> ${funds} 𣿅元`;
+		    
+		    // 显示成为公民天数
+		    const daysDisplay = document.getElementById('userDaysDisplay');
+		    const issueDate = currentUser.issue_date;
+		    if (issueDate) {
+		        const days = calculateCitizenDays(issueDate);
+		        daysDisplay.textContent = `已成为𣿅国公民 ${days} 天`;
+		    } else {
+		        daysDisplay.textContent = '欢迎新公民！';
+		    }
+		}
     
-        // 在updateLoginState函数中添加Insider徽章显示逻辑
+        // 修改updateLoginState函数
         function updateLoginState() {
             if (isLoggedIn && currentUser) {
-                loginText.textContent = currentUser.name;
-                userNameDisplay.textContent = currentUser.name;
+                loginText.textContent = currentUser.nickname || currentUser.name;
+                
+                // 更新用户信息显示
+                updateUserInfoDisplay();
+                
                 // 显示Insider徽章
                 document.querySelectorAll('.insider-badge').forEach(badge => {
                     badge.style.display = 'inline-block';
                 });
+                
                 // 确保登录模态框是关闭的，下拉菜单是隐藏的
                 loginModal.style.display = 'none';
                 userDropdown.classList.remove('active');
@@ -2379,11 +2478,12 @@
                 updateSearchEngineOptions();
             } else {
                 loginText.textContent = "登录/注册";
-                userNameDisplay.textContent = "";
+                
                 // 隐藏Insider徽章
                 document.querySelectorAll('.insider-badge').forEach(badge => {
                     badge.style.display = 'none';
                 });
+                
                 // 确保登录模态框是关闭的，下拉菜单是隐藏的
                 loginModal.style.display = 'none';
                 userDropdown.classList.remove('active');
@@ -2948,7 +3048,6 @@
             showNotification('已成功退出登录', 'success');
         }
     
-        // 用户菜单功能整合
         function initUserMenu() {
             // 点击登录按钮
             loginBtn.addEventListener('click', (e) => {
@@ -2974,9 +3073,76 @@
                 }
             });
         
+            // 个人中心按钮事件
+            document.getElementById('personalCenterBtn').addEventListener('click', () => {
+                // 跳转到个人中心页面
+                window.location.href = 'account.html';
+                userDropdown.classList.remove('active');
+                dropdownArrow.style.transform = 'rotate(0deg)';
+            });
+        
             // 退出登录
             logoutBtn.addEventListener('click', handleLogout);
         }
+		
+		
+		// 在主页面添加签到功能到用户下拉菜单
+		function addCheckinToDropdown() {
+		    // 在用户下拉菜单的个人中心按钮前添加签到按钮
+		    const personalCenterBtn = document.querySelector('#personalCenterBtn');
+		    if (personalCenterBtn) {
+		        const checkinItem = document.createElement('div');
+		        checkinItem.className = 'dropdown-item';
+		        checkinItem.id = 'dropdownCheckinBtn';
+		        checkinItem.innerHTML = `
+		            <i class="fas fa-calendar-check"></i>
+		            <span>每日签到</span>
+		        `;
+		        checkinItem.addEventListener('click', function() {
+		            performDropdownCheckin();
+		            userDropdown.classList.remove('active');
+		            dropdownArrow.style.transform = 'rotate(0deg)';
+		        });
+		        
+		        personalCenterBtn.parentNode.insertBefore(checkinItem, personalCenterBtn);
+		    }
+		}
+		
+		// 下拉菜单中的签到功能
+		function performDropdownCheckin() {
+		    if (!isLoggedIn) return;
+		    
+		    fetch('checkin.php', {
+		        method: 'POST',
+		        headers: {
+		            'Content-Type': 'application/json'
+		        },
+		        body: JSON.stringify({
+		            id_number: currentUser.id_number
+		        })
+		    })
+		    .then(response => response.json())
+		    .then(data => {
+		        if (data.success) {
+		            // 更新用户资金
+		            currentUser.funds = parseFloat(currentUser.funds || 10.00) + data.total_amount;
+		            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+		            updateLoginState();
+		            
+		            // 显示签到成功通知
+		            showNotification(`🎉 签到成功！获得 ${data.total_amount.toFixed(2)}𣿅元，连续签到 ${data.streak_days} 天`, 'success');
+		        } else {
+		            showNotification('签到失败: ' + data.error, 'error');
+		        }
+		    })
+		    .catch(error => {
+		        console.error('签到失败:', error);
+		        showNotification('网络错误，请稍后重试', 'error');
+		    });
+		}
+		
+		// 在主页初始化时调用
+		addCheckinToDropdown();
     
         // ========== 事件监听器 ==========
         
@@ -3302,11 +3468,21 @@
             })
             .then(response => response.json())
             .then(data => {
-                // 在登录成功的回调中
                 if (data.success) {
                     // 登录成功
                     isLoggedIn = true;
                     currentUser = data.data;
+                    
+                    // 确保昵称字段存在，如果没有则使用姓名
+                    if (!currentUser.nickname) {
+                        currentUser.nickname = currentUser.name;
+                    }
+                    
+                    // 确保资金字段存在
+                    if (!currentUser.funds) {
+                        currentUser.funds = 10.00;
+                    }
+                    
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
                     
@@ -3323,7 +3499,7 @@
                     
                     // 从服务器加载用户设置和固定网址
                     loadUserSettings();
-                    loadPinnedWebsitesFromServer(); // 新增：加载固定网址
+                    loadPinnedWebsitesFromServer();
                 } else {
                     // 登录失败
                     loginMessage.textContent = data.error || '登录失败，请重试';
@@ -3332,7 +3508,7 @@
             })
             .catch(error => {
                 console.error('登录请求失败:', error);
-                loginMessage.textContent = '网络错误，请稍后重试';
+                loginMessage.textContent = '出错啦！请稍后重试';
                 loginMessage.style.color = '#d13438';
             });
         });
@@ -3596,6 +3772,7 @@
 		    // 只隐藏建议框，不清空搜索框
 		    suggestions.style.display = 'none';
 		});
+		
 		
 		
     </script>
