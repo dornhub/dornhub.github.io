@@ -3,1031 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" href="SatornhLogo.png">
-	
-	
-    <title>Dorn 网址导航</title>
-	<meta name="description" content="Dorn 搜索与网站导航5。网站采用 Fluent UI 设计，并集成多源搜索引擎。">
-	<meta name="Keywords" content="网页导航,搜索,Dorn,Dornhub,多恩,主页,𣿅国,donh,tonh">
+    <link rel="icon" href="https://dorn.rf.gd/SatornhLogo.png">
+    
+    <title>Dorn Hub - 备用站</title>
+    <meta name="description" content="Dorn Hub是大𣿅子IP的核心数字平台。这是 GitHub 备用站点，完整功能请访问主站。">
+    <meta name="Keywords" content="Dorn,Dornhub,多恩,𣿅国,donh,tonh,Dorn Hub,𣿅子,懂子,懂国,𣿅">
+    <meta name="robots" content="noindex,nofollow">
+    
     <!-- Fluent UI CSS -->
     <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.001/office-ui-fabric-core/11.1.0/css/fabric.min.css">
     <!-- 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<style>
-		/* 加载遮罩样式 */
-		#loading-mask {
-		    position: fixed;
-		    top: 0;
-		    left: 0;
-		    width: 100%;
-		    height: 100%;
-		    background-color: rgba(230, 230, 230, 0.7);
-		    display: flex;
-		    flex-direction: column;
-		    justify-content: center;
-		    align-items: center;
-		    z-index: 9999;
-		    opacity: 1;
-		    transition: opacity 0.3s ease-out;
-		    backdrop-filter: blur(10px) saturate(180%) contrast(80%);
-		    -webkit-backdrop-filter: blur(50px) saturate(180%) contrast(80%);
-		    overflow: hidden;
-		    text-align: center;
-		}
-		
-		.spinner-text {
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
-		}
-		
-		.spinner-text span {
-		    animation: slideUpDown 0.65s infinite alternate ease-in-out;
-		}
-		
-		#loading-text-1 {
-		    margin-left: 10px;
-		    font-weight: 900;
-		    background-color: transparent;
-		    color: var(--loading-text-1-color, #16DA49);
-		    font-size: 30px;
-		    font-family: Microsoft Yahei;
-		    animation-delay: 0s;
-		}
-		
-		#loading-text-2 {
-		    margin-left: 10px;
-		    font-weight: 900;
-		    height: 42px;
-		    color: white;
-		    font-size: 30px;
-		    background-color: var(--loading-text-2-bg, #16DA49);
-		    font-family: Microsoft Yahei;
-		    border-radius: 10px;
-		    padding: 0 10px;
-		    animation-delay: 0.65s;
-		}
-		
-		@keyframes slideUpDown {
-		    0% {
-		        transform: translateY(0);
-		    }
-		    100% {
-		        transform: translateY(-30px);
-		    }
-		}
-		
-		#loading-mask p {
-		    margin-top: 20px;
-		    color: #000;
-		    font-size: 16px;
-		}
-		
-		/* 加载转圈圈样式 */
-		.loading-spinner {
-		    width: 50px;
-		    height: 50px;
-		    border: 4px solid rgba(0, 0, 0, 0.1);
-		    border-radius: 50%;
-		    border-top: 4px solid var(--primary-color);
-		    animation: spin 1s linear infinite;
-		    margin: 20px 0;
-		}
-		
-		@keyframes spin {
-		    0% { transform: rotate(0deg); }
-		    100% { transform: rotate(360deg); }
-		}
-		
-		/* 终止加载按钮样式 - 与页面风格一致 */
-		#stop-button {
-		    display: none;
-		    background: var(--primary-color);
-		    color: white;
-		    border: none;
-		    border-radius: 4px;
-		    padding: 12px 24px;
-		    cursor: pointer;
-		    font-size: 14px;
-		    font-weight: 500;
-		    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		    box-shadow: 0 1.6px 3.6px 0 var(--shadow-color), 0 0.3px 0.9px 0 var(--shadow-color);
-		    position: relative;
-		    overflow: hidden;
-		}
-		
-		#stop-button:hover {
-		    background: #106ebe;
-		    transform: translateY(-2px) scale(1.05);
-		    box-shadow: 0 3.2px 7.2px 0 var(--shadow-color), 0 0.6px 1.8px 0 var(--shadow-color);
-		}
-		
-		#stop-button:active {
-		    transform: translateY(0) scale(0.98);
-		}
-		
-		#stop-button::before {
-		    content: '';
-		    position: absolute;
-		    top: 0;
-		    left: -100%;
-		    width: 100%;
-		    height: 100%;
-		    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-		    transition: left 0.5s;
-		}
-		
-		#stop-button:hover::before {
-		    left: 100%;
-		}
-		
-		#stop-button i {
-		    margin-right: 8px;
-		    font-size: 12px;
-		}
-		
-		#stop-text {
-		    display: none;
-		    font-size: 12px;
-		    margin: 15px 80px 0;
-		    text-align: center;
-		    color: var(--text-color);
-		    opacity: 0.8;
-		    line-height: 1.4;
-		    max-width: 300px;
-		}
-	</style>
+    
+    <!-- 加载遮罩样式 - 优先加载 -->
+    <link rel="stylesheet" href="https://dorn.rf.gd/resources/loading.css">
+    <!-- 统一UI样式 -->
+    <link rel="stylesheet" href="https://dorn.rf.gd/resources/ui.css">
+    
+    <!-- 加载遮罩脚本 - 优先加载 -->
+    <script src="https://dorn.rf.gd/resources/loading.js"></script>
+    <!-- Cookie 同意组件 -->
+    <script src="https://dorn.rf.gd/resources/cookie-consent.js"></script>
+    
     <style>
-        :root {
-            --primary-color: #0078d4;
-            --secondary-color: #f3f2f1;
-            --card-hover-color: #f8f9fa;
-            --text-color: #323130;
-            --bg-color: #ffffff;
-            --card-bg: white;
-            --header-bg: white;
-            --border-color: #edebe9;
-            --shadow-color: rgba(0,0,0,0.1);
-            --overlay-color: rgba(255, 255, 255, 0.5);
-        }
-
-        [data-theme="dark"] {
-            --primary-color: #0086f0;
-            --secondary-color: #2d2c2c;
-            --card-hover-color: #323130;
-            --text-color: #ffffff;
-            --bg-color: #1e1e1e;
-            --card-bg: #2d2c2c;
-            --header-bg: #2d2c2c;
-            --border-color: #3b3a39;
-            --shadow-color: rgba(0,0,0,0.3);
-            --overlay-color: rgba(0, 0, 0, 0.5);
-        }
-
-        body {
-            font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-                margin: 0;
-                padding: 0;
-                background-color: var(--bg-color);
-                color: var(--text-color);
-                transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-                min-height: 100vh;
-                position: relative;
-                background-size: cover;
-                background-position: center;
-                background-attachment: fixed;
-                background-repeat: no-repeat;
-                opacity: 1;
-            /* transition: opacity 0.5s ease; */
-        }
-
-        body.fade-in {
-            /* opacity: 1; */
-        }
-
-        body::before {
-            content: '';
-            position: fixed; /* 改为fixed确保覆盖整个视口 */
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--bg-color);
-            opacity: 0.8;
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1200px;
-                margin: 0 auto;
-                padding: 120px 20px 20px; /* 增加顶部内边距为标题栏留空间 */
-                transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-		
-		/* 滚动时容器调整 */
-		.container.scrolled {
-		    padding-top: 100px;
-		}
-
-        /* 标题栏样式修改 */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding: 25px 0;
-            border-bottom: 1px solid var(--border-color);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-			height: 10px;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            z-index: 1000;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-		
-		[data-theme="dark"] header {
-		    background: rgba(45, 45, 45, 0.7);
-		    backdrop-filter: blur(20px) saturate(180%);
-		    -webkit-backdrop-filter: blur(20px) saturate(180%);
-		}
-		
-		
-		
-		/* 标题栏云母效果覆盖层 */
-		header::before {
-		    content: '';
-		    position: absolute;
-		    top: 0;
-		    left: 0;
-		    right: 0;
-		    bottom: 0;
-		    background: linear-gradient(
-		        135deg,
-		        rgba(255, 255, 255, 0.1) 0%,
-		        rgba(255, 255, 255, 0.05) 50%,
-		        rgba(255, 255, 255, 0.1) 100%
-		    );
-		    pointer-events: none;
-		    z-index: -1;
-		}
-		
-		[data-theme="dark"] header::before {
-		    background: linear-gradient(
-		        135deg,
-		        rgba(255, 255, 255, 0.05) 0%,
-		        rgba(255, 255, 255, 0.02) 50%,
-		        rgba(255, 255, 255, 0.05) 100%
-		    );
-		}
-		
-		/* 标题栏内容容器 */
-		.header-content {
-		    max-width: 1200px;
-		    margin: 0 auto;
-		    padding: 0 20px;
-		    display: flex;
-		    justify-content: space-between;
-		    align-items: center;
-		    width: 100%;
-		}
-		
-		.background-layer {
-		    position: fixed;
-		    top: 0;
-		    left: 0;
-		    width: 100%;
-		    height: 100%;
-		    z-index: -2;
-		    background-size: cover;
-		    background-position: center;
-		    background-attachment: fixed;
-		    background-repeat: no-repeat;
-		}
-
-        .header-left h1 {
-            margin-bottom: 20px;
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-		
-		.section-container {
-		    background: rgba(255, 255, 255, 0.7);
-		    backdrop-filter: blur(20px) saturate(180%);
-		    -webkit-backdrop-filter: blur(20px) saturate(180%);
-		    border-radius: 16px;
-		    border: 1px solid rgba(255, 255, 255, 0.2);
-		    padding: 30px;
-		    margin-bottom: 30px;
-		    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-		    position: relative;
-		    overflow: hidden;
-		}
-		
-		[data-theme="dark"] .section-container {
-		    background: rgba(45, 45, 45, 0.7);
-		    border: 1px solid rgba(255, 255, 255, 0.1);
-		}
-		
-		/* 云母效果渐变覆盖 */
-		.section-container::before {
-		    content: '';
-		    position: absolute;
-		    top: 0;
-		    left: 0;
-		    right: 0;
-		    bottom: 0;
-		    background: linear-gradient(
-		        135deg,
-		        rgba(255, 255, 255, 0.1) 0%,
-		        rgba(255, 255, 255, 0.05) 50%,
-		        rgba(255, 255, 255, 0.1) 100%
-		    );
-		    pointer-events: none;
-		    border-radius: 16px;
-		}
-		
-		[data-theme="dark"] .section-container::before {
-		    background: linear-gradient(
-		        135deg,
-		        rgba(255, 255, 255, 0.05) 0%,
-		        rgba(255, 255, 255, 0.02) 50%,
-		        rgba(255, 255, 255, 0.05) 100%
-		    );
-		}
-			
-		.content-container {
-		    position: relative;
-		    z-index: 1;
-		}
-			
-		/* 用户菜单样式 */
-		.user-menu-container {
-		    position: relative;
-		    display: inline-block;
-		}
-		
-		.login-btn {
-		    background: var(--card-bg);
-		    border: 1px solid var(--border-color);
-		    border-radius: 4px;
-		    padding: 8px 12px;
-		    cursor: pointer;
-		    color: var(--text-color);
-		    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		    position: relative;
-		    display: flex;
-		    align-items: center;
-		    gap: 8px;
-		    min-width: 120px;
-		    justify-content: space-between;
-		}
-		
-		.login-btn:hover {
-		    background: var(--secondary-color);
-		    transform: scale(1.05);
-		}
-		
-		#dropdownArrow {
-		    font-size: 12px;
-		    transition: transform 0.3s ease;
-		    margin-left: 5px;
-		}
-		
-		/* 用户下拉菜单样式 */
-		.user-dropdown {
-		    position: absolute;
-		    top: 100%;
-		    right: 0;
-		    background: var(--card-bg);
-		    border: 1px solid var(--border-color);
-		    border-radius: 4px;
-		    box-shadow: 0 4px 12px var(--shadow-color);
-		    z-index: 1000;
-		    display: none;
-		    min-width: 220px;
-		    width: 100%; /* 添加这行，让下拉菜单与按钮同宽 */
-		    margin-top: 5px;
-		    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		    overflow: hidden; /* 添加这行，防止内容溢出 */
-		}
-		
-		/* 用户信息区域样式 */
-		.user-info-section {
-		    padding: 16px;
-		    background: var(--secondary-color);
-		    border-bottom: 1px solid var(--border-color);
-		}
-		
-		.user-nickname {
-		    font-size: 16px;
-		    font-weight: 600;
-		    color: var(--primary-color);
-		    margin-bottom: 8px;
-		    text-align: center;
-		}
-		
-		.user-certification {
-		    font-size: 12px;
-		    color: #ff6b35;
-		    background: rgba(255, 107, 53, 0.1);
-		    padding: 4px 8px;
-		    border-radius: 12px;
-		    text-align: center;
-		    margin-bottom: 8px;
-		    display: none; /* 默认隐藏，有认证时才显示 */
-		}
-		
-		.user-funds {
-		    font-size: 14px;
-		    color: var(--text-color);
-		    text-align: center;
-		    margin-bottom: 6px;
-		    display: flex;
-		    align-items: center;
-		    justify-content: center;
-		    gap: 4px;
-		}
-		
-		.user-funds i {
-		    color: #ffd700;
-		}
-		
-		.user-days {
-		    font-size: 12px;
-		    color: var(--text-color);
-		    opacity: 0.8;
-		    text-align: center;
-		    font-style: italic;
-		}
-		
-		.user-dropdown.active {
-		    display: block;
-		}
-		
-		.user-info {
-		    padding: 12px 16px;
-		    font-weight: 600;
-		    color: var(--primary-color);
-		    border-bottom: 1px solid var(--border-color);
-		    background: var(--secondary-color);
-		    white-space: nowrap; /* 防止文本换行 */
-		    overflow: hidden;
-		    text-overflow: ellipsis; /* 文本过长时显示省略号 */
-		}
-		
-		.dropdown-divider {
-		    height: 1px;
-		    background: var(--border-color);
-		    margin: 4px 0;
-		}
-		
-		.dropdown-item {
-		    padding: 10px 16px;
-		    cursor: pointer;
-		    display: flex;
-		    align-items: center;
-		    gap: 10px;
-		    transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-		    border: none;
-		    background: none;
-		    width: 100%; /* 确保宽度100% */
-		    text-align: left;
-		    color: var(--text-color);
-		    font-size: 14px;
-		    box-sizing: border-box; /* 确保padding包含在宽度内 */
-		}
-		
-		.dropdown-item:hover {
-		    background-color: var(--secondary-color);
-		}
-		
-		.dropdown-item:last-child {
-		    border-bottom: none;
-		}
-		
-		.dropdown-item.disabled {
-		    opacity: 0.5;
-		    cursor: not-allowed;
-		}
-		
-		.dropdown-item.disabled:hover {
-		    background-color: inherit;
-		}
-		
-		.dropdown-item i {
-		    width: 16px;
-		    text-align: center;
-		    color: var(--primary-color);
-		    flex-shrink: 0; /* 防止图标被压缩 */
-		}
-		
-		/* 确保下拉菜单在模态框之上 */
-		.user-dropdown {
-		    z-index: 10000;
-		}
-		
-		/* Insider徽章样式 */
-		.insider-badge {
-		    display: none; /* 默认隐藏 */
-		    font-size: 18px;
-		    font-weight: 600;
-		    color: var(--primary-color);
-		    background: rgba(var(--primary-color-rgb), 0.1);
-		    padding: 2px 8px;
-		    border-radius: 12px;
-		    margin-left: 0px;
-			margin-top:10px;
-		    border: 1px solid rgba(var(--primary-color-rgb), 0.3);
-		    vertical-align: middle;
-		    animation: fadeIn 0.5s ease;
-		}
-		
-		[data-theme="dark"] .insider-badge {
-		    background: rgba(var(--primary-color-rgb), 0.2);
-		    border: 1px solid rgba(var(--primary-color-rgb), 0.4);
-		}
-
-        #navname1,
-        #navname3,
-        #navname5 {
-            margin-left: 10px;
-            font-weight: 900;
-            background-color: transparent;
-            color: var(--primary-color);
-            font-size: 30px;
-            font-family: Microsoft Yahei;
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        #navname2,
-        #navname4,
-        #navname6 {
-            margin-left: 10px;
-            font-weight: 900;
-            height: 42px;
-            color: white;
-            font-size: 30px;
-            background-color: var(--primary-color);
-            font-family: Microsoft Yahei;
-            border-radius: 10px;
-            padding: 0 10px;
-            display: inline-flex;
-            align-items: center;
-            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-		
-		#navname1, #navname2, #navname3, #navname4, #navname5, #navname6 {
-		    user-select: none;
-		    -webkit-user-select: none;
-		    -moz-user-select: none;
-		    -ms-user-select: none;
-		}
-		
-		/* 搜索按钮样式 */
-		.search-btn {
-		    background: var(--primary-color);
-		    color: white;
-		    border: none;
-		    border-radius: 4px;
-		    padding: 12px 20px;
-		    cursor: pointer;
-		    font-size: 16px;
-		    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		    display: flex;
-		    align-items: center;
-		    gap: 8px;
-		    min-width: 100px;
-		    justify-content: center;
-		}
-		
-		.search-btn:hover {
-		    background: #106ebe;
-		    transform: scale(1.05);
-		}
-		
-		/* 弹跳动画 - 修改为可打断的版本 */
-		@keyframes bounce {
-		    0%, 30%, 50%, 80%, 100% {
-		        transform: translateY(0);
-		    }
-		    20% {
-		        transform: translateY(-20px);
-		    }
-		    40% {
-		        transform: translateY(-10px);
-		    }
-		}
-		
-		.bounce-animation {
-		    animation: bounce 1s forwards;
-		    animation-iteration-count: 1; /* 只播放一次 */
-		}
-		
-		/* 彩蛋样式 */
-		#easter-egg-container {
-		    position: fixed;
-		    top: 0;
-		    left: 0;
-		    width: 100%;
-		    height: 100%;
-		    pointer-events: none;
-		    z-index: 10000;
-		}
-		
-		/* 下落文字样式 */
-		.falling-text {
-		    position: absolute;
-		    top: -50px;
-		    font-weight: bold;
-		    color: #16DA49;
-		    opacity: 0.8;
-		    animation: falling-text 3s linear forwards;
-		    pointer-events: none;
-		    z-index: 10001;
-		}
-		
-		@keyframes falling-text {
-		    0% {
-		        transform: translateY(0) rotate(0deg);
-		        opacity: 0.8;
-		    }
-		    100% {
-		        transform: translateY(100vh) rotate(360deg);
-		        opacity: 0;
-		    }
-		}
-		
-		/* 礼花样式调整 */
-		.confetti {
-		    position: absolute;
-		    width: 10px;
-		    height: 10px;
-		    border-radius: 50%;
-		    opacity: 0;
-		    animation: confetti-fall 3s ease-out forwards, confetti-rotate 1s ease-out infinite;
-		    pointer-events: none;
-		    z-index: 10000;
-		}
-		
-		@keyframes confetti-fall {
-		    0% {
-		        top: -10px;
-		        opacity: 1;
-		    }
-		    100% {
-		        top: 100vh;
-		        opacity: 0;
-		    }
-		}
-		
-		@keyframes confetti-rotate {
-		    0% {
-		        transform: rotate(0deg);
-		    }
-		    100% {
-		        transform: rotate(360deg);
-		    }
-		}
-		
-		
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .datetime {
-            font-size: 18px;
-            color: var(--text-color);
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .settings-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 8px 12px;
-            cursor: pointer;
-            color: var(--text-color);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .settings-btn:hover {
-            background: var(--secondary-color);
-            transform: scale(1.05);
-        }
-
-        .login-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 8px 12px;
-            cursor: pointer;
-            color: var(--text-color);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .login-btn:hover {
-            background: var(--secondary-color);
-            transform: scale(1.05);
-        }
-
-        .login-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-shadow: 0 2px 4px var(--shadow-color);
-            z-index: 100;
-            display: none;
-            min-width: 120px;
-            animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .login-dropdown.active {
-            display: block;
-        }
-
-        .login-dropdown-item {
-            padding: 10px 15px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .login-dropdown-item:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .login-dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .login-dropdown-item.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .login-dropdown-item.disabled:hover {
-            background-color: inherit;
-        }
-
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
-        .dornhub-logo {
-            font-size: 48px;
-            font-weight: 900;
-            font-family: Microsoft Yahei;
-            display: inline-flex;
-            align-items: center;
-			user-select: none; /* 禁止文字选中 */
-			    -webkit-user-select: none; /* Safari */
-			    -moz-user-select: none; /* Firefox */
-			    -ms-user-select: none; /* IE/Edge */
-			    cursor: pointer; /* 显示手型光标 */
-        }
-
-        .dornhub-logo .logo-part1 {
-            color: var(--primary-color);
-        }
-
-        .dornhub-logo .logo-part2 {
-            color: white;
-            background-color: var(--primary-color);
-            border-radius: 10px;
-            padding: 0 10px;
-            margin-left: 5px;
-        }
-		.logo-part1, .logo-part2 {
-		    user-select: none;
-		    -webkit-user-select: none;
-		    -moz-user-select: none;
-		    -ms-user-select: none;
-		}
-
         .search-container {
             max-width: 800px;
             margin: 0 auto 30px;
             position: relative;
         }
-
-        .search-box-wrapper {
-            display: flex;
-            gap: 10px;
-            align-items: stretch; /* 确保所有元素高度一致 */
-        }
         
-        .search-box {
-            flex: 1;
-            padding: 12px 20px;
-            font-size: 16px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-shadow: 0 1px 2px var(--shadow-color);
-            background: var(--card-bg);
-            color: var(--text-color);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .search-engine-select-wrapper {
-            position: relative;
-            width: 150px;
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 1px var(--primary-color);
-            transform: scale(1.01);
-        }
-
-
-        .search-engine-select {
-            width: 100%;
-            padding: 12px 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            padding-right: 40px;
-        }
-
-        .search-engine-select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 1px var(--primary-color);
-        }
-
-        .search-engine-select-wrapper::after {
-            content: '\f078';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            color: var(--text-color);
-        }
-
-        .suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-top: none;
-            border-radius: 0 0 4px 4px;
-            box-shadow: 0 2px 4px var(--shadow-color);
-            z-index: 100;
-            display: none;
-            max-height: 300px;
-            overflow-y: auto;
-            width: 80%;
-            animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .suggestion-item {
-            padding: 12px 20px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .suggestion-item:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .suggestion-item:last-child {
-            border-bottom: none;
-        }
-
-        .suggestion-item i {
-            color: var(--primary-color);
-            width: 20px;
-            text-align: center;
-        }
-
-        .pinned-section {
-            margin-bottom: 30px;
-            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-		
-		/* 调整固定网站和导航区域的样式 */
-		.pinned-section .section-container,
-		.links-section .section-container {
-		    margin-top: 20px;
-		}
-		
-		/* 网址导航区域 */
-		.links-section {
-		    margin-bottom: 30px;
-		    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-		}
-		
-		/* 未登录时隐藏网址导航 */
-		.links-section.hidden {
-		    display: none;
-		}
-		
-		/* 调整标题在云母底框中的样式 */
-		.section-container .section-title {
-		    margin-bottom: 25px;
-		    padding-bottom: 15px;
-		    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-		}
-		
-		[data-theme="dark"] .section-container .section-title {
-		    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-		}
-		
-		.section-container .section-title h2 {
-		    color: var(--primary-color);
-		    font-size: 24px;
-		    font-weight: 600;
-		}
-		
-		/* 调整网格在云母底框中的样式 */
-		.section-container .pinned-grid,
-		.section-container .grid {
-		    padding: 0;
-		    border: none;
-		    background: transparent;
-		}
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .section-title {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .section-title h2 {
-            margin: 0;
-            color: var(--primary-color);
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .section-buttons {
-            position: absolute;
-            right: 0;
-            display: flex;
-            gap: 10px;
-        }
-
-        .add-pinned-btn, .batch-operate-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 8px 12px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .add-pinned-btn:hover, .batch-operate-btn:hover {
-            background: #106ebe;
-            transform: scale(1.05);
-        }
-
         .add-pinned-btn:disabled, .batch-operate-btn:disabled {
             background: var(--border-color);
             cursor: not-allowed;
             transform: none;
         }
-
+        
         .batch-actions {
             display: none;
             justify-content: space-between;
@@ -1038,22 +48,22 @@
             border-radius: 4px;
             animation: fadeIn 0.3s ease;
         }
-
+        
         .batch-actions.active {
             display: flex;
         }
-
+        
         .batch-checkbox {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
+        
         .batch-buttons {
             display: flex;
             gap: 10px;
         }
-
+        
         .batch-btn {
             padding: 6px 12px;
             border: none;
@@ -1062,799 +72,207 @@
             font-size: 12px;
             transition: all 0.3s ease;
         }
-
+        
         .batch-btn.delete {
             background: #d13438;
             color: white;
         }
-
+        
         .batch-btn.delete:hover {
             background: #b02a2e;
         }
-
-        .pinned-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        
+        .header-right {
+            display: flex;
+            align-items: center;
             gap: 15px;
-            padding: 15px;
-            border: 2px dashed var(--border-color);
-            border-radius: 8px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 60px;
         }
-
-        .pinned-grid.empty {
+        
+        .search-btn {
+            min-width: 100px;
+        }
+        
+        .category-header {
             display: flex;
-            justify-content: center;
             align-items: center;
-            color: var(--text-color);
-            opacity: 0.7;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
         }
-
-        .pinned-card {
-            background: var(--card-bg);
-            border-radius: 6px;
-            box-shadow: 0 1.6px 3.6px 0 var(--shadow-color), 0 0.3px 0.9px 0 var(--shadow-color);
-            padding: 15px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            animation: cardAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            user-select: none;
-        }
-
-        @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(20px) scale(0.9); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .pinned-card:hover {
-            box-shadow: 0 3.2px 7.2px 0 var(--shadow-color), 0 0.6px 1.8px 0 var(--shadow-color);
-            background-color: var(--card-hover-color);
-            transform: translateY(-5px) scale(1.02);
-        }
-
-        .pinned-card.batch-selected {
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 0 0 2px var(--primary-color);
-        }
-
-        .pinned-card h3 {
-            margin: 0 0 8px 0;
+        
+        .category-header i {
+            font-size: 24px;
             color: var(--primary-color);
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .pinned-card p {
+        
+        .category-header h2 {
             margin: 0;
-            color: var(--text-color);
-            font-size: 13px;
-            word-break: break-all;
-            opacity: 0.8;
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 24px;
+            font-weight: 600;
         }
-
-        .pinned-card .remove-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(0,0,0,0.1);
-            border: none;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            color: var(--text-color);
+        
+        .category-count {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-left: auto;
         }
-
-        .pinned-card:hover .remove-btn {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        .pinned-card .batch-checkbox {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            display: none;
-        }
-
-        .pinned-card.batch-mode .batch-checkbox {
-            display: flex;
-        }
-
-        .pinned-card.batch-mode .remove-btn {
-            display: none;
-        }
-
+        
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
-
-        .card {
-            background: var(--card-bg);
+        
+        .cookie-warning {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(209, 52, 56, 0.1);
+            border-left: 3px solid #d13438;
             border-radius: 6px;
-            box-shadow: 0 1.6px 3.6px 0 var(--shadow-color), 0 0.3px 0.9px 0 var(--shadow-color);
-            padding:20px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            animation: cardAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            font-size: 13px;
+            color: #d13438;
+            animation: fadeIn 0.3s var(--animation-curve);
         }
-
-        .card:hover {
-            box-shadow: 0 3.2px 7.2px 0 var(--shadow-color), 0 0.6px 1.8px 0 var(--shadow-color);
-            background-color: var(--card-hover-color);
-            transform: translateY(-5px) scale(1.02);
+        
+        .cookie-warning i {
+            margin-right: 8px;
         }
-
-        .card h3 {
-            margin: 0 0 10px 0;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-header h2 {
+                font-size: 20px;
+            }
         }
-
-        .card p {
-            margin: 0;
-            color: var(--text-color);
-            font-size: 14px;
-            word-break: break-all;
-            opacity: 0.8;
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card .pin-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary-color);
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color: white;
-        }
-
-        .card:hover .pin-btn {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        .card .pin-btn:disabled {
-            background: var(--border-color);
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-color);
-            grid-column: 1 / -1;
-            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px 0;
-            color: var(--text-color);
-            font-size: 14px;
-            border-top: 1px solid var(--border-color);
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* 模态框样式 */
-        .modal {
-            display: none;
+        
+        #easter-egg-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            pointer-events: none;
+            z-index: 10000;
+        }
+        
+        .falling-text {
+            position: absolute;
+            top: -50px;
+            font-weight: bold;
+            color: #16DA49;
+            opacity: 0.8;
+            animation: falling-text 3s linear forwards;
+            pointer-events: none;
+            z-index: 10001;
+        }
+        
+        @keyframes falling-text {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: confetti-fall 3s ease-out forwards, confetti-rotate 1s ease-out infinite;
+            pointer-events: none;
+            z-index: 10000;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                top: -10px;
+                opacity: 1;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes confetti-rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 引流横幅样式 */
+        .redirect-banner {
+            background: linear-gradient(135deg, #16DA49, #0fa83a);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 16px;
+            position: sticky;
+            top: 0;
             z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
-        .modal-content {
-            background: var(--card-bg);
-            border-radius: 8px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 4px 8px var(--shadow-color);
-            animation: modalAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .redirect-banner a {
+            color: #FFD700;
+            font-weight: bold;
+            text-decoration: underline;
         }
-
-        @keyframes modalAppear {
-            from { opacity: 0; transform: scale(0.8) translateY(-20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .modal-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            color: var(--primary-color);
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .close-btn {
+        .redirect-banner .close-banner {
             background: none;
             border: none;
-            font-size: 20px;
+            color: white;
+            margin-left: 15px;
             cursor: pointer;
-            color: var(--text-color);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 0;
-            margin: 0;
-        }
-
-        .close-btn:hover {
-            transform: scale(1.2);
-        }
-
-        .modal-body {
-            padding: 20px;
-        }
-
-        .setting-group {
-            margin-bottom: 20px;
-            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .setting-group h3 {
-            margin: 0 0 15px 0;
-            color: var(--primary-color);
             font-size: 16px;
-            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .color-options {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .color-option {
-            height: 40px;
-            border-radius: 4px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .color-option:hover {
-            transform: scale(1.1);
-        }
-
-        .color-option.active {
-            border-color: var(--text-color);
-            transform: scale(1.05);
-        }
-
-        .custom-color-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .custom-color-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--border-color);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .custom-color-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .custom-color-input {
-            flex: 1;
-            display: flex;
-            gap: 10px;
-        }
-
-        .custom-color-input input {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background: var(--card-bg);
-            color: var(--text-color);
-        }
-
-        .apply-color-btn {
-            padding: 8px 12px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .apply-color-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .theme-options {
-            display: flex;
-            gap: 10px;
-        }
-
-        .theme-option {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .theme-option:hover {
-            transform: scale(1.05);
-        }
-
-        .theme-option.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-            transform: scale(1.05);
-        }
-
-        .toggle-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .toggle-label {
-            font-weight: 500;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 24px;
-        }
-
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 50%;
-        }
-
-        input:checked + .toggle-slider {
-            background-color: var(--primary-color);
-        }
-
-        input:checked + .toggle-slider:before {
-            transform: translateX(26px);
-        }
-
-        .background-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .background-option {
-            height: 60px;
-            border-radius: 4px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-
-        .background-option:hover {
-            transform: scale(1.05);
-        }
-
-        .background-option.active {
-            border-color: var(--primary-color);
-            transform: scale(1.05);
-        }
-
-        .custom-color-input-file {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .custom-color-input-file input {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background: var(--card-bg);
-            color: var(--text-color);
-        }
-
-        .apply-background-btn {
-            padding: 8px 12px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .apply-background-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .add-pinned-modal .form-group {
-            margin-bottom: 15px;
-            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            box-sizing: border-box;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            transform: scale(1.01);
-        }
-
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-        }
-
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: var(--secondary-color);
-            color: var(--text-color);
-        }
-
-        .clear-data-btn {
-            background: #d13438;
-            color: white;
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        .clear-data-btn:hover {
-            background: #b02a2e;
-        }
-
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .pinned-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            
-            .header-right {
-                flex-direction: column;
-                align-items: flex-end;
-                gap: 5px;
-            }
-            
-            .color-options {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .background-options {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .section-buttons {
-                position: static;
-                margin-top: 10px;
-                justify-content: center;
-            }
-            
-            .batch-actions {
-                flex-direction: column;
-                gap: 10px;
-            }
-			
-			
-			    .search-box-wrapper {
-			        flex-direction: column;
-			    }
-			    
-			    .search-btn {
-			        width: 100%;
-			    }
-			    
-			    .search-engine-select-wrapper {
-			        width: 100%;
-			    }
-				
-			.section-container {
-			        padding: 20px;
-			        margin: 15px;
-			        border-radius: 12px;
-			    }
-			    
-			    .section-container .section-title {
-			        margin-bottom: 20px;
-			    }
-			
-			header {
-			        padding: 20px 0;
-			    }
-			    
-			    header.scrolled {
-			        padding: 10px 0;
-			    }
-			    
-			    .container {
-			        padding-top: 100px;
-			    }
-			    
-			    .container.scrolled {
-			        padding-top: 80px;
-			    }
-			    
-			    .insider-badge {
-			        font-size: 10px;
-			        padding: 1px 6px;
-			        margin-left: 6px;
-			    }
-			
-			
-        }
-
-        @media (max-width: 480px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .pinned-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .search-box-wrapper {
-                flex-direction: column;
-            }
-            
-            .search-engine-select-wrapper {
-                width: 100%;
-            }
-			
-			.section-container {
-			        padding: 15px;
-			        margin: 10px;
-			        border-radius: 10px;
-			    }
         }
     </style>
-	<script>
-		
-		    // 加载遮罩控制 - 立即执行函数
-		    (function() {
-		        function initLoadingMask() {
-		            console.log('初始化加载遮罩...');
-		            
-		            const loadingMask = document.getElementById('loading-mask');
-		            const stopButton = document.getElementById('stop-button');
-		            const stopText = document.getElementById('stop-text');
-		            const body = document.body;
-		            
-		            if (!loadingMask) {
-		                console.error('未找到加载遮罩元素');
-		                return;
-		            }
-		            
-		            console.log('找到加载遮罩元素');
-		            
-		            // 获取保存的颜色设置
-		            const storedColor = localStorage.getItem('primaryColor') || '#16DA49';
-		            
-		            // 设置CSS变量
-		            document.documentElement.style.setProperty('--loading-text-1-color', storedColor);
-		            document.documentElement.style.setProperty('--loading-text-2-bg', storedColor);
-		            
-		            // 初始时隐藏中断按钮和提示文字
-		            if (stopButton) stopButton.style.display = 'none';
-		            if (stopText) stopText.style.display = 'none';
-		            
-		            // 在加载遮罩显示时禁用body滚动
-		            body.style.overflow = 'hidden';
-		            
-		            let timer;
-		            
-		            // 设置一个定时器，在10秒后显示中断按钮和提示文字
-		            timer = setTimeout(function() {
-		                console.log('显示中断按钮');
-		                if (stopButton) stopButton.style.display = 'block';
-		                if (stopText) stopText.style.display = 'block';
-		            }, 10000);
-		            
-		            // 监听中断加载按钮的点击事件
-		            if (stopButton) {
-		                stopButton.addEventListener('click', function() {
-		                    console.log('用户点击中断加载');
-		                    clearTimeout(timer);
-		                    window.stop();
-		                    document.execCommand("Stop");
-		                    removeLoadingMask();
-		                });
-		            }
-		            
-		            // 页面加载完成时移除遮罩
-		            function removeLoadingMask() {
-		                console.log('移除加载遮罩');
-		                loadingMask.style.opacity = '0';
-		                body.style.overflow = 'auto';
-		                setTimeout(() => {
-		                    loadingMask.style.display = 'none';
-		                }, 300);
-		            }
-		            
-		            // 监听页面加载完成
-		            window.addEventListener('load', function() {
-		                console.log('页面加载完成事件触发');
-		                clearTimeout(timer);
-		                removeLoadingMask();
-		            });
-		            
-		            // 如果页面已经加载完成，立即移除遮罩
-		            if (document.readyState === 'complete') {
-		                console.log('页面已加载完成，立即移除遮罩');
-		                clearTimeout(timer);
-		                removeLoadingMask();
-		            }
-		        }
-		        
-		        // 多种方式确保初始化
-		        if (document.readyState === 'loading') {
-		            // 文档还在加载中，等待DOMContentLoaded
-		            document.addEventListener('DOMContentLoaded', function() {
-		                console.log('DOMContentLoaded事件触发');
-		                initLoadingMask();
-		            });
-		        } else {
-		            // DOM已经就绪，立即初始化
-		            console.log('DOM已就绪，立即初始化');
-		            setTimeout(initLoadingMask, 0);
-		        }
-		        
-		        // 额外添加window.onload确保捕获所有情况
-		        window.addEventListener('load', function() {
-		            console.log('window.load事件触发 - 备用');
-		            // 这里不需要重复执行，因为已经在initLoadingMask中处理了
-		        });
-		        
-		    })();
-		
-	</script>
 </head>
 <body>
-	
-	<!-- 加载遮罩 -->
-	<div id="loading-mask">
-	    <div class="spinner-text">
-	        <span id="loading-text-1">Dorn</span>
-	        <span id="loading-text-2">&nbsp;Hub&nbsp;</span>
-	    </div>
-	    <br>
-	    <p>好东西就要来了……</p>
-	    <br>
-	    <!-- 转圈圈加载动画 -->
-	    <div class="loading-spinner"></div>
-	    <br>
-	    <br>
-	    <button class="btn" id="stop-button">
-	        <i class="fas fa-stop-circle"></i> 中断加载
-	    </button>
-	    <p id="stop-text">* 页面加载时间过长时，可点击此按钮以中断加载。这会导致页面部分功能无法正常使用。</p>
-	</div>
-	
+    
+    <!-- 引流横幅 -->
+    <div class="redirect-banner" id="redirectBanner">
+        <i class="fas fa-star-of-life"></i> 
+        <strong>⚠️ 您正在访问备用站点</strong> — 
+        完整功能体验请访问主站： 
+        <a href="https://dorn.rf.gd" target="_blank">
+            https://dorn.rf.gd
+        </a>
+        <i class="fas fa-arrow-right"></i>
+        <button class="close-banner" onclick="document.getElementById('redirectBanner').style.display='none'">
+            <i class="fas fa-times"></i> 关闭
+        </button>
+    </div>
+
+    <!-- 加载遮罩 -->
+    <div id="loading-mask">
+        <div class="spinner-text">
+            <span id="loading-text-1">Dorn</span>
+            <span id="loading-text-2">&nbsp;Hub&nbsp;</span>
+        </div>
+        <br>
+        <p>好东西就要来了……</p>
+        <br>
+        <div class="loading-spinner"></div>
+        <br>
+        <br>
+        <button class="btn" id="stop-button">
+            <i class="fas fa-stop-circle"></i> 中断加载
+        </button>
+        <p id="stop-text">* 页面加载时间过长时，可点击此按钮以中断加载。这会导致页面部分功能无法正常使用。</p>
+    </div>
+    
     <div class="container">
         <header>
             <div class="header-content">
@@ -1867,16 +285,15 @@
                 </div>
                 <div class="header-right">
                     <div class="datetime" id="datetime"></div>
-                    <button class="settings-btn" id="settingsBtn">
+                    <button class="settings-btn btn" id="settingsBtn">
                         <i class="fas fa-cog"></i> 设置
                     </button>
                     <div class="user-menu-container">
-                        <button class="login-btn" id="loginBtn">
+                        <button class="login-btn btn" id="loginBtn">
                             <span id="loginText">登录/注册</span>
                             <i class="fas fa-chevron-down" id="dropdownArrow"></i>
                         </button>
                         <div class="user-dropdown" id="userDropdown">
-                            <!-- 用户信息区域 -->
                             <div class="user-info-section">
                                 <div class="user-nickname" id="userNicknameDisplay"></div>
                                 <div class="user-certification" id="userCertificationDisplay"></div>
@@ -1887,6 +304,10 @@
                             <div class="dropdown-item" id="personalCenterBtn">
                                 <i class="fas fa-user"></i>
                                 <span>个人中心</span>
+                            </div>
+                            <div class="dropdown-item" id="dropdownUpdateLogBtn">
+                                <i class="fas fa-history"></i>
+                                <span>查看更新说明</span>
                             </div>
                             <div class="dropdown-item" id="logoutBtn">
                                 <i class="fas fa-sign-out-alt"></i>
@@ -1908,28 +329,26 @@
         <div class="search-container">
             <div class="search-box-wrapper">
                 <input type="text" class="search-box" placeholder="I question everything..." id="searchInput">
-                <button class="search-btn" id="searchBtn">
+                <button class="search-btn btn btn-primary" id="searchBtn">
                     <i class="fas fa-search"></i> 搜索
                 </button>
                 <div class="search-engine-select-wrapper">
-                    <select class="search-engine-select" id="searchEngineSelect">
-                        <!-- 搜索引擎选项将通过JavaScript动态生成 -->
-                    </select>
+                    <select class="search-engine-select" id="searchEngineSelect"></select>
                 </div>
             </div>
             <div class="suggestions" id="suggestions"></div>
         </div>
         <br>
-        <!-- 修改固定网站部分 -->
+        
         <div class="pinned-section" id="pinnedSection">
             <div class="section-container">
                 <div class="section-title">
                     <h2>固定网站</h2>
                     <div class="section-buttons">
-                        <button class="batch-operate-btn" id="batchOperateBtn">
+                        <button class="batch-operate-btn btn btn-primary" id="batchOperateBtn">
                             <i class="fas fa-tasks"></i> 批量操作
                         </button>
-                        <button class="add-pinned-btn" id="addPinnedBtn">
+                        <button class="add-pinned-btn btn btn-primary" id="addPinnedBtn">
                             <i class="fas fa-plus"></i> 添加网站
                         </button>
                     </div>
@@ -1939,36 +358,19 @@
                         <span>已选择 <span id="selectedCount">0</span> 个网站</span>
                     </div>
                     <div class="batch-buttons">
-                        <button class="batch-btn delete" id="batchDeleteBtn">
+                        <button class="batch-btn delete btn" id="batchDeleteBtn">
                             <i class="fas fa-trash"></i> 删除选中
                         </button>
-                        <button class="batch-btn" id="cancelBatchBtn">
+                        <button class="batch-btn btn" id="cancelBatchBtn">
                             <i class="fas fa-times"></i> 取消
                         </button>
                     </div>
                 </div>
-                <div class="pinned-grid" id="pinnedGrid">
-                    <!-- 固定网站将通过JavaScript动态生成 -->
-                </div>
+                <div class="pinned-grid" id="pinnedGrid"></div>
             </div>
         </div>
         
-        
-        
-        <!-- 修改网址导航部分 -->
-        <div class="links-section" id="linksSection">
-            <div class="section-container">
-                <div class="section-title">
-                    <h2>网址导航</h2>
-                </div>
-                <div class="grid" id="linksGrid">
-                    <!-- 链接将通过JavaScript动态生成 -->
-                </div>
-            </div>
-        </div>
-		
-		
-        
+        <div id="categoriesContainer"></div>
         
     </div>
     
@@ -1996,11 +398,11 @@
                         <div class="custom-color-btn" id="customColorBtn" style="background-color: var(--primary-color);"></div>
                         <div class="custom-color-input">
                             <input type="color" id="customColorInput" value="#0078d4">
-                            <button class="apply-color-btn" id="applyCustomColor">应用</button>
+                            <button class="apply-color-btn btn btn-primary" id="applyCustomColor">应用</button>
                         </div>
                     </div>
                 </div>
-                
+                <br>
                 <div class="setting-group">
                     <h3>明暗模式</h3>
                     <div class="theme-options">
@@ -2009,7 +411,7 @@
                         <div class="theme-option" data-theme="auto">跟随系统</div>
                     </div>
                 </div>
-                
+                <br>
                 <div class="setting-group">
                     <h3>显示选项</h3>
                     <div class="toggle-group">
@@ -2041,33 +443,98 @@
                         </label>
                     </div>
                 </div>
-                
+                <br>
                 <div class="setting-group">
                     <h3>页面背景</h3>
                     <div class="background-options">
-						<!-- 在已有的背景选项后，添加下面这行 -->
-						<div class="background-option" data-bg="default" style="background:linear-gradient(135deg, #16DA49 0%, #20EE66 100%); color: white;">默认背景</div>
+                        <div class="background-option" data-bg="default" style="background:linear-gradient(135deg, #16DA49 0%, #20EE66 100%); color: white;">默认背景</div>
                         <div class="background-option active" data-bg="none" style="background-color:var(--bg-color); color:yellow;">无背景</div>
                         <div class="background-option" data-bg="random" style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);">随机图片</div>
                         <div class="background-option" data-bg="custom" style="background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">自定义</div>
                     </div>
                     <div class="custom-color-input-file">
                         <input type="file" id="customBackgroundInput" accept="image/*">
-                        <button class="apply-background-btn" id="applyCustomBackground">应用自定义背景</button>
+                        <button class="apply-background-btn btn btn-primary" id="applyCustomBackground">应用自定义背景</button>
                     </div>
                 </div>
-                
+                <br>
+                <div class="setting-group">
+                    <h3><i class="fas fa-cookie-bite"></i> Cookie 偏好设置</h3>
+                    <div style="margin-bottom: 15px;">
+                        <div class="toggle-group">
+                            <span class="toggle-label">功能 Cookie</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="functionalCookiesToggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-group">
+                            <span class="toggle-label">分析 Cookie (Google Analytics)</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="analyticsCookiesToggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div id="cookieWarning" class="cookie-warning" style="display: none; margin-top: 10px; padding: 10px; background: rgba(209, 52, 56, 0.1); border-left: 3px solid #d13438; border-radius: 6px; font-size: 13px;">
+                            <i class="fas fa-exclamation-triangle"></i> 
+                            <span id="cookieWarningText"></span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <button class="btn btn-primary" id="saveCookiePrefsBtn" style="flex: 1;">
+                            <i class="fas fa-save"></i> 保存偏好设置
+                        </button>
+                        <button class="btn btn-secondary" id="resetCookiePrefsBtn" style="flex: 1;">
+                            <i class="fas fa-undo"></i> 重置为默认
+                        </button>
+                    </div>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">
+                        <i class="fas fa-info-circle"></i> 功能 Cookie 用于记住您的主题颜色、固定网站等个性化设置。分析 Cookie 用于帮助我们了解网站使用情况，改进用户体验。
+                    </p>
+                </div>
+                <br>
+                <button class="btn btn-primary" id="settingsUpdateLogBtn"><i class="fas fa-history"></i>查看更新说明</button>
                 <button class="btn clear-data-btn" id="clearDataBtn">清除所有数据</button>
-				
-				
-				<p>Copyright © 2022-2025 Dornhub, All Rights Reserved.</p>
-				<p>Produced by Dornhub. | 版本号: 5.2 | 更新号: 2511.4</p>
-				<p>网站尚不完善，正在改进中。</p>
+                <div class="setting-group" style="margin-top: 20px;">
+                    <h3>法律信息</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+                        <a href="privacy-policy.html" style="color: var(--primary-color); text-decoration: none;">
+                            <i class="fas fa-shield-alt"></i> 隐私政策
+                        </a>
+                        <a href="terms.html" style="color: var(--primary-color); text-decoration: none;">
+                            <i class="fas fa-file-contract"></i> 使用条款
+                        </a>
+                        <a href="cookie-policy.html" style="color: var(--primary-color); text-decoration: none;">
+                            <i class="fas fa-cookie-bite"></i> Cookie 政策
+                        </a>
+                        <a href="disclaimer.html" style="color: var(--primary-color); text-decoration: none;">
+                            <i class="fas fa-exclamation-triangle"></i> 免责声明
+                        </a>
+                        <a href="contact.html" style="color: var(--primary-color); text-decoration: none;">
+                            <i class="fas fa-exclamation-triangle"></i> 联系我们
+                        </a>
+                    </div>
+                </div>
+                <p>Copyright © 2021-2026 Dorn Hub, All Rights Reserved.</p>
+                <p>Produced by Dorn Hub. | 版本号: 5.3 | 更新号: 2603.8</p>
+                <p>网站尚不完善，正在改进中。</p>
             </div>
         </div>
     </div>
     
-    <!-- 添加固定网站模态框 -->
+    <div class="modal update-modal" id="updateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-info-circle"></i> 更新说明</h2>
+                <button class="close-btn" id="closeUpdateModalBtn">&times;</button>
+            </div>
+            <div class="modal-body" id="updateModalBody"></div>
+            <div class="form-actions" style="margin: 0; padding: 16px 20px; border-top: 1px solid var(--border-color);">
+                <button class="btn btn-primary" id="closeUpdateModalFooterBtn">关闭</button>
+            </div>
+        </div>
+    </div>
+    
     <div class="modal" id="addPinnedModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -2091,71 +558,44 @@
         </div>
     </div>
     
-    <!-- 登录模态框 -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>由于Github网页不支持php，注册与登录请前往https://dorn.rf.gd</h2>
+                <h2>登录</h2>
                 <button class="close-btn" id="closeLoginBtn">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="idNumber">𣿅国身份证号</label>
-                    <input type="text" id="idNumber" placeholder="由于Github网页不支持php，注册与登录请前往https://dorn.rf.gd">
+                    <input type="text" id="idNumber" placeholder="请输入𣿅国身份证号">
                 </div>
                 <div class="form-group">
                     <label for="password">密码</label>
-                    <input type="password" id="password" placeholder="由于Github网页不支持php，注册与登录请前往https://dorn.rf.gd">
+                    <input type="password" id="password" placeholder="请输入密码">
                 </div>
-				<a href="http://id.dorn.rf.gd" style="background-color: white;">还没有𣿅国账号？点此注册</a>
+                <div style="text-align: left; margin: 10px 0;">
+                    <a href="https://dorn.rf.gd/forgot-password.html" style="color: var(--primary-color); text-decoration: none; font-size: 13px;">
+                        <i class="fas fa-key"></i> 忘记密码？！
+                    </a>
+                </div>
+                <div style="text-align: left; margin: 10px 0;">
+                    <a href="http://id.dorn.rf.gd" style="color: var(--primary-color); text-decoration: none; font-size: 13px;">
+                        <i class="fas fa-user-plus"></i> 还没有账号？点此注册
+                    </a>
+                </div>
                 <div class="form-actions">
                     <button class="btn btn-secondary" id="cancelLoginBtn">取消</button>
-                    <button class="btn btn-primary" id="submitLoginBtn">不支持登录</button>
+                    <button class="btn btn-primary" id="submitLoginBtn">登录</button>
                 </div>
                 <div id="loginMessage" style="margin-top: 15px; text-align: center;"></div>
             </div>
         </div>
     </div>
     
-    <script>
-        // 网站数据
-        const websites = [
-            { name: "𣿅国电子文史资料库", url: "https://dorn.rf.gd/cloud", icon: "fa-book" },
-			{ name: "𣿅国电子文史资料库-文件上传", url: "https://dorn.rf.gd/upload", icon: "fa-upload" },
-            { name: "𣿅国小百科竞赛", url: "http://contest.dorn.rf.gd", icon: "fa-trophy" },
-			{ name: "𣿅国公民绿卡系统", url: "http://id.dorn.rf.gd", icon: "fa-id-card" },
-            { name: "𣿅国名人堂-1站", url: "http://dhof.dorn.rf.gd", icon: "fa-star" },
-			{ name: "𣿅国名人堂-2站", url: "https://cgy22.github.io/dhof/", icon: "fa-star" },
-			{ name: "瓦莱希雅大辞典-1站", url: "http://valencia.dorn.rf.gd", icon: "fa-book-open" },
-			{ name: "瓦莱希雅大辞典-2站", url: "https://cgy22.github.io/valencia/", icon: "fa-book-open" },
-			{ name: "博饼", url: "https://dorngames.github.io/boabia/index.html", icon: "fa-dice" },
-			{ name: "𣿅国国运模拟器", url: "https://dornhub.github.io/valeriette/donh-destiny-forecast.html", icon: "fa-chart-line" },
-            { name: "𣿅国大总统选举", url: "http://election.dorn.rf.gd", icon: "fa-vote-yea" },
-            { name: "多恩游戏", url: "http://games.dorn.rf.gd", icon: "fa-gamepad" },
-            { name: "Dorn主页-1站", url: "http://dorn.rf.gd", icon: "fa-globe" },
-            { name: "Dorn主页-2站", url: "https://dornhub.github.io", icon: "fa-globe-asia" },
-			{ name: "Dorn主页-版本4.3", url: "https://dorn.rf.gd/index-v4.3.html", icon: "fas fa-search" },
-			{ name: "Dorn主页-版本4", url: "https://dorn.rf.gd/index-v4.html", icon: "fas fa-search" },
-			{ name: "Dorn主页-版本3.2", url: "http://dorn-old.dorn.rf.gd", icon: "fa-home" },
-			{ name: "Dorn主页-版本3", url: "https://cgy22.github.io/dorn/dornsearch", icon: "fas fa-search" },
-			{ name: "Dorn主页-版本2", url: "https://cgy22.github.io/dorn/dornsearch_en", icon: "fas fa-search" },
-            { name: "随机抽号器", url: "http://random.dorn.rf.gd", icon: "fa-random" },
-            { name: "随机抽号器2", url: "http://random2.dorn.rf.gd", icon: "fa-random" },
-            { name: "远古时期-随机抽号器", url: "https://dornhub.github.io/classtools/get-random-number.html", icon: "fa-random" },
-            { name: "远古时期-随机抽皓器", url: "https://dornhub.github.io/classtools/get-random-tonh.html", icon: "fa-random" },
-			{ name: "𣿅国国家博物馆", url: "http://museum.dorn.rf.gd", icon: "fa-landmark" },
-			{ name: "多恩音乐", url: "http://music.dorn.rf.gd", icon: "fa-music" },
-			{ name: "多恩官方", url: "http://official.dorn.rf.gd", icon: "fa-crown" },
-			{ name: "多恩官方-旧", url: "https://dornhub.github.io/index2", icon: "fa-crown" },
-			{ name: "𣿅国画廊-总统篇", url: "https://cgy22.github.io/paintings/tonh", icon: "fa-palette" }, 
-			{ name: "远古时期-𣿅国主页", url: "https://dornhub.github.io/dgzl.html", icon: "fa-flag" },
-			{ name: "远古时期-多功能机器人小懂", url: "https://dornhub.github.io/valeriette/index.html", icon: "fa-smile" },
-			{ name: "远古时期-𣿅国商城", url: "https://dornstore.wordpress.com", icon: "fa-shopping-bag" }, 
-			{ name: "远古时期-𣿅国百科", url: "https://dornhubpedia.wordpress.com", icon: "fas fa-atlas" },
-            { name: "羟基人快乐老家", url: "https://dornhub.github.io/irelav/", icon: "fa-smile" }
-        ];
+    <script src="https://dorn.rf.gd/resources/ui.js"></script>
+    <script src="https://dorn.rf.gd/resources/websites.js"></script>
     
-        // 搜索引擎数据
+    <script>
         const searchEngines = {
             bing: { name: "Bing", url: "https://www.bing.com/search?q=" },
             baidu: { name: "百度", url: "https://www.baidu.com/s?wd=" },
@@ -2167,14 +607,26 @@
             qwant: { name: "Qwant", url: "https://www.qwant.com/?q=" },
             wikipedia: { name: "维基百科", url: "https://zh.wikipedia.org/wiki/Special:搜索?search=" }
         };
-    
-        // DOM元素
-        const linksGrid = document.getElementById('linksGrid');
+        
+        const CURRENT_VERSION = '5.3.2603.8';
+        
+        let pinnedWebsites = JSON.parse(localStorage.getItem('pinnedWebsites')) || [];
+        let currentTheme = localStorage.getItem('theme') || 'auto';
+        let currentColor = localStorage.getItem('primaryColor') || '#16DA49';
+        let showPinned = localStorage.getItem('showPinned') !== 'false';
+        let showNavigation = localStorage.getItem('showNavigation') !== 'false';
+        let backgroundType = localStorage.getItem('backgroundType') || 'default';
+        let searchEngine = localStorage.getItem('searchEngine') || 'bing';
+        let isBatchMode = false;
+        let selectedCards = new Set();
+        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        
+        const categoriesContainer = document.getElementById('categoriesContainer');
         const pinnedGrid = document.getElementById('pinnedGrid');
         const searchInput = document.getElementById('searchInput');
         const searchEngineSelect = document.getElementById('searchEngineSelect');
         const suggestions = document.getElementById('suggestions');
-        const datetimeElement = document.getElementById('datetime');
         const settingsBtn = document.getElementById('settingsBtn');
         const settingsModal = document.getElementById('settingsModal');
         const closeSettingsBtn = document.getElementById('closeSettingsBtn');
@@ -2216,193 +668,110 @@
         const userMenuContainer = document.querySelector('.user-menu-container');
         const userDropdown = document.getElementById('userDropdown');
         const dropdownArrow = document.getElementById('dropdownArrow');
-        const userNameDisplay = document.getElementById('userNameDisplay');
         const logoutBtn = document.getElementById('logoutBtn');
-    
-        // 初始化
-        let pinnedWebsites = JSON.parse(localStorage.getItem('pinnedWebsites')) || [];
-        let currentTheme = localStorage.getItem('theme') || 'auto';
-        let currentColor = localStorage.getItem('primaryColor') || '#16DA49';
-        let showPinned = localStorage.getItem('showPinned') !== 'false';
-        let showNavigation = localStorage.getItem('showNavigation') !== 'false';
-        let showDate = localStorage.getItem('showDate') !== 'false';
-        let showTime = localStorage.getItem('showTime') !== 'false';
-        let backgroundType = localStorage.getItem('backgroundType') || 'default';
-        let searchEngine = localStorage.getItem('searchEngine') || 'bing';
-        let isBatchMode = false;
-        let selectedCards = new Set();
-        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-    
-        // 应用保存的设置
+        const settingsUpdateLogBtn = document.getElementById('settingsUpdateLogBtn');
+        const updateModal = document.getElementById('updateModal');
+        const closeUpdateModalBtn = document.getElementById('closeUpdateModalBtn');
+        const closeUpdateModalFooterBtn = document.getElementById('closeUpdateModalFooterBtn');
+        const updateModalBody = document.getElementById('updateModalBody');
+        const functionalCookiesToggle = document.getElementById('functionalCookiesToggle');
+        const analyticsCookiesToggle = document.getElementById('analyticsCookiesToggle');
+        const saveCookiePrefsBtn = document.getElementById('saveCookiePrefsBtn');
+        const resetCookiePrefsBtn = document.getElementById('resetCookiePrefsBtn');
+        const cookieWarning = document.getElementById('cookieWarning');
+        const cookieWarningText = document.getElementById('cookieWarningText');
+        
         function applySavedSettings() {
-            // 应用主题
             document.documentElement.setAttribute('data-theme', currentTheme);
-            
-            // 应用颜色
             document.documentElement.style.setProperty('--primary-color', currentColor);
             customColorBtn.style.backgroundColor = currentColor;
             customColorInput.value = currentColor;
-            
-            // 应用显示选项
             showPinnedToggle.checked = showPinned;
             showNavigationToggle.checked = showNavigation;
-            showDateToggle.checked = showDate;
-            showTimeToggle.checked = showTime;
-            
-            // 应用搜索引擎
             updateSearchEngineOptions();
-            
-            // 应用背景
             applyBackground(backgroundType);
-            
-            // 更新UI
             updatePinnedSectionVisibility();
             updateNavigationVisibility();
-            updateDateTimeVisibility();
             updateAddPinnedButton();
-            
-            // 更新激活的选项
             updateActiveOptions();
-            
-            // 更新登录状态
             updateLoginState();
         }
-    
-        // 更新搜索引擎选项
+        
         function updateSearchEngineOptions() {
             searchEngineSelect.innerHTML = '';
-            
-            // 未登录时隐藏"站内搜索"选项
             if (isLoggedIn) {
                 const internalOption = document.createElement('option');
                 internalOption.value = 'internal';
                 internalOption.textContent = '站内搜索';
                 searchEngineSelect.appendChild(internalOption);
             }
-            
-            // 添加其他搜索引擎选项
             for (const [key, engine] of Object.entries(searchEngines)) {
                 const option = document.createElement('option');
                 option.value = key;
                 option.textContent = engine.name;
                 searchEngineSelect.appendChild(option);
             }
-            
-            // 设置当前选中的搜索引擎
             searchEngineSelect.value = searchEngine;
         }
-    
-        // 应用背景
+        
         function applyBackground(type) {
             backgroundType = type;
             localStorage.setItem('backgroundType', type);
-            
-            // 移除现有的背景层
             const existingBgLayer = document.querySelector('.background-layer');
-            if (existingBgLayer) {
-                existingBgLayer.remove();
-            }
-            
-            // 重置body背景
+            if (existingBgLayer) existingBgLayer.remove();
             document.body.style.backgroundImage = 'none';
             document.body.style.backgroundColor = 'var(--bg-color)';
-            
-            if (type === 'none') {
-                // 无背景
-                document.body.style.backgroundColor = 'var(--bg-color)';
-            } else {
-                // 创建背景层
-                const bgLayer = document.createElement('div');
-                bgLayer.className = 'background-layer';
-                
-                if (type === 'random') {
-                    // 使用更可靠的图片源
-                    const imageSources = [
-                        'https://picsum.photos/1920/1080',
-                        'flag.jpg'
-                    ];
-                    
-                    tryLoadImage(imageSources, 0, bgLayer);
-                } else if (type === 'default') {
-                    bgLayer.style.backgroundImage = `url('flag.jpg')`;
-                    document.body.appendChild(bgLayer);
-                } else if (type === 'custom') {
-                    const customBg = localStorage.getItem('customBackground');
-                    if (customBg) {
-                        const tempImg = new Image();
-                        tempImg.onload = function() {
-                            bgLayer.style.backgroundImage = `url('${customBg}')`;
-                            document.body.appendChild(bgLayer);
-                        };
-                        tempImg.src = customBg;
-                    } else {
-                        alert('请先选择并应用自定义背景图片');
-                        backgroundOptions.forEach(option => {
-                            if (option.getAttribute('data-bg') === 'none') {
-                                option.click();
-                            }
-                        });
-                        return;
-                    }
+            if (type === 'none') return;
+            const bgLayer = document.createElement('div');
+            bgLayer.className = 'background-layer';
+            if (type === 'random') {
+                const imageSources = ['https://picsum.photos/1920/1080', 'flag.jpg'];
+                tryLoadImage(imageSources, 0, bgLayer);
+            } else if (type === 'default') {
+                bgLayer.style.backgroundImage = `url('flag.jpg')`;
+                document.body.appendChild(bgLayer);
+            } else if (type === 'custom') {
+                const customBg = localStorage.getItem('customBackground');
+                if (customBg) {
+                    const tempImg = new Image();
+                    tempImg.onload = function() {
+                        bgLayer.style.backgroundImage = `url('${customBg}')`;
+                        document.body.appendChild(bgLayer);
+                    };
+                    tempImg.src = customBg;
                 }
             }
-            
             updateActiveOptions();
         }
         
-        // 修改图片加载函数
         function tryLoadImage(sources, index, bgLayer) {
-            if (index >= sources.length) {
-                console.error('所有图片源都加载失败');
-                return;
-            }
-            
+            if (index >= sources.length) return;
             const tempImg = new Image();
             tempImg.onload = function() {
                 bgLayer.style.backgroundImage = `url('${sources[index]}')`;
                 document.body.appendChild(bgLayer);
-                console.log('成功加载图片源:', sources[index]);
             };
             tempImg.onerror = function() {
-                console.warn('图片源加载失败:', sources[index]);
-                // 尝试下一个源
                 tryLoadImage(sources, index + 1, bgLayer);
             };
             tempImg.src = sources[index];
         }
-    
-        // 更新激活的选项
+        
         function updateActiveOptions() {
-            // 颜色选项
             colorOptions.forEach(option => {
-                if (option.getAttribute('data-color') === currentColor) {
-                    option.classList.add('active');
-                } else {
-                    option.classList.remove('active');
-                }
+                if (option.getAttribute('data-color') === currentColor) option.classList.add('active');
+                else option.classList.remove('active');
             });
-            
-            // 主题选项
             themeOptions.forEach(option => {
-                if (option.getAttribute('data-theme') === currentTheme) {
-                    option.classList.add('active');
-                } else {
-                    option.classList.remove('active');
-                }
+                if (option.getAttribute('data-theme') === currentTheme) option.classList.add('active');
+                else option.classList.remove('active');
             });
-            
-            // 背景选项
             backgroundOptions.forEach(option => {
-                if (option.getAttribute('data-bg') === backgroundType) {
-                    option.classList.add('active');
-                } else {
-                    option.classList.remove('active');
-                }
+                if (option.getAttribute('data-bg') === backgroundType) option.classList.add('active');
+                else option.classList.remove('active');
             });
         }
-    
-        // 更新添加固定网站按钮状态
+        
         function updateAddPinnedButton() {
             if (pinnedWebsites.length >= 10) {
                 addPinnedBtn.disabled = true;
@@ -2412,207 +781,144 @@
                 addPinnedBtn.title = "";
             }
         }
-		
-		// 计算成为公民的天数
-		function calculateCitizenDays(issueDate) {
-		    const issue = new Date(issueDate);
-		    const today = new Date();
-		    const diffTime = Math.abs(today - issue);
-		    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-		    return diffDays;
-		}
-		
-		// 更新用户信息显示
-		function updateUserInfoDisplay() {
-		    if (!isLoggedIn || !currentUser) return;
-		    
-		    // 显示昵称
-		    const nicknameDisplay = document.getElementById('userNicknameDisplay');
-		    nicknameDisplay.textContent = currentUser.nickname || currentUser.name;
-		    
-		    // 显示认证信息（如果有）
-		    const certificationDisplay = document.getElementById('userCertificationDisplay');
-		    if (currentUser.certification && currentUser.certification.trim() !== '') {
-		        certificationDisplay.textContent = currentUser.certification;
-		        certificationDisplay.style.display = 'block';
-		    } else {
-		        certificationDisplay.style.display = 'none';
-		    }
-		    
-		    // 显示资金
-		    const fundsDisplay = document.getElementById('userFundsDisplay');
-		    const funds = currentUser.funds || 10.00;
-		    fundsDisplay.innerHTML = `<i class="fas fa-coins"></i> ${funds} 𣿅元`;
-		    
-		    // 显示成为公民天数
-		    const daysDisplay = document.getElementById('userDaysDisplay');
-		    const issueDate = currentUser.issue_date;
-		    if (issueDate) {
-		        const days = calculateCitizenDays(issueDate);
-		        daysDisplay.textContent = `已成为𣿅国公民 ${days} 天`;
-		    } else {
-		        daysDisplay.textContent = '欢迎新公民！';
-		    }
-		}
-    
-        // 修改updateLoginState函数
+        
+        function calculateCitizenDays(issueDate) {
+            const issue = new Date(issueDate);
+            const today = new Date();
+            const diffTime = Math.abs(today - issue);
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+        
+        function updateUserInfoDisplay() {
+            if (!isLoggedIn || !currentUser) return;
+            const nicknameDisplay = document.getElementById('userNicknameDisplay');
+            nicknameDisplay.textContent = currentUser.nickname || currentUser.name;
+            const certificationDisplay = document.getElementById('userCertificationDisplay');
+            if (currentUser.certification && currentUser.certification.trim() !== '') {
+                certificationDisplay.textContent = currentUser.certification;
+                certificationDisplay.style.display = 'block';
+            } else {
+                certificationDisplay.style.display = 'none';
+            }
+            const fundsDisplay = document.getElementById('userFundsDisplay');
+            const funds = currentUser.funds || 10.00;
+            fundsDisplay.innerHTML = `<i class="fas fa-coins"></i> ${funds} 𣿅元`;
+            const daysDisplay = document.getElementById('userDaysDisplay');
+            const issueDate = currentUser.issue_date;
+            if (issueDate) {
+                daysDisplay.textContent = `已成为𣿅国公民 ${calculateCitizenDays(issueDate)} 天`;
+            } else {
+                daysDisplay.textContent = '欢迎新公民！';
+            }
+        }
+        
         function updateLoginState() {
             if (isLoggedIn && currentUser) {
                 loginText.textContent = currentUser.nickname || currentUser.name;
-                
-                // 更新用户信息显示
                 updateUserInfoDisplay();
-                
-                // 显示Insider徽章
                 document.querySelectorAll('.insider-badge').forEach(badge => {
                     badge.style.display = 'inline-block';
                 });
-                
-                // 确保登录模态框是关闭的，下拉菜单是隐藏的
-                loginModal.style.display = 'none';
-                userDropdown.classList.remove('active');
-                dropdownArrow.style.transform = 'rotate(0deg)';
-                
                 updateNavigationVisibility();
                 updateSettingsVisibility();
                 updateSearchEngineOptions();
             } else {
                 loginText.textContent = "登录/注册";
-                
-                // 隐藏Insider徽章
                 document.querySelectorAll('.insider-badge').forEach(badge => {
                     badge.style.display = 'none';
                 });
-                
-                // 确保登录模态框是关闭的，下拉菜单是隐藏的
-                loginModal.style.display = 'none';
                 userDropdown.classList.remove('active');
                 dropdownArrow.style.transform = 'rotate(0deg)';
-                
                 updateNavigationVisibility();
                 updateSettingsVisibility();
                 updateSearchEngineOptions();
             }
         }
         
-        
-    
-        // 更新导航可见性
         function updateNavigationVisibility() {
-            const linksSection = document.getElementById('linksSection');
-            if (isLoggedIn) {
-                linksGrid.style.display = showNavigation ? 'grid' : 'none';
-                linksSection.style.display = showNavigation ? 'block' : 'none';
-            } else {
-                linksGrid.style.display = 'none';
-                linksSection.style.display = 'none';
-            }
+            categoriesContainer.style.display = showNavigation ? 'block' : 'none';
         }
-    
-        // 更新设置可见性
+        
         function updateSettingsVisibility() {
-            if (!isLoggedIn) {
-                // 未登录时隐藏"显示网址导航"设置选项
-                navigationToggleGroup.style.display = 'none';
-            } else {
-                navigationToggleGroup.style.display = 'flex';
-            }
+            navigationToggleGroup.style.display = 'flex';
         }
-    
-        // 更新日期时间
-        function updateDateTime() {
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('zh-CN', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                weekday: 'long'
-            });
-            const timeStr = now.toLocaleTimeString('zh-CN', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            
-            let datetimeStr = '';
-            if (showDate) datetimeStr += dateStr;
-            if (showDate && showTime) datetimeStr += ' ';
-            if (showTime) datetimeStr += timeStr;
-            
-            datetimeElement.textContent = datetimeStr;
-        }
-    
-        // 更新固定网站栏可见性
+        
         function updatePinnedSectionVisibility() {
             const pinnedSection = document.getElementById('pinnedSection');
             pinnedSection.style.display = showPinned ? 'block' : 'none';
         }
-    
-        // 更新日期时间可见性
-        function updateDateTimeVisibility() {
-            datetimeElement.style.display = (showDate || showTime) ? 'block' : 'none';
-        }
-    
-        // 显示网站卡片
-        function displayWebsites(websitesToShow) {
-            linksGrid.innerHTML = '';
-            
-            if (websitesToShow.length === 0) {
-                linksGrid.innerHTML = '<div class="no-results">未找到匹配的网站</div>';
+        
+        function displayWebsites() {
+            if (typeof websites === 'undefined' || !websites) {
+                categoriesContainer.innerHTML = '<div class="section-container"><div class="no-results">加载网站数据中...</div></div>';
                 return;
             }
-            
-            websitesToShow.forEach(website => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <h3><i class="fas ${website.icon}"></i> ${website.name}</h3>
-                    <p>${website.url}</p>
-                    <button class="pin-btn" ${pinnedWebsites.length >= 10 ? 'disabled' : ''}>
-                        <i class="fas fa-plus"></i>
-                    </button>
+            categoriesContainer.innerHTML = '';
+            const categoriesList = getCategories ? getCategories() : [];
+            let hasContent = false;
+            for (const category of categoriesList) {
+                const categoryWebsites = getWebsitesByCategory ? getWebsitesByCategory(category.key) : [];
+                if (categoryWebsites.length === 0) continue;
+                hasContent = true;
+                const categorySection = document.createElement('div');
+                categorySection.className = 'section-container';
+                categorySection.setAttribute('data-category', category.key);
+                const categoryHeader = document.createElement('div');
+                categoryHeader.className = 'category-header';
+                categoryHeader.innerHTML = `
+                    <i class="fas ${category.icon}"></i>
+                    <h2>${category.name}</h2>
+                    <span class="category-count">(${categoryWebsites.length})</span>
                 `;
-                
-                card.addEventListener('click', (e) => {
-                    if (!e.target.closest('.pin-btn')) {
-                        window.open(website.url, '_blank');
-                    }
+                categorySection.appendChild(categoryHeader);
+                const grid = document.createElement('div');
+                grid.className = 'grid';
+                categoryWebsites.forEach(website => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.setAttribute('data-url', website.url);
+                    card.innerHTML = `
+                        <h3><i class="fas ${website.icon}"></i> ${website.name}</h3>
+                        <p>${website.url}</p>
+                        <button class="pin-btn" ${pinnedWebsites.length >= 10 ? 'disabled' : ''}>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    `;
+                    card.addEventListener('click', (e) => {
+                        if (!e.target.closest('.pin-btn')) {
+                            window.open(website.url, '_blank');
+                        }
+                    });
+                    const pinBtn = card.querySelector('.pin-btn');
+                    pinBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (pinnedWebsites.length < 10) {
+                            addPinnedWebsite(website);
+                            pinBtn.disabled = true;
+                        }
+                    });
+                    const isAlreadyPinned = pinnedWebsites.some(pinned => 
+                        pinned.name === website.name && pinned.url === website.url
+                    );
+                    if (isAlreadyPinned) pinBtn.disabled = true;
+                    grid.appendChild(card);
                 });
-                
-                // 点击+号按钮固定网站
-                const pinBtn = card.querySelector('.pin-btn');
-                pinBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if (pinnedWebsites.length < 10) {
-                        addPinnedWebsite(website);
-                        pinBtn.disabled = true;
-                    }
-                });
-                
-                // 检查是否已经固定
-                const isAlreadyPinned = pinnedWebsites.some(pinned => 
-                    pinned.name === website.name && pinned.url === website.url
-                );
-                if (isAlreadyPinned) {
-                    pinBtn.disabled = true;
-                }
-                
-                linksGrid.appendChild(card);
-            });
+                categorySection.appendChild(grid);
+                categoriesContainer.appendChild(categorySection);
+            }
+            if (!hasContent) {
+                categoriesContainer.innerHTML = '<div class="section-container"><div class="no-results">暂无网站数据</div></div>';
+            }
         }
-    
-        // 显示固定网站
+        
         function displayPinnedWebsites() {
             pinnedGrid.innerHTML = '';
-            
             if (pinnedWebsites.length === 0) {
                 pinnedGrid.innerHTML = '<div class="empty">暂无固定网站，点击"添加网站"添加</div>';
                 pinnedGrid.classList.add('empty');
                 return;
             }
-            
             pinnedGrid.classList.remove('empty');
-            
             pinnedWebsites.forEach((website, index) => {
                 const card = document.createElement('div');
                 card.className = 'pinned-card';
@@ -2625,42 +931,34 @@
                     <p>${website.url}</p>
                     <button class="remove-btn"><i class="fas fa-times"></i></button>
                 `;
-                
                 card.addEventListener('click', (e) => {
                     if (isBatchMode) {
-                        // 批量模式下点击卡片选择/取消选择
                         if (!e.target.closest('.batch-checkbox') && !e.target.closest('.remove-btn')) {
                             const checkbox = card.querySelector('input[type="checkbox"]');
                             checkbox.checked = !checkbox.checked;
                             toggleCardSelection(card, checkbox.checked);
                         }
                     } else {
-                        // 正常模式下点击卡片打开网站
                         if (!e.target.closest('.remove-btn')) {
                             window.open(website.url, '_blank');
                         }
                     }
                 });
-                
                 card.querySelector('.remove-btn').addEventListener('click', (e) => {
                     e.stopPropagation();
                     if (!isBatchMode) {
                         removePinnedWebsite(index);
                     }
                 });
-                
-                // 批量选择复选框事件
                 const checkbox = card.querySelector('input[type="checkbox"]');
                 checkbox.addEventListener('change', (e) => {
                     e.stopPropagation();
                     toggleCardSelection(card, checkbox.checked);
                 });
-                
                 pinnedGrid.appendChild(card);
             });
         }
-    
-        // 切换卡片选择状态
+        
         function toggleCardSelection(card, isSelected) {
             if (isSelected) {
                 card.classList.add('batch-selected');
@@ -2671,49 +969,32 @@
             }
             updateSelectedCount();
         }
-    
-        // 更新选中计数
+        
         function updateSelectedCount() {
-            const selectedCount = selectedCards.size;
-            selectedCountElement.textContent = selectedCount;
+            selectedCountElement.textContent = selectedCards.size;
         }
-    
-        // 添加固定网站
+        
         function addPinnedWebsite(website) {
-            if (pinnedWebsites.length >= 10) {
-                return;
-            }
-            
+            if (pinnedWebsites.length >= 10) return;
             pinnedWebsites.push(website);
             localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
             displayPinnedWebsites();
             updateAddPinnedButton();
-            
-            // 保存到服务器
             savePinnedWebsitesToServer();
-            
-            // 重新显示网站以更新+号按钮状态
-            displayWebsites(websites);
+            if (typeof displayWebsites === 'function') displayWebsites();
         }
         
-        // 移除固定网站
         function removePinnedWebsite(index) {
             pinnedWebsites.splice(index, 1);
             localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
             displayPinnedWebsites();
             updateAddPinnedButton();
-            
-            // 保存到服务器
             savePinnedWebsitesToServer();
-            
-            // 重新显示网站以更新+号按钮状态
-            displayWebsites(websites);
+            if (typeof displayWebsites === 'function') displayWebsites();
         }
-    
-        // 显示搜索建议
+        
         function displaySuggestions(filteredWebsites) {
             suggestions.innerHTML = '';
-            
             if (filteredWebsites.length === 0) {
                 const noResult = document.createElement('div');
                 noResult.className = 'suggestion-item';
@@ -2721,64 +1002,45 @@
                 suggestions.appendChild(noResult);
                 return;
             }
-            
             filteredWebsites.forEach(website => {
                 const suggestionItem = document.createElement('div');
                 suggestionItem.className = 'suggestion-item';
                 suggestionItem.innerHTML = `
                     <i class="fas ${website.icon}"></i>
                     <span>${website.name}</span>
+                    <small style="margin-left: auto; font-size: 12px; color: var(--text-secondary);">${categories && categories[website.category]?.name || '其他'}</small>
                 `;
+                suggestionItem.setAttribute('data-url', website.url);
                 suggestions.appendChild(suggestionItem);
             });
         }
-    
-        // 执行搜索的函数
+        
         function performSearch(searchTerm) {
             if (!searchTerm) return;
-            
-            const searchEngine = searchEngineSelect.value;
-            
-            if (searchEngine === 'internal' && isLoggedIn) {
-                // 站内搜索 - 找到第一个匹配的网站并打开
+            const searchEngineVal = searchEngineSelect.value;
+            if (searchEngineVal === 'internal' && isLoggedIn && typeof websites !== 'undefined') {
                 const matchedWebsite = websites.find(website => 
                     website.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                     website.url.toLowerCase().includes(searchTerm.toLowerCase())
                 );
-                
                 if (matchedWebsite) {
                     window.open(matchedWebsite.url, '_blank');
                 } else {
-                    // 如果没有找到匹配的网站，使用Bing搜索
                     alert(`未找到与 "${searchTerm}" 相关的网站`);
                 }
             } else {
-                // 外部搜索
-                const searchUrl = searchEngines[searchEngine].url + encodeURIComponent(searchTerm);
+                const searchUrl = searchEngines[searchEngineVal].url + encodeURIComponent(searchTerm);
                 window.open(searchUrl, '_blank');
             }
-            
-            // 清空搜索框和隐藏建议
             suggestions.style.display = 'none';
         }
-    
-        // 显示通知的函数
+        
         function showNotification(message, type = 'info') {
-            // 移除已存在的通知
             const existingNotification = document.querySelector('.notification');
-            if (existingNotification) {
-                existingNotification.remove();
-            }
-            
-            // 创建新通知
+            if (existingNotification) existingNotification.remove();
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <span>${message}</span>
-                <button class="notification-close">&times;</button>
-            `;
-            
-            // 添加通知样式
+            notification.innerHTML = `<span>${message}</span><button class="notification-close">&times;</button>`;
             notification.style.cssText = `
                 position: fixed;
                 top: 20px;
@@ -2794,502 +1056,352 @@
                 gap: 10px;
                 animation: slideInRight 0.3s ease;
             `;
-            
-            // 添加关闭按钮样式
             const closeBtn = notification.querySelector('.notification-close');
-            closeBtn.style.cssText = `
-                background: none;
-                border: none;
-                font-size: 18px;
-                cursor: pointer;
-                padding: 0;
-                margin: 0;
-                line-height: 1;
-            `;
-            
-            // 关闭按钮事件
-            closeBtn.addEventListener('click', () => {
-                notification.remove();
-            });
-            
+            closeBtn.style.cssText = `background: none; border: none; font-size: 18px; cursor: pointer; padding: 0; margin: 0; line-height: 1;`;
+            closeBtn.addEventListener('click', () => notification.remove());
             document.body.appendChild(notification);
-            
-            // 3秒后自动消失
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.remove();
-                }
+                if (notification.parentNode) notification.remove();
             }, 3000);
         }
-    
-        // 加载用户设置
+        
         function loadUserSettings() {
-            if (!isLoggedIn || !currentUser) {
-                console.log('未登录，跳过加载设置');
-                return;
-            }
-            
-            console.log('开始加载用户设置，身份证号:', currentUser.id_number);
-            
-            // 从服务器加载用户设置
-            fetch(`user_settings.php?id_number=${currentUser.id_number}&type=settings`)
+            if (!isLoggedIn || !currentUser) return;
+            fetch(`https://dorn.rf.gd/user_settings.php?id_number=${currentUser.id_number}&type=settings`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log('加载设置返回:', data);
                     if (data.success && data.data) {
                         const userSettings = data.data;
-                        console.log('找到用户设置:', userSettings);
-                        
-                        // 应用用户设置
                         if (userSettings.theme) {
                             currentTheme = userSettings.theme;
                             document.documentElement.setAttribute('data-theme', currentTheme);
                         }
-                        
                         if (userSettings.primary_color) {
                             currentColor = userSettings.primary_color;
                             document.documentElement.style.setProperty('--primary-color', currentColor);
                             customColorBtn.style.backgroundColor = currentColor;
                             customColorInput.value = currentColor;
                         }
-                        
                         if (userSettings.show_pinned !== undefined) {
                             showPinned = Boolean(userSettings.show_pinned);
                             showPinnedToggle.checked = showPinned;
                         }
-                        
                         if (userSettings.show_navigation !== undefined) {
                             showNavigation = Boolean(userSettings.show_navigation);
                             showNavigationToggle.checked = showNavigation;
                         }
-                        
-                        if (userSettings.show_date !== undefined) {
-                            showDate = Boolean(userSettings.show_date);
-                            showDateToggle.checked = showDate;
-                        }
-                        
-                        if (userSettings.show_time !== undefined) {
-                            showTime = Boolean(userSettings.show_time);
-                            showTimeToggle.checked = showTime;
-                        }
-                        
                         if (userSettings.background_type) {
                             backgroundType = userSettings.background_type;
                             applyBackground(backgroundType);
                         }
-                        
                         if (userSettings.search_engine) {
                             searchEngine = userSettings.search_engine;
                             searchEngineSelect.value = searchEngine;
                         }
-                        
-                        // 更新UI
                         updatePinnedSectionVisibility();
                         updateNavigationVisibility();
-                        updateDateTimeVisibility();
+                        if (window.UI) UI.setDateTimeVisibility(showDateToggle.checked, showTimeToggle.checked);
                         updateAddPinnedButton();
                         updateActiveOptions();
-                        
-                        console.log('从服务器加载设置成功');
-                        
                     } else {
-                        console.log('没有找到用户设置记录，使用本地设置');
-                        // 使用本地设置
                         applySavedSettings();
                     }
                 })
-                .catch(error => {
-                    console.error('加载用户设置失败:', error);
-                    // 出错时使用本地设置
-                    applySavedSettings();
-                });
+                .catch(() => applySavedSettings());
         }
-    
-        // 保存用户设置到服务器
+        
         function saveUserSettings() {
-            if (!isLoggedIn || !currentUser) {
-                console.log('未登录，跳过保存设置');
-                return;
-            }
-            
+            if (!isLoggedIn || !currentUser) return;
             const userSettings = {
                 action: 'save_settings',
-                id_number: currentUser.id_number, // 使用身份证号
+                id_number: currentUser.id_number,
                 theme: currentTheme,
                 primary_color: currentColor,
                 show_pinned: showPinned ? 1 : 0,
                 show_navigation: showNavigation ? 1 : 0,
-                show_date: showDate ? 1 : 0,
-                show_time: showTime ? 1 : 0,
+                show_date: localStorage.getItem('showDate') !== 'false' ? 1 : 0,
+                show_time: localStorage.getItem('showTime') !== 'false' ? 1 : 0,
                 background_type: backgroundType,
                 search_engine: searchEngine
             };
-            
-            console.log('准备保存用户设置:', userSettings);
-            
-            fetch('user_settings.php', {
+            fetch('https://dorn.rf.gd/user_settings.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userSettings)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('保存设置返回:', data);
-                if (!data.success) {
-                    console.error('保存用户设置失败:', data.error);
-                } else {
-                    console.log('用户设置已保存到服务器');
-                }
-            })
-            .catch(error => {
-                console.error('保存用户设置请求失败:', error);
-            });
-        
-            
-            // 同时保存到本地存储（作为备份）
-            localStorage.setItem(`userSettings_${currentUser.id}`, JSON.stringify(userSettings));
+            }).catch(error => console.error('保存用户设置请求失败:', error));
         }
-		
-		// 保存固定网址到服务器
-		function savePinnedWebsitesToServer() {
-		    if (!isLoggedIn || !currentUser) {
-		        console.log('未登录，跳过保存固定网址');
-		        return;
-		    }
-		    
-		    const pinnedData = {
-		        action: 'save_pinned_websites',
-		        id_number: currentUser.id_number,
-		        websites: pinnedWebsites
-		    };
-		    
-		    console.log('准备保存固定网址:', pinnedData);
-		    
-		    fetch('user_settings.php', {
-		        method: 'POST',
-		        headers: {
-		            'Content-Type': 'application/json'
-		        },
-		        body: JSON.stringify(pinnedData)
-		    })
-		    .then(response => response.json())
-		    .then(data => {
-		        console.log('保存固定网址返回:', data);
-		        if (!data.success) {
-		            console.error('保存固定网址失败:', data.error);
-		        } else {
-		            console.log('固定网址已保存到服务器');
-		        }
-		    })
-		    .catch(error => {
-		        console.error('保存固定网址请求失败:', error);
-		    });
-		}
-		
-		// 从服务器加载固定网址
-		function loadPinnedWebsitesFromServer() {
-		    if (!isLoggedIn || !currentUser) {
-		        console.log('未登录，跳过加载固定网址');
-		        return;
-		    }
-		    
-		    console.log('开始加载固定网址，身份证号:', currentUser.id_number);
-		    
-		    fetch(`user_settings.php?id_number=${currentUser.id_number}&type=pinned_websites`)
-		        .then(response => response.json())
-		        .then(data => {
-		            console.log('加载固定网址返回:', data);
-		            if (data.success && data.data) {
-		                // 使用服务器返回的固定网址
-		                pinnedWebsites = data.data;
-		                localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
-		                displayPinnedWebsites();
-		                updateAddPinnedButton();
-		                console.log('从服务器加载固定网址成功');
-		            } else {
-		                console.log('没有找到服务器固定网址，使用本地存储');
-		                // 使用本地存储的固定网址
-		                pinnedWebsites = JSON.parse(localStorage.getItem('pinnedWebsites')) || [];
-		                displayPinnedWebsites();
-		                updateAddPinnedButton();
-		            }
-		        })
-		        .catch(error => {
-		            console.error('加载固定网址失败:', error);
-		            // 出错时使用本地存储
-		            pinnedWebsites = JSON.parse(localStorage.getItem('pinnedWebsites')) || [];
-		            displayPinnedWebsites();
-		            updateAddPinnedButton();
-		        });
-		}
-		
-        // 在退出登录处理函数中也添加徽章隐藏逻辑
+        
+        function savePinnedWebsitesToServer() {
+            if (!isLoggedIn || !currentUser) return;
+            const pinnedData = {
+                action: 'save_pinned_websites',
+                id_number: currentUser.id_number,
+                websites: pinnedWebsites
+            };
+            fetch('https://dorn.rf.gd/user_settings.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(pinnedData)
+            }).catch(error => console.error('保存固定网址请求失败:', error));
+        }
+        
+        function loadPinnedWebsitesFromServer() {
+            if (!isLoggedIn || !currentUser) return;
+            fetch(`https://dorn.rf.gd/user_settings.php?id_number=${currentUser.id_number}&type=pinned_websites`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.data) {
+                        pinnedWebsites = data.data;
+                        localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
+                        displayPinnedWebsites();
+                        updateAddPinnedButton();
+                    } else {
+                        pinnedWebsites = JSON.parse(localStorage.getItem('pinnedWebsites')) || [];
+                        displayPinnedWebsites();
+                        updateAddPinnedButton();
+                    }
+                })
+                .catch(() => {
+                    pinnedWebsites = JSON.parse(localStorage.getItem('pinnedWebsites')) || [];
+                    displayPinnedWebsites();
+                    updateAddPinnedButton();
+                });
+        }
+        
         function handleLogout() {
-            // 保存设置和固定网址到服务器
             saveUserSettings();
             savePinnedWebsitesToServer();
-            
-            // 清除登录状态
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
             isLoggedIn = false;
             currentUser = null;
-            localStorage.setItem('isLoggedIn', 'false');
-            localStorage.removeItem('currentUser');
-            
-            // 更新UI
             updateLoginState();
-            
-            // 隐藏菜单
             userDropdown.classList.remove('active');
             dropdownArrow.style.transform = 'rotate(0deg)';
-            
-            // 显示通知
             showNotification('已成功退出登录', 'success');
         }
-    
+        
         function initUserMenu() {
-            // 点击登录按钮
             loginBtn.addEventListener('click', (e) => {
-                if (isLoggedIn) {
-                    // 已登录：切换下拉菜单
+                const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                if (loggedIn) {
                     userDropdown.classList.toggle('active');
                     dropdownArrow.style.transform = userDropdown.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
                 } else {
-                    // 未登录：显示登录模态框
                     loginModal.style.display = 'flex';
-                    // 确保下拉菜单是隐藏的
                     userDropdown.classList.remove('active');
                     dropdownArrow.style.transform = 'rotate(0deg)';
                 }
                 e.stopPropagation();
             });
-        
-            // 点击外部关闭菜单
             document.addEventListener('click', (e) => {
                 if (!userMenuContainer.contains(e.target)) {
                     userDropdown.classList.remove('active');
                     dropdownArrow.style.transform = 'rotate(0deg)';
                 }
             });
-        
-            // 个人中心按钮事件
             document.getElementById('personalCenterBtn').addEventListener('click', () => {
-                // 跳转到个人中心页面
                 window.location.href = 'account.html';
                 userDropdown.classList.remove('active');
                 dropdownArrow.style.transform = 'rotate(0deg)';
             });
-        
-            // 退出登录
+            document.getElementById('dropdownUpdateLogBtn').addEventListener('click', () => {
+                openUpdateModal();
+                userDropdown.classList.remove('active');
+                dropdownArrow.style.transform = 'rotate(0deg)');
+            });
             logoutBtn.addEventListener('click', handleLogout);
         }
-		
-		
-		// 在主页面添加签到功能到用户下拉菜单
-		function addCheckinToDropdown() {
-		    // 在用户下拉菜单的个人中心按钮前添加签到按钮
-		    const personalCenterBtn = document.querySelector('#personalCenterBtn');
-		    if (personalCenterBtn) {
-		        const checkinItem = document.createElement('div');
-		        checkinItem.className = 'dropdown-item';
-		        checkinItem.id = 'dropdownCheckinBtn';
-		        checkinItem.innerHTML = `
-		            <i class="fas fa-calendar-check"></i>
-		            <span>每日签到</span>
-		        `;
-		        checkinItem.addEventListener('click', function() {
-		            performDropdownCheckin();
-		            userDropdown.classList.remove('active');
-		            dropdownArrow.style.transform = 'rotate(0deg)';
-		        });
-		        
-		        personalCenterBtn.parentNode.insertBefore(checkinItem, personalCenterBtn);
-		    }
-		}
-		
-		// 下拉菜单中的签到功能
-		function performDropdownCheckin() {
-		    if (!isLoggedIn) return;
-		    
-		    fetch('checkin.php', {
-		        method: 'POST',
-		        headers: {
-		            'Content-Type': 'application/json'
-		        },
-		        body: JSON.stringify({
-		            id_number: currentUser.id_number
-		        })
-		    })
-		    .then(response => response.json())
-		    .then(data => {
-		        if (data.success) {
-		            // 更新用户资金
-		            currentUser.funds = parseFloat(currentUser.funds || 10.00) + data.total_amount;
-		            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-		            updateLoginState();
-		            
-		            // 显示签到成功通知
-		            showNotification(`🎉 签到成功！获得 ${data.total_amount.toFixed(2)}𣿅元，连续签到 ${data.streak_days} 天`, 'success');
-		        } else {
-		            showNotification('签到失败: ' + data.error, 'error');
-		        }
-		    })
-		    .catch(error => {
-		        console.error('签到失败:', error);
-		        showNotification('网络错误，请稍后重试', 'error');
-		    });
-		}
-		
-		// 在主页初始化时调用
-		addCheckinToDropdown();
-    
-        // ========== 事件监听器 ==========
         
-        // 初始化显示
-        displayWebsites(websites);
+        function addCheckinToDropdown() {
+            const personalCenterBtn = document.querySelector('#personalCenterBtn');
+            if (personalCenterBtn) {
+                const checkinItem = document.createElement('div');
+                checkinItem.className = 'dropdown-item';
+                checkinItem.id = 'dropdownCheckinBtn';
+                checkinItem.innerHTML = `
+                    <i class="fas fa-calendar-check"></i>
+                    <span>每日签到（以UTC时间计）</span>
+                `;
+                checkinItem.addEventListener('click', function() {
+                    performDropdownCheckin();
+                    userDropdown.classList.remove('active');
+                    dropdownArrow.style.transform = 'rotate(0deg)';
+                });
+                personalCenterBtn.parentNode.insertBefore(checkinItem, personalCenterBtn);
+            }
+        }
+        
+        function performDropdownCheckin() {
+            if (!isLoggedIn) return;
+            fetch('https://dorn.rf.gd/checkin.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_number: currentUser.id_number })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    currentUser.funds = parseFloat(currentUser.funds || 10.00) + data.total_amount;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateLoginState();
+                    showNotification(`🎉 签到成功！获得 ${data.total_amount.toFixed(2)}𣿅元，连续签到 ${data.streak_days} 天`, 'success');
+                } else {
+                    showNotification('签到失败: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                showNotification('网络错误，请刷新页面后重试', 'error');
+            });
+        }
+        
+        function closeUpdateModal() {
+            updateModal.style.display = 'none';
+        }
+        
+        async function openUpdateModal() {
+            updateModal.style.display = 'flex';
+            updateModalBody.innerHTML = `<div class="update-loading"><i class="fas fa-spinner fa-spin"></i><p>加载更新日志中...</p></div>`;
+            try {
+                const res = await fetch('https://dorn.rf.gd/php/get_update_logs.php');
+                const data = await res.json();
+                if (data.success && data.data && data.data.length > 0) {
+                    let tabsHtml = '<div class="update-tabs">';
+                    let panelsHtml = '<div class="update-panels">';
+                    data.data.forEach((log, index) => {
+                        const isActive = index === 0;
+                        tabsHtml += `<button class="update-tab ${isActive ? 'active' : ''}" data-version="${index}">${escapeHtml(log.version)}</button>`;
+                        panelsHtml += `<div class="update-panel ${isActive ? 'active' : ''}" data-version="${index}"><div class="update-version">${escapeHtml(log.version)}</div><div class="update-date"><i class="fas fa-calendar-alt"></i> ${formatDate(log.release_date)}</div><div class="update-content">${log.content}</div></div>`;
+                    });
+                    tabsHtml += '</div>';
+                    panelsHtml += '</div>';
+                    updateModalBody.innerHTML = tabsHtml + panelsHtml;
+                    const tabs = document.querySelectorAll('.update-tab');
+                    const panels = document.querySelectorAll('.update-panel');
+                    tabs.forEach(tab => {
+                        tab.addEventListener('click', () => {
+                            const versionIndex = tab.getAttribute('data-version');
+                            tabs.forEach(t => t.classList.remove('active'));
+                            tab.classList.add('active');
+                            panels.forEach(p => p.classList.remove('active'));
+                            document.querySelector(`.update-panel[data-version="${versionIndex}"]`).classList.add('active');
+                        });
+                    });
+                } else {
+                    updateModalBody.innerHTML = `<div class="update-empty"><i class="fas fa-inbox"></i><p>暂无更新记录</p></div>`;
+                }
+            } catch (error) {
+                updateModalBody.innerHTML = `<div class="update-empty"><i class="fas fa-exclamation-triangle" style="color: #d13438;"></i><p style="color: #d13438;">加载失败，请刷新页面后重试</p></div>`;
+            }
+        }
+        
+        function checkVersionAndShowModal() {
+            const lastVisitedVersion = localStorage.getItem('lastVisitedVersion');
+            if (lastVisitedVersion !== CURRENT_VERSION) {
+                setTimeout(() => openUpdateModal(), 500);
+                localStorage.setItem('lastVisitedVersion', CURRENT_VERSION);
+            }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+        
+        if (settingsUpdateLogBtn) settingsUpdateLogBtn.addEventListener('click', openUpdateModal);
+        if (closeUpdateModalBtn) closeUpdateModalBtn.addEventListener('click', closeUpdateModal);
+        if (closeUpdateModalFooterBtn) closeUpdateModalFooterBtn.addEventListener('click', closeUpdateModal);
+        if (updateModal) updateModal.addEventListener('click', (e) => { if (e.target === updateModal) closeUpdateModal(); });
+        
+        addCheckinToDropdown();
+        
+        if (typeof websites !== 'undefined') displayWebsites();
         displayPinnedWebsites();
-    
-        // 日期时间更新
-        setInterval(updateDateTime, 1000);
-        updateDateTime();
-    
-        // 搜索功能事件
+        
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase().trim();
-            const searchEngine = searchEngineSelect.value;
-            
-            if (searchEngine === 'internal' && isLoggedIn) {
-                // 站内搜索 - 仅登录用户可用
+            const searchEngineVal = searchEngineSelect.value;
+            if (searchEngineVal === 'internal' && isLoggedIn && typeof websites !== 'undefined') {
                 if (searchTerm.length > 0) {
                     const filteredWebsites = websites.filter(website => 
                         website.name.toLowerCase().includes(searchTerm) || 
-                        website.url.toLowerCase().includes(searchTerm)
+                        website.url.toLowerCase().includes(searchTerm) ||
+                        (categories && categories[website.category]?.name.toLowerCase().includes(searchTerm))
                     );
-                    
                     displaySuggestions(filteredWebsites);
                     suggestions.style.display = 'block';
                 } else {
                     suggestions.style.display = 'none';
-                    displayWebsites(websites);
+                    if (typeof websites !== 'undefined') displayWebsites();
                 }
             } else {
-                // 外部搜索 - 显示搜索建议
                 if (searchTerm.length > 0) {
-                    const searchEngineName = searchEngines[searchEngine].name;
-                    suggestions.innerHTML = `
-                        <div class="suggestion-item" data-search="${searchTerm}">
-                            <i class="fas fa-search"></i>
-                            <span>使用 ${searchEngineName} 搜索 "${searchTerm}"</span>
-                        </div>
-                    `;
+                    const searchEngineName = searchEngines[searchEngineVal].name;
+                    suggestions.innerHTML = `<div class="suggestion-item" data-search="${searchTerm}"><i class="fas fa-search"></i><span>使用 ${searchEngineName} 搜索 "${searchTerm}"</span></div>`;
                     suggestions.style.display = 'block';
                 } else {
                     suggestions.style.display = 'none';
                 }
             }
         });
-    
+        
         searchInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                performSearch(this.value.trim());
-            }
+            if (e.key === 'Enter') performSearch(this.value.trim());
         });
-    
+        
         suggestions.addEventListener('click', function(e) {
             const suggestionItem = e.target.closest('.suggestion-item');
             if (!suggestionItem) return;
-            
-            const searchEngine = searchEngineSelect.value;
-            
-            if (searchEngine === 'internal' && isLoggedIn) {
-                // 站内搜索 - 打开网站
+            const searchEngineVal = searchEngineSelect.value;
+            if (searchEngineVal === 'internal' && isLoggedIn && typeof websites !== 'undefined') {
                 const websiteName = suggestionItem.querySelector('span').textContent;
                 const website = websites.find(w => w.name === websiteName);
-                if (website) {
-                    window.open(website.url, '_blank');
-                }
+                if (website) window.open(website.url, '_blank');
             } else {
-                // 外部搜索 - 使用选定的搜索引擎搜索
-                const searchTerm = suggestionItem.getAttribute('data-search');
+                const searchTerm = suggestionItem.getAttribute('data-search') || searchInput.value.trim();
                 performSearch(searchTerm);
             }
-            
             suggestions.style.display = 'none';
             searchInput.value = '';
         });
-    
-        // 设置模态框事件
-        settingsBtn.addEventListener('click', () => {
-            settingsModal.style.display = 'flex';
-        });
-    
-        closeSettingsBtn.addEventListener('click', () => {
-            settingsModal.style.display = 'none';
-        });
-    
-        // 添加固定网站模态框事件
+        
+        settingsBtn.addEventListener('click', () => settingsModal.style.display = 'flex');
+        closeSettingsBtn.addEventListener('click', () => settingsModal.style.display = 'none');
+        
         addPinnedBtn.addEventListener('click', () => {
-            if (pinnedWebsites.length >= 10) {
-                return;
-            }
-            
+            if (pinnedWebsites.length >= 10) return;
             pinnedTitleInput.value = '';
             pinnedUrlInput.value = '';
             addPinnedModal.style.display = 'flex';
         });
-    
-        closeAddPinnedBtn.addEventListener('click', () => {
-            addPinnedModal.style.display = 'none';
-        });
-    
-        cancelAddPinnedBtn.addEventListener('click', () => {
-            addPinnedModal.style.display = 'none';
-        });
-    
+        closeAddPinnedBtn.addEventListener('click', () => addPinnedModal.style.display = 'none');
+        cancelAddPinnedBtn.addEventListener('click', () => addPinnedModal.style.display = 'none');
         savePinnedBtn.addEventListener('click', () => {
             const title = pinnedTitleInput.value.trim();
             const url = pinnedUrlInput.value.trim();
-            
-            if (!url) {
-                alert('请填写网站地址');
-                return;
-            }
-            
-            if (pinnedWebsites.length >= 10) {
-                return;
-            }
-            
-            // 使用网址作为标题，如果用户没有输入标题
-            const finalTitle = title || url;
-            
-            // 完全按照用户输入的网址，不做任何修改
-            pinnedWebsites.push({
-                name: finalTitle,
-                url: url,
-                icon: 'fa-link'
-            });
-            
+            if (!url) { alert('请填写网站地址'); return; }
+            if (pinnedWebsites.length >= 10) return;
+            pinnedWebsites.push({ name: title || url, url: url, icon: 'fa-link' });
             localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
             displayPinnedWebsites();
             updateAddPinnedButton();
             addPinnedModal.style.display = 'none';
         });
-    
-        // 批量操作事件
+        
         batchOperateBtn.addEventListener('click', () => {
             if (pinnedWebsites.length === 0) return;
-            
             isBatchMode = true;
             batchActions.classList.add('active');
-            document.querySelectorAll('.pinned-card').forEach(card => {
-                card.classList.add('batch-mode');
-            });
+            document.querySelectorAll('.pinned-card').forEach(card => card.classList.add('batch-mode'));
             selectedCards.clear();
             updateSelectedCount();
         });
-    
         cancelBatchBtn.addEventListener('click', () => {
             isBatchMode = false;
             batchActions.classList.remove('active');
@@ -3301,40 +1413,20 @@
             selectedCards.clear();
             updateSelectedCount();
         });
-    
         batchDeleteBtn.addEventListener('click', () => {
-            if (selectedCards.size === 0) {
-                alert('请先选择要删除的网站');
-                return;
-            }
-            
-            // 获取要删除的索引（从大到小排序，避免删除时索引变化）
-            const indicesToDelete = Array.from(selectedCards)
-                .map(card => parseInt(card.getAttribute('data-index')))
-                .sort((a, b) => b - a);
-            
-            // 批量删除，不需要确认
-            indicesToDelete.forEach(index => {
-                pinnedWebsites.splice(index, 1);
-            });
-            
+            if (selectedCards.size === 0) { alert('请先选择要删除的网站'); return; }
+            const indicesToDelete = Array.from(selectedCards).map(card => parseInt(card.getAttribute('data-index'))).sort((a, b) => b - a);
+            indicesToDelete.forEach(index => pinnedWebsites.splice(index, 1));
             localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
             displayPinnedWebsites();
             updateAddPinnedButton();
-            
-            // 退出批量模式
             isBatchMode = false;
             batchActions.classList.remove('active');
             selectedCards.clear();
             updateSelectedCount();
-            
-            // 刷新网址导航部分
-            if (isLoggedIn) {
-                displayWebsites(websites);
-            }
+            if (isLoggedIn && typeof websites !== 'undefined') displayWebsites();
         });
-    
-        // 颜色和主题事件
+        
         colorOptions.forEach(option => {
             option.addEventListener('click', () => {
                 const color = option.getAttribute('data-color');
@@ -3344,14 +1436,10 @@
                 customColorBtn.style.backgroundColor = color;
                 customColorInput.value = color;
                 updateActiveOptions();
-                updatePrimaryColorRGB(); // 更新RGB值
+                if (isLoggedIn) saveUserSettings();
             });
         });
-        
-        customColorBtn.addEventListener('click', () => {
-            customColorInput.click();
-        });
-        
+        customColorBtn.addEventListener('click', () => customColorInput.click());
         applyCustomColorBtn.addEventListener('click', () => {
             const color = customColorInput.value;
             currentColor = color;
@@ -3359,9 +1447,9 @@
             localStorage.setItem('primaryColor', color);
             customColorBtn.style.backgroundColor = color;
             updateActiveOptions();
-            updatePrimaryColorRGB(); // 更新RGB值
+            if (isLoggedIn) saveUserSettings();
         });
-    
+        
         themeOptions.forEach(option => {
             option.addEventListener('click', () => {
                 const theme = option.getAttribute('data-theme');
@@ -3369,170 +1457,200 @@
                 document.documentElement.setAttribute('data-theme', theme);
                 localStorage.setItem('theme', theme);
                 updateActiveOptions();
+                if (isLoggedIn) saveUserSettings();
             });
         });
-    
-        // 显示选项切换事件
+        
         showPinnedToggle.addEventListener('change', () => {
             showPinned = showPinnedToggle.checked;
             localStorage.setItem('showPinned', showPinned);
             updatePinnedSectionVisibility();
+            if (isLoggedIn) saveUserSettings();
         });
-    
         showNavigationToggle.addEventListener('change', () => {
             showNavigation = showNavigationToggle.checked;
             localStorage.setItem('showNavigation', showNavigation);
             updateNavigationVisibility();
+            if (isLoggedIn) saveUserSettings();
         });
-    
+        
         showDateToggle.addEventListener('change', () => {
-            showDate = showDateToggle.checked;
-            localStorage.setItem('showDate', showDate);
-            updateDateTime();
-            updateDateTimeVisibility();
+            if (window.UI) UI.setDateTimeVisibility(showDateToggle.checked, showTimeToggle.checked);
+            if (isLoggedIn) saveUserSettings();
         });
-    
         showTimeToggle.addEventListener('change', () => {
-            showTime = showTimeToggle.checked;
-            localStorage.setItem('showTime', showTime);
-            updateDateTime();
-            updateDateTimeVisibility();
+            if (window.UI) UI.setDateTimeVisibility(showDateToggle.checked, showTimeToggle.checked);
+            if (isLoggedIn) saveUserSettings();
         });
-    
-        // 背景选择事件
+        
         backgroundOptions.forEach(option => {
             option.addEventListener('click', () => {
-                const bgType = option.getAttribute('data-bg');
-                applyBackground(bgType);
+                applyBackground(option.getAttribute('data-bg'));
+                if (isLoggedIn) saveUserSettings();
             });
         });
-    
         applyCustomBackgroundBtn.addEventListener('click', () => {
             const file = customBackgroundInput.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    // 存储Base64编码的图片
                     localStorage.setItem('customBackground', e.target.result);
-                    // 立即应用自定义背景
                     applyBackground('custom');
                     alert('自定义背景应用成功！');
-                };
-                reader.onerror = function() {
-                    alert('图片读取失败，请重试');
+                    if (isLoggedIn) saveUserSettings();
                 };
                 reader.readAsDataURL(file);
-            } else {
-                alert('请选择一张图片');
-            }
+            } else { alert('请选择一张图片'); }
         });
-    
-        // 清除数据事件
         clearDataBtn.addEventListener('click', () => {
             if (confirm('确定要清除所有自定义数据吗？此操作不可撤销。')) {
                 localStorage.clear();
                 location.reload();
             }
         });
-    
         
-    
-        closeLoginBtn.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-    
-        cancelLoginBtn.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-    
+        function loadCookiePreferences() {
+            const consent = localStorage.getItem('cookie_consent_v2');
+            if (consent) {
+                try {
+                    const prefs = JSON.parse(consent);
+                    if (functionalCookiesToggle) functionalCookiesToggle.checked = prefs.functional !== false;
+                    if (analyticsCookiesToggle) analyticsCookiesToggle.checked = prefs.analytics !== false;
+                } catch(e) {
+                    console.error('解析 Cookie 偏好失败:', e);
+                }
+            } else {
+                if (functionalCookiesToggle) functionalCookiesToggle.checked = true;
+                if (analyticsCookiesToggle) analyticsCookiesToggle.checked = true;
+            }
+        }
+        
+        function showCookieWarning(disabledType) {
+            if (!cookieWarning) return;
+            if (disabledType === 'functional') {
+                cookieWarningText.innerHTML = '⚠️ 禁用功能 Cookie 后，您的主题颜色、固定网站等个性化设置将丢失。页面将刷新以应用更改。';
+                cookieWarning.style.display = 'block';
+            } else if (disabledType === 'analytics') {
+                cookieWarningText.innerHTML = '⚠️ 禁用分析 Cookie 后，我们将无法收集匿名访问数据来改进网站。';
+                cookieWarning.style.display = 'block';
+            }
+        }
+        
+        function saveCookiePreferences() {
+            const preferences = {
+                functional: functionalCookiesToggle ? functionalCookiesToggle.checked : true,
+                analytics: analyticsCookiesToggle ? analyticsCookiesToggle.checked : true
+            };
+            localStorage.setItem('cookie_consent_v2', JSON.stringify(preferences));
+            if (typeof gtag !== 'undefined') {
+                gtag('consent', 'update', {
+                    'analytics_storage': preferences.analytics ? 'granted' : 'denied'
+                });
+            }
+            if (!preferences.functional) {
+                const keysToKeep = ['cookie_consent_v2', 'currentUser', 'isLoggedIn', 'theme', 'primaryColor', 'lastVisitedVersion'];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (!keysToKeep.includes(key)) {
+                        localStorage.removeItem(key);
+                    }
+                }
+                alert('功能 Cookie 已禁用，页面将刷新以清除所有个性化设置。');
+                location.reload();
+            } else {
+                alert('Cookie 偏好设置已保存！');
+                if (cookieWarning) cookieWarning.style.display = 'none';
+            }
+        }
+        
+        function resetCookiePreferences() {
+            if (functionalCookiesToggle) functionalCookiesToggle.checked = true;
+            if (analyticsCookiesToggle) analyticsCookiesToggle.checked = true;
+            saveCookiePreferences();
+        }
+        
+        function initCookieEventListeners() {
+            if (functionalCookiesToggle) {
+                functionalCookiesToggle.addEventListener('change', function() {
+                    if (!this.checked) {
+                        showCookieWarning('functional');
+                    } else {
+                        if (cookieWarning && (!analyticsCookiesToggle || analyticsCookiesToggle.checked)) {
+                            cookieWarning.style.display = 'none';
+                        }
+                    }
+                });
+            }
+            if (analyticsCookiesToggle) {
+                analyticsCookiesToggle.addEventListener('change', function() {
+                    if (!this.checked) {
+                        showCookieWarning('analytics');
+                    } else {
+                        if (cookieWarning && (!functionalCookiesToggle || functionalCookiesToggle.checked)) {
+                            cookieWarning.style.display = 'none';
+                        }
+                    }
+                });
+            }
+            if (saveCookiePrefsBtn) saveCookiePrefsBtn.addEventListener('click', saveCookiePreferences);
+            if (resetCookiePrefsBtn) resetCookiePrefsBtn.addEventListener('click', resetCookiePreferences);
+        }
+        
+        closeLoginBtn.addEventListener('click', () => loginModal.style.display = 'none');
+        cancelLoginBtn.addEventListener('click', () => loginModal.style.display = 'none');
         submitLoginBtn.addEventListener('click', () => {
             const idNumber = idNumberInput.value.trim();
             const password = passwordInput.value.trim();
-            
             if (!idNumber || !password) {
                 loginMessage.textContent = '请输入身份证号和密码';
                 loginMessage.style.color = '#d13438';
                 return;
             }
-            
-            // 使用query_citizen.php进行登录验证
-            fetch('query_citizen.php', {
+            fetch('https://dorn.rf.gd/php/query_citizen.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id_number: idNumber,
-                    password: password
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_number: idNumber, password: password })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // 登录成功
                     isLoggedIn = true;
                     currentUser = data.data;
-                    
-                    // 确保昵称字段存在，如果没有则使用姓名
-                    if (!currentUser.nickname) {
-                        currentUser.nickname = currentUser.name;
-                    }
-                    
-                    // 确保资金字段存在
-                    if (!currentUser.funds) {
-                        currentUser.funds = 10.00;
-                    }
-                    
+                    if (!currentUser.nickname) currentUser.nickname = currentUser.name;
+                    if (!currentUser.funds) currentUser.funds = 10.00;
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    
-                    // 更新UI
                     updateLoginState();
-                    
-                    // 关闭登录模态框
                     loginModal.style.display = 'none';
-                    
-                    // 清空输入框
                     idNumberInput.value = '';
                     passwordInput.value = '';
                     loginMessage.textContent = '';
-                    
-                    // 从服务器加载用户设置和固定网址
                     loadUserSettings();
                     loadPinnedWebsitesFromServer();
                 } else {
-                    // 登录失败
                     loginMessage.textContent = data.error || '登录失败，请重试';
                     loginMessage.style.color = '#d13438';
                 }
             })
             .catch(error => {
                 console.error('登录请求失败:', error);
-                loginMessage.textContent = '出错啦！请稍后重试';
+                loginMessage.textContent = '出错啦！请刷新页面后重试';
                 loginMessage.style.color = '#d13438';
             });
         });
-    
-        // 全局点击事件
+        
         window.addEventListener('click', (e) => {
-            if (e.target === settingsModal) {
-                settingsModal.style.display = 'none';
-            }
-            if (e.target === addPinnedModal) {
-                addPinnedModal.style.display = 'none';
-            }
-            if (e.target === loginModal) {
-                loginModal.style.display = 'none';
-            }
+            if (e.target === settingsModal) settingsModal.style.display = 'none';
+            if (e.target === addPinnedModal) addPinnedModal.style.display = 'none';
+            if (e.target === loginModal) loginModal.style.display = 'none';
         });
-    
+        
         document.addEventListener('click', (e) => {
             if (!searchInput.contains(e.target) && !suggestions.contains(e.target) && !searchEngineSelect.contains(e.target)) {
                 suggestions.style.display = 'none';
             }
         });
-    
-        // 设置变化监听
+        
         document.addEventListener('change', (e) => {
             if (isLoggedIn && (
                 e.target === showPinnedToggle ||
@@ -3540,242 +1658,142 @@
                 e.target === showDateToggle ||
                 e.target === showTimeToggle ||
                 e.target === searchEngineSelect
-            )) {
-                saveUserSettings();
-            }
+            )) saveUserSettings();
         });
-    
+        
         document.addEventListener('click', (e) => {
             if (isLoggedIn && (
                 e.target.classList.contains('color-option') ||
                 e.target.classList.contains('theme-option') ||
                 e.target.classList.contains('background-option') ||
                 e.target === applyCustomColorBtn
-            )) {
-                // 延迟保存，确保设置已更新
-                setTimeout(saveUserSettings, 100);
+            )) setTimeout(saveUserSettings, 100);
+        });
+        
+        applySavedSettings();
+        initUserMenu();
+        
+        const style = document.createElement('style');
+        style.textContent = `@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }`;
+        document.head.appendChild(style);
+        
+        let clickCount = 0;
+        let isEasterEggActive = false;
+        const easterEggTrigger = { searchTexts: ['I love dorn!', '刺梨汁'], clickCountNeeded: 5 };
+        
+        const searchBtn = document.getElementById('searchBtn');
+        const dornhubLogo = document.querySelector('.dornhub-logo');
+        const logoPart1 = document.querySelector('.logo-part1');
+        const logoPart2 = document.querySelector('.logo-part2');
+        let animationTimer = null;
+        const easterEggContainer = document.createElement('div');
+        easterEggContainer.id = 'easter-egg-container';
+        document.body.appendChild(easterEggContainer);
+        
+        searchBtn.addEventListener('click', function() {
+            if (shouldTriggerEasterEgg()) triggerEasterEgg();
+            else performSearch(searchInput.value.trim());
+        });
+        
+        function shouldTriggerEasterEgg() {
+            const searchText = searchInput.value.trim();
+            return !isEasterEggActive && clickCount >= easterEggTrigger.clickCountNeeded && easterEggTrigger.searchTexts.includes(searchText);
+        }
+        
+        function triggerEasterEgg() {
+            isEasterEggActive = true;
+            const confettiCount = 200, textCount = 30, animationDuration = 3;
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDelay = `${Math.random() * animationDuration}s`;
+                confetti.style.animationDuration = `${animationDuration}s`;
+                easterEggContainer.appendChild(confetti);
+            }
+            for (let i = 0; i < textCount / 2; i++) {
+                const fallingDorn = document.createElement('div');
+                fallingDorn.classList.add('falling-text');
+                fallingDorn.textContent = 'Dorn';
+                fallingDorn.style.left = `${Math.random() * 100}vw`;
+                fallingDorn.style.animationDelay = `${Math.random() * animationDuration}s`;
+                fallingDorn.style.animationDuration = `${animationDuration}s`;
+                fallingDorn.style.fontSize = `${2 + Math.random() * 2}em`;
+                easterEggContainer.appendChild(fallingDorn);
+            }
+            for (let i = 0; i < textCount / 2; i++) {
+                const fallingFu = document.createElement('div');
+                fallingFu.classList.add('falling-text');
+                fallingFu.textContent = '𣿅';
+                fallingFu.style.left = `${Math.random() * 100}vw`;
+                fallingFu.style.animationDelay = `${Math.random() * animationDuration}s`;
+                fallingFu.style.animationDuration = `${animationDuration}s`;
+                fallingFu.style.fontSize = `${2 + Math.random() * 2}em`;
+                easterEggContainer.appendChild(fallingFu);
+            }
+            showNotification('🎉 恭喜发现彩蛋！刺梨汁万岁！ 🎉', 'success');
+            setTimeout(() => {
+                easterEggContainer.innerHTML = '';
+                isEasterEggActive = false;
+                clickCount = 0;
+            }, animationDuration * 1800);
+        }
+        
+        dornhubLogo.addEventListener('click', function() {
+            if (animationTimer) clearTimeout(animationTimer);
+            logoPart1.classList.remove('bounce-animation');
+            logoPart2.classList.remove('bounce-animation');
+            void logoPart1.offsetWidth;
+            void logoPart2.offsetWidth;
+            logoPart1.classList.add('bounce-animation');
+            logoPart2.classList.add('bounce-animation');
+            if (!isEasterEggActive) clickCount++;
+            animationTimer = setTimeout(() => {
+                logoPart1.classList.remove('bounce-animation');
+                logoPart2.classList.remove('bounce-animation');
+                animationTimer = null;
+            }, 1000);
+        });
+        
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                if (shouldTriggerEasterEgg()) triggerEasterEgg();
+                else performSearch(this.value.trim());
             }
         });
-    
-        // ========== 初始化调用 ==========
         
-        // 应用保存的设置
-        applySavedSettings();
-        
-        // 初始化用户菜单
-        initUserMenu();
-    
-        // 添加通知动画样式
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
+        searchInput.addEventListener('input', function() {
+            if (isEasterEggActive || clickCount > 0) {
+                clickCount = 0;
+                isEasterEggActive = false;
             }
+        });
+        
+        const originalPerformSearch = performSearch;
+        window.performSearch = function(searchTerm) {
+            if (!shouldTriggerEasterEgg()) originalPerformSearch(searchTerm);
+            suggestions.style.display = 'none';
+        };
+        
+        const easterEggStyle = document.createElement('style');
+        easterEggStyle.textContent = `
+            #easter-egg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10000; }
+            .falling-text { position: absolute; top: -50px; font-weight: bold; color: #16DA49; opacity: 0.8; animation: falling-text 3s linear forwards; pointer-events: none; z-index: 10001; }
+            @keyframes falling-text { 0% { transform: translateY(0) rotate(0deg); opacity: 0.8; } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+            .confetti { position: absolute; width: 10px; height: 10px; border-radius: 50%; opacity: 0; animation: confetti-fall 3s ease-out forwards, confetti-rotate 1s ease-out infinite; pointer-events: none; z-index: 10000; }
+            @keyframes confetti-fall { 0% { top: -10px; opacity: 1; } 100% { top: 100vh; opacity: 0; } }
+            @keyframes confetti-rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            .bounce-animation { animation: bounce 0.5s var(--animation-curve) !important; }
+            @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         `;
-        document.head.appendChild(style);
-		
-		
-		
-		// 彩蛋相关变量
-		let clickCount = 0;
-		let isEasterEggActive = false;
-		const easterEggTrigger = {
-		    searchTexts: ['I love dorn!', '刺梨汁'], // 支持两种触发文本
-		    clickCountNeeded: 5
-		};
-		
-		// 获取DOM元素
-		const searchBtn = document.getElementById('searchBtn');
-		const dornhubLogo = document.querySelector('.dornhub-logo');
-		const logoPart1 = document.querySelector('.logo-part1');
-		const logoPart2 = document.querySelector('.logo-part2');
-		
-		// 动画计时器变量
-		let animationTimer = null;
-		
-		// 创建彩蛋容器
-		const easterEggContainer = document.createElement('div');
-		easterEggContainer.id = 'easter-egg-container';
-		document.body.appendChild(easterEggContainer);
-		
-		// 搜索按钮点击事件
-		searchBtn.addEventListener('click', function() {
-		    if (shouldTriggerEasterEgg()) {
-		        triggerEasterEgg();
-		    } else {
-		        performSearch(searchInput.value.trim());
-		    }
-		});
-		
-		// 检查是否应该触发彩蛋
-		function shouldTriggerEasterEgg() {
-		    const searchText = searchInput.value.trim();
-		    
-		    const isTriggerText = easterEggTrigger.searchTexts.includes(searchText);
-		    const hasEnoughClicks = clickCount >= easterEggTrigger.clickCountNeeded;
-		    
-		    console.log(`彩蛋检查: 搜索文本="${searchText}", 点击次数=${clickCount}, 彩蛋激活=${isEasterEggActive}`);
-		    
-		    return !isEasterEggActive && hasEnoughClicks && isTriggerText;
-		}
-		
-		// 彩蛋触发函数
-		function triggerEasterEgg() {
-		    console.log('彩蛋触发！');
-		    isEasterEggActive = true;
-		    
-		    const confettiCount = 200; // 增加礼花数量
-		    const textCount = 30; // 增加文本数量
-		    const animationDuration = 3; // 动画持续时间（秒）
-		
-		    // 显示礼花
-		    for (let i = 0; i < confettiCount; i++) {
-		        const confetti = document.createElement('div');
-		        confetti.classList.add('confetti');
-		        confetti.style.left = `${Math.random() * 100}vw`;
-		        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-		        confetti.style.animationDelay = `${Math.random() * animationDuration}s`; // 随机延迟
-		        confetti.style.animationDuration = `${animationDuration}s`; // 设置动画持续时间
-		        easterEggContainer.appendChild(confetti);
-		    }
-		
-		    // 显示下落文字 "Dorn"
-		    for (let i = 0; i < textCount / 2; i++) {
-		        const fallingDorn = document.createElement('div');
-		        fallingDorn.classList.add('falling-text');
-		        fallingDorn.textContent = 'Dorn';
-		        fallingDorn.style.left = `${Math.random() * 100}vw`;
-		        fallingDorn.style.animationDelay = `${Math.random() * animationDuration}s`; // 随机延迟
-		        fallingDorn.style.animationDuration = `${animationDuration}s`; // 设置动画持续时间
-		        fallingDorn.style.fontSize = `${2 + Math.random() * 2}em`;
-		        easterEggContainer.appendChild(fallingDorn);
-		    }
-		
-		    // 显示下落文字 "𣿅"
-		    for (let i = 0; i < textCount / 2; i++) {
-		        const fallingFu = document.createElement('div');
-		        fallingFu.classList.add('falling-text');
-		        fallingFu.textContent = '𣿅';
-		        fallingFu.style.left = `${Math.random() * 100}vw`;
-		        fallingFu.style.animationDelay = `${Math.random() * animationDuration}s`; // 随机延迟
-		        fallingFu.style.animationDuration = `${animationDuration}s`; // 设置动画持续时间
-		        fallingFu.style.fontSize = `${2 + Math.random() * 2}em`;
-		        easterEggContainer.appendChild(fallingFu);
-		    }
-		
-		    // 显示庆祝消息
-		    showNotification('🎉 恭喜发现彩蛋！刺梨汁万岁！ 🎉', 'success');
-		
-		    // 18 秒后移除彩蛋效果
-		    setTimeout(() => {
-		        easterEggContainer.innerHTML = ''; // 清空礼花和文字
-		        isEasterEggActive = false; // Reset easter egg state
-		        clickCount = 0; // 重置点击计数
-		        console.log('彩蛋结束');
-		    }, animationDuration * 1800);
-		}
-		
-		// Logo点击事件 - 完全可打断的弹跳动画
-		dornhubLogo.addEventListener('click', function() {
-		    // 清除之前的动画计时器
-		    if (animationTimer) {
-		        clearTimeout(animationTimer);
-		        animationTimer = null;
-		    }
-		    
-		    // 移除之前的动画类
-		    logoPart1.classList.remove('bounce-animation');
-		    logoPart2.classList.remove('bounce-animation');
-		    
-		    // 强制触发重绘以清除之前的动画状态
-		    void logoPart1.offsetWidth;
-		    void logoPart2.offsetWidth;
-		    
-		    // 添加新的动画类
-		    logoPart1.classList.add('bounce-animation');
-		    logoPart2.classList.add('bounce-animation');
-		    
-		    // 只有在彩蛋未激活时才计数
-		    if (!isEasterEggActive) {
-		        clickCount++;
-		        console.log(`Logo点击次数: ${clickCount}`);
-		    }
-		    
-		    // 设置新的动画计时器
-		    animationTimer = setTimeout(() => {
-		        logoPart1.classList.remove('bounce-animation');
-		        logoPart2.classList.remove('bounce-animation');
-		        animationTimer = null;
-		    }, 1000);
-		});
-		
-		// 搜索输入框事件监听
-		searchInput.addEventListener('keypress', function(event) {
-		    if (event.key === 'Enter') {
-		        if (shouldTriggerEasterEgg()) {
-		            triggerEasterEgg();
-		        } else {
-		            performSearch(this.value.trim());
-		        }
-		    }
-		});
-		
-		// 搜索输入框内容变化时重置彩蛋状态
-		searchInput.addEventListener('input', function() {
-		    // 如果搜索文本改变，重置点击计数和彩蛋状态
-		    if (isEasterEggActive || clickCount > 0) {
-		        clickCount = 0;
-		        isEasterEggActive = false;
-		        console.log('搜索文本改变，重置彩蛋状态');
-		    }
-		});
-		
-		// 修改原有的performSearch函数，所有搜索都不清空搜索框
-		const originalPerformSearch = performSearch;
-		performSearch = function(searchTerm) {
-		    // 只有在不触发彩蛋时才执行正常搜索
-		    if (!shouldTriggerEasterEgg()) {
-		        originalPerformSearch(searchTerm);
-		    }
-		    // 注意：这里不执行清空搜索框的操作
-		    // 只隐藏建议框
-		    suggestions.style.display = 'none';
-		};
-		
-		// 重写搜索建议点击事件，也不清空搜索框
-		suggestions.addEventListener('click', function(e) {
-		    const suggestionItem = e.target.closest('.suggestion-item');
-		    if (!suggestionItem) return;
-		    
-		    const searchEngine = searchEngineSelect.value;
-		    
-		    if (searchEngine === 'internal' && isLoggedIn) {
-		        // 站内搜索 - 打开网站
-		        const websiteName = suggestionItem.querySelector('span').textContent;
-		        const website = websites.find(w => w.name === websiteName);
-		        if (website) {
-		            window.open(website.url, '_blank');
-		        }
-		    } else {
-		        // 外部搜索 - 使用选定的搜索引擎搜索
-		        const searchTerm = suggestionItem.getAttribute('data-search') || searchInput.value.trim();
-		        performSearch(searchTerm);
-		    }
-		    
-		    // 只隐藏建议框，不清空搜索框
-		    suggestions.style.display = 'none';
-		});
-		
-		
-		
+        document.head.appendChild(easterEggStyle);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            checkVersionAndShowModal();
+            loadCookiePreferences();
+            initCookieEventListeners();
+        });
     </script>
 </body>
 </html>
-
