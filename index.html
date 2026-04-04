@@ -6,7 +6,7 @@
     <link rel="icon" href="https://dorn.rf.gd/SatornhLogo.png">
     
     <title>Dorn Hub</title>
-	<meta name="description" content="Dorn Hub是大𣿅子IP的核心数字平台，也是用户进入𣿅国世界的第一道大门。用户在这里注册成为“𣿅国公民”，获得唯一的身份证号，然后通过每日签到、玩抛水壶小游戏、参与股市模拟等方式赚取𣿅元。Dorn Hub还提供了个性化设置（主题色、明暗模式、背景图片）、固定网站、成就系统等功能，让每个用户都能打造属于自己的𣿅国生活空间。">
+    <meta name="description" content="Dorn Hub是大𣿅子IP的核心数字平台，也是用户进入𣿅国世界的第一道大门。用户在这里注册成为“𣿅国公民”，获得唯一的身份证号，然后通过每日签到、玩抛水壶小游戏、参与股市模拟等方式赚取𣿅元。Dorn Hub还提供了个性化设置（主题色、明暗模式、背景图片）、固定网站、成就系统等功能，让每个用户都能打造属于自己的𣿅国生活空间。">
     <meta name="Keywords" content="Dorn,Dornhub,多恩,𣿅国,donh,tonh,Dorn Hub,𣿅子,懂子,懂国,𣿅">
     <meta name="robots" content="noindex,nofollow">
     
@@ -596,6 +596,8 @@
     <script src="https://dorn.rf.gd/resources/websites.js"></script>
     
     <script>
+        // ========== 简化版：移除所有 PHP 请求，改为跳转到主站 ==========
+        
         const searchEngines = {
             bing: { name: "Bing", url: "https://www.bing.com/search?q=" },
             baidu: { name: "百度", url: "https://www.baidu.com/s?wd=" },
@@ -608,8 +610,41 @@
             wikipedia: { name: "维基百科", url: "https://zh.wikipedia.org/wiki/Special:搜索?search=" }
         };
         
-        const CURRENT_VERSION = '5.3.2603.8';
+        // 所有需要后端的功能，直接跳转到主站
+        const MAIN_SITE = 'https://dorn.rf.gd';
         
+        function redirectToMain() {
+            window.location.href = MAIN_SITE;
+        }
+        
+        function openMainInNewTab() {
+            window.open(MAIN_SITE, '_blank');
+        }
+        
+        // 简化版更新说明 - 直接显示链接
+        function openUpdateModal() {
+            const modal = document.getElementById('updateModal');
+            const body = document.getElementById('updateModalBody');
+            if (modal && body) {
+                modal.style.display = 'flex';
+                body.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-info-circle" style="font-size: 48px; color: #16DA49; margin-bottom: 15px;"></i>
+                        <p style="font-size: 16px; margin-bottom: 20px;">完整更新说明请访问主站</p>
+                        <a href="${MAIN_SITE}" target="_blank" class="btn btn-primary" style="display: inline-block; padding: 10px 20px; background: #16DA49; color: white; text-decoration: none; border-radius: 4px;">
+                            <i class="fas fa-external-link-alt"></i> 前往主站查看
+                        </a>
+                    </div>
+                `;
+            }
+        }
+        
+        function closeUpdateModal() {
+            const modal = document.getElementById('updateModal');
+            if (modal) modal.style.display = 'none';
+        }
+        
+        // 简化版固定网站功能（仅本地存储）
         let pinnedWebsites = JSON.parse(localStorage.getItem('pinnedWebsites')) || [];
         let currentTheme = localStorage.getItem('theme') || 'auto';
         let currentColor = localStorage.getItem('primaryColor') || '#16DA49';
@@ -619,9 +654,10 @@
         let searchEngine = localStorage.getItem('searchEngine') || 'bing';
         let isBatchMode = false;
         let selectedCards = new Set();
-        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let isLoggedIn = false;  // 简化版始终未登录
+        let currentUser = null;
         
+        // DOM 元素获取
         const categoriesContainer = document.getElementById('categoriesContainer');
         const pinnedGrid = document.getElementById('pinnedGrid');
         const searchInput = document.getElementById('searchInput');
@@ -673,7 +709,6 @@
         const updateModal = document.getElementById('updateModal');
         const closeUpdateModalBtn = document.getElementById('closeUpdateModalBtn');
         const closeUpdateModalFooterBtn = document.getElementById('closeUpdateModalFooterBtn');
-        const updateModalBody = document.getElementById('updateModalBody');
         const functionalCookiesToggle = document.getElementById('functionalCookiesToggle');
         const analyticsCookiesToggle = document.getElementById('analyticsCookiesToggle');
         const saveCookiePrefsBtn = document.getElementById('saveCookiePrefsBtn');
@@ -684,10 +719,10 @@
         function applySavedSettings() {
             document.documentElement.setAttribute('data-theme', currentTheme);
             document.documentElement.style.setProperty('--primary-color', currentColor);
-            customColorBtn.style.backgroundColor = currentColor;
-            customColorInput.value = currentColor;
-            showPinnedToggle.checked = showPinned;
-            showNavigationToggle.checked = showNavigation;
+            if (customColorBtn) customColorBtn.style.backgroundColor = currentColor;
+            if (customColorInput) customColorInput.value = currentColor;
+            if (showPinnedToggle) showPinnedToggle.checked = showPinned;
+            if (showNavigationToggle) showNavigationToggle.checked = showNavigation;
             updateSearchEngineOptions();
             applyBackground(backgroundType);
             updatePinnedSectionVisibility();
@@ -698,13 +733,9 @@
         }
         
         function updateSearchEngineOptions() {
+            if (!searchEngineSelect) return;
             searchEngineSelect.innerHTML = '';
-            if (isLoggedIn) {
-                const internalOption = document.createElement('option');
-                internalOption.value = 'internal';
-                internalOption.textContent = '站内搜索';
-                searchEngineSelect.appendChild(internalOption);
-            }
+            // 简化版：移除站内搜索（需要登录）
             for (const [key, engine] of Object.entries(searchEngines)) {
                 const option = document.createElement('option');
                 option.value = key;
@@ -773,6 +804,7 @@
         }
         
         function updateAddPinnedButton() {
+            if (!addPinnedBtn) return;
             if (pinnedWebsites.length >= 10) {
                 addPinnedBtn.disabled = true;
                 addPinnedBtn.title = "最多只能固定10个网站";
@@ -782,82 +814,37 @@
             }
         }
         
-        function calculateCitizenDays(issueDate) {
-            const issue = new Date(issueDate);
-            const today = new Date();
-            const diffTime = Math.abs(today - issue);
-            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        }
-        
-        function updateUserInfoDisplay() {
-            if (!isLoggedIn || !currentUser) return;
-            const nicknameDisplay = document.getElementById('userNicknameDisplay');
-            nicknameDisplay.textContent = currentUser.nickname || currentUser.name;
-            const certificationDisplay = document.getElementById('userCertificationDisplay');
-            if (currentUser.certification && currentUser.certification.trim() !== '') {
-                certificationDisplay.textContent = currentUser.certification;
-                certificationDisplay.style.display = 'block';
-            } else {
-                certificationDisplay.style.display = 'none';
-            }
-            const fundsDisplay = document.getElementById('userFundsDisplay');
-            const funds = currentUser.funds || 10.00;
-            fundsDisplay.innerHTML = `<i class="fas fa-coins"></i> ${funds} 𣿅元`;
-            const daysDisplay = document.getElementById('userDaysDisplay');
-            const issueDate = currentUser.issue_date;
-            if (issueDate) {
-                daysDisplay.textContent = `已成为𣿅国公民 ${calculateCitizenDays(issueDate)} 天`;
-            } else {
-                daysDisplay.textContent = '欢迎新公民！';
-            }
-        }
-        
         function updateLoginState() {
-            if (isLoggedIn && currentUser) {
-                loginText.textContent = currentUser.nickname || currentUser.name;
-                updateUserInfoDisplay();
-                document.querySelectorAll('.insider-badge').forEach(badge => {
-                    badge.style.display = 'inline-block';
-                });
-                updateNavigationVisibility();
-                updateSettingsVisibility();
-                updateSearchEngineOptions();
-            } else {
-                loginText.textContent = "登录/注册";
-                document.querySelectorAll('.insider-badge').forEach(badge => {
-                    badge.style.display = 'none';
-                });
-                userDropdown.classList.remove('active');
-                dropdownArrow.style.transform = 'rotate(0deg)';
-                updateNavigationVisibility();
-                updateSettingsVisibility();
-                updateSearchEngineOptions();
-            }
+            // 简化版：始终显示未登录，点击跳转主站
+            if (loginText) loginText.textContent = "登录/注册";
+            document.querySelectorAll('.insider-badge').forEach(badge => {
+                badge.style.display = 'none';
+            });
+            if (userDropdown) userDropdown.classList.remove('active');
+            if (dropdownArrow) dropdownArrow.style.transform = 'rotate(0deg)';
+            updateNavigationVisibility();
+            updateSearchEngineOptions();
         }
         
         function updateNavigationVisibility() {
-            categoriesContainer.style.display = showNavigation ? 'block' : 'none';
-        }
-        
-        function updateSettingsVisibility() {
-            navigationToggleGroup.style.display = 'flex';
+            if (categoriesContainer) categoriesContainer.style.display = showNavigation ? 'block' : 'none';
         }
         
         function updatePinnedSectionVisibility() {
             const pinnedSection = document.getElementById('pinnedSection');
-            pinnedSection.style.display = showPinned ? 'block' : 'none';
+            if (pinnedSection) pinnedSection.style.display = showPinned ? 'block' : 'none';
         }
         
         function displayWebsites() {
-            if (typeof websites === 'undefined' || !websites) {
-                categoriesContainer.innerHTML = '<div class="section-container"><div class="no-results">加载网站数据中...</div></div>';
+            if (typeof websites === 'undefined' || !websites || !categoriesContainer) {
+                if (categoriesContainer) categoriesContainer.innerHTML = '<div class="section-container"><div class="no-results">加载网站数据中...</div></div>';
                 return;
             }
             categoriesContainer.innerHTML = '';
-            const categoriesList = getCategories ? getCategories() : [];
+            const categoriesList = typeof getCategories === 'function' ? getCategories() : [];
             let hasContent = false;
             for (const category of categoriesList) {
-                const categoryWebsites = getWebsitesByCategory ? getWebsitesByCategory(category.key) : [];
+                const categoryWebsites = typeof getWebsitesByCategory === 'function' ? getWebsitesByCategory(category.key) : [];
                 if (categoryWebsites.length === 0) continue;
                 hasContent = true;
                 const categorySection = document.createElement('div');
@@ -912,6 +899,7 @@
         }
         
         function displayPinnedWebsites() {
+            if (!pinnedGrid) return;
             pinnedGrid.innerHTML = '';
             if (pinnedWebsites.length === 0) {
                 pinnedGrid.innerHTML = '<div class="empty">暂无固定网站，点击"添加网站"添加</div>';
@@ -971,7 +959,7 @@
         }
         
         function updateSelectedCount() {
-            selectedCountElement.textContent = selectedCards.size;
+            if (selectedCountElement) selectedCountElement.textContent = selectedCards.size;
         }
         
         function addPinnedWebsite(website) {
@@ -980,8 +968,6 @@
             localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
             displayPinnedWebsites();
             updateAddPinnedButton();
-            savePinnedWebsitesToServer();
-            if (typeof displayWebsites === 'function') displayWebsites();
         }
         
         function removePinnedWebsite(index) {
@@ -989,11 +975,10 @@
             localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
             displayPinnedWebsites();
             updateAddPinnedButton();
-            savePinnedWebsitesToServer();
-            if (typeof displayWebsites === 'function') displayWebsites();
         }
         
         function displaySuggestions(filteredWebsites) {
+            if (!suggestions) return;
             suggestions.innerHTML = '';
             if (filteredWebsites.length === 0) {
                 const noResult = document.createElement('div');
@@ -1018,414 +1003,142 @@
         function performSearch(searchTerm) {
             if (!searchTerm) return;
             const searchEngineVal = searchEngineSelect.value;
-            if (searchEngineVal === 'internal' && isLoggedIn && typeof websites !== 'undefined') {
-                const matchedWebsite = websites.find(website => 
-                    website.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                    website.url.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-                if (matchedWebsite) {
-                    window.open(matchedWebsite.url, '_blank');
-                } else {
-                    alert(`未找到与 "${searchTerm}" 相关的网站`);
-                }
-            } else {
-                const searchUrl = searchEngines[searchEngineVal].url + encodeURIComponent(searchTerm);
-                window.open(searchUrl, '_blank');
-            }
-            suggestions.style.display = 'none';
+            // 简化版：没有站内搜索，直接使用外部搜索引擎
+            const searchUrl = searchEngines[searchEngineVal].url + encodeURIComponent(searchTerm);
+            window.open(searchUrl, '_blank');
+            if (suggestions) suggestions.style.display = 'none';
         }
         
-        function showNotification(message, type = 'info') {
-            const existingNotification = document.querySelector('.notification');
-            if (existingNotification) existingNotification.remove();
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `<span>${message}</span><button class="notification-close">&times;</button>`;
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? '#d4edda' : '#f8d7da'};
-                color: ${type === 'success' ? '#155724' : '#721c24'};
-                padding: 12px 20px;
-                border-radius: 4px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                z-index: 10000;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                animation: slideInRight 0.3s ease;
-            `;
-            const closeBtn = notification.querySelector('.notification-close');
-            closeBtn.style.cssText = `background: none; border: none; font-size: 18px; cursor: pointer; padding: 0; margin: 0; line-height: 1;`;
-            closeBtn.addEventListener('click', () => notification.remove());
-            document.body.appendChild(notification);
-            setTimeout(() => {
-                if (notification.parentNode) notification.remove();
-            }, 3000);
-        }
-        
-        function loadUserSettings() {
-            if (!isLoggedIn || !currentUser) return;
-            fetch(`https://dorn.rf.gd/user_settings.php?id_number=${currentUser.id_number}&type=settings`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success && data.data) {
-                        const userSettings = data.data;
-                        if (userSettings.theme) {
-                            currentTheme = userSettings.theme;
-                            document.documentElement.setAttribute('data-theme', currentTheme);
-                        }
-                        if (userSettings.primary_color) {
-                            currentColor = userSettings.primary_color;
-                            document.documentElement.style.setProperty('--primary-color', currentColor);
-                            customColorBtn.style.backgroundColor = currentColor;
-                            customColorInput.value = currentColor;
-                        }
-                        if (userSettings.show_pinned !== undefined) {
-                            showPinned = Boolean(userSettings.show_pinned);
-                            showPinnedToggle.checked = showPinned;
-                        }
-                        if (userSettings.show_navigation !== undefined) {
-                            showNavigation = Boolean(userSettings.show_navigation);
-                            showNavigationToggle.checked = showNavigation;
-                        }
-                        if (userSettings.background_type) {
-                            backgroundType = userSettings.background_type;
-                            applyBackground(backgroundType);
-                        }
-                        if (userSettings.search_engine) {
-                            searchEngine = userSettings.search_engine;
-                            searchEngineSelect.value = searchEngine;
-                        }
-                        updatePinnedSectionVisibility();
-                        updateNavigationVisibility();
-                        if (window.UI) UI.setDateTimeVisibility(showDateToggle.checked, showTimeToggle.checked);
-                        updateAddPinnedButton();
-                        updateActiveOptions();
-                    } else {
-                        applySavedSettings();
-                    }
-                })
-                .catch(() => applySavedSettings());
-        }
-        
-        function saveUserSettings() {
-            if (!isLoggedIn || !currentUser) return;
-            const userSettings = {
-                action: 'save_settings',
-                id_number: currentUser.id_number,
-                theme: currentTheme,
-                primary_color: currentColor,
-                show_pinned: showPinned ? 1 : 0,
-                show_navigation: showNavigation ? 1 : 0,
-                show_date: localStorage.getItem('showDate') !== 'false' ? 1 : 0,
-                show_time: localStorage.getItem('showTime') !== 'false' ? 1 : 0,
-                background_type: backgroundType,
-                search_engine: searchEngine
-            };
-            fetch('https://dorn.rf.gd/user_settings.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userSettings)
-            }).catch(error => console.error('保存用户设置请求失败:', error));
-        }
-        
-        function savePinnedWebsitesToServer() {
-            if (!isLoggedIn || !currentUser) return;
-            const pinnedData = {
-                action: 'save_pinned_websites',
-                id_number: currentUser.id_number,
-                websites: pinnedWebsites
-            };
-            fetch('https://dorn.rf.gd/user_settings.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(pinnedData)
-            }).catch(error => console.error('保存固定网址请求失败:', error));
-        }
-        
-        function loadPinnedWebsitesFromServer() {
-            if (!isLoggedIn || !currentUser) return;
-            fetch(`https://dorn.rf.gd/user_settings.php?id_number=${currentUser.id_number}&type=pinned_websites`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success && data.data) {
-                        pinnedWebsites = data.data;
-                        localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
-                        displayPinnedWebsites();
-                        updateAddPinnedButton();
-                    } else {
-                        pinnedWebsites = JSON.parse(localStorage.getItem('pinnedWebsites')) || [];
-                        displayPinnedWebsites();
-                        updateAddPinnedButton();
-                    }
-                })
-                .catch(() => {
-                    pinnedWebsites = JSON.parse(localStorage.getItem('pinnedWebsites')) || [];
-                    displayPinnedWebsites();
-                    updateAddPinnedButton();
-                });
-        }
-        
-        function handleLogout() {
-            saveUserSettings();
-            savePinnedWebsitesToServer();
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('currentUser');
-            isLoggedIn = false;
-            currentUser = null;
-            updateLoginState();
-            userDropdown.classList.remove('active');
-            dropdownArrow.style.transform = 'rotate(0deg)';
-            showNotification('已成功退出登录', 'success');
+        function showNotification(message, type) {
+            // 简化版通知
+            alert(message);
         }
         
         function initUserMenu() {
+            if (!loginBtn) return;
             loginBtn.addEventListener('click', (e) => {
-                const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
-                if (loggedIn) {
-                    userDropdown.classList.toggle('active');
-                    dropdownArrow.style.transform = userDropdown.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
-                } else {
-                    loginModal.style.display = 'flex';
-                    userDropdown.classList.remove('active');
-                    dropdownArrow.style.transform = 'rotate(0deg)';
-                }
+                // 点击登录跳转到主站
+                window.open(MAIN_SITE, '_blank');
                 e.stopPropagation();
             });
-            document.addEventListener('click', (e) => {
-                if (!userMenuContainer.contains(e.target)) {
-                    userDropdown.classList.remove('active');
-                    dropdownArrow.style.transform = 'rotate(0deg)';
-                }
-            });
-            document.getElementById('personalCenterBtn').addEventListener('click', () => {
-                window.location.href = 'account.html';
-                userDropdown.classList.remove('active');
-                dropdownArrow.style.transform = 'rotate(0deg)';
-            });
-            document.getElementById('dropdownUpdateLogBtn').addEventListener('click', () => {
-                openUpdateModal();
-                userDropdown.classList.remove('active');
-                dropdownArrow.style.transform = 'rotate(0deg)';
-            });
-            logoutBtn.addEventListener('click', handleLogout);
-        }
-        
-        function addCheckinToDropdown() {
-            const personalCenterBtn = document.querySelector('#personalCenterBtn');
-            if (personalCenterBtn) {
-                const checkinItem = document.createElement('div');
-                checkinItem.className = 'dropdown-item';
-                checkinItem.id = 'dropdownCheckinBtn';
-                checkinItem.innerHTML = `
-                    <i class="fas fa-calendar-check"></i>
-                    <span>每日签到（以UTC时间计）</span>
-                `;
-                checkinItem.addEventListener('click', function() {
-                    performDropdownCheckin();
-                    userDropdown.classList.remove('active');
-                    dropdownArrow.style.transform = 'rotate(0deg)';
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    // 简化版无登录功能
                 });
-                personalCenterBtn.parentNode.insertBefore(checkinItem, personalCenterBtn);
+            }
+            if (personalCenterBtn) {
+                personalCenterBtn.addEventListener('click', () => {
+                    window.open(MAIN_SITE, '_blank');
+                });
             }
         }
         
-        function performDropdownCheckin() {
-            if (!isLoggedIn) return;
-            fetch('https://dorn.rf.gd/checkin.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id_number: currentUser.id_number })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    currentUser.funds = parseFloat(currentUser.funds || 10.00) + data.total_amount;
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    updateLoginState();
-                    showNotification(`🎉 签到成功！获得 ${data.total_amount.toFixed(2)}𣿅元，连续签到 ${data.streak_days} 天`, 'success');
-                } else {
-                    showNotification('签到失败: ' + data.error, 'error');
-                }
-            })
-            .catch(error => {
-                showNotification('网络错误，请刷新页面后重试', 'error');
-            });
-        }
-        
-        function closeUpdateModal() {
-            updateModal.style.display = 'none';
-        }
-        
-        async function openUpdateModal() {
-            updateModal.style.display = 'flex';
-            updateModalBody.innerHTML = `<div class="update-loading"><i class="fas fa-spinner fa-spin"></i><p>加载更新日志中...</p></div>`;
-            try {
-                const res = await fetch('https://dorn.rf.gd/php/get_update_logs.php');
-                const data = await res.json();
-                if (data.success && data.data && data.data.length > 0) {
-                    let tabsHtml = '<div class="update-tabs">';
-                    let panelsHtml = '<div class="update-panels">';
-                    data.data.forEach((log, index) => {
-                        const isActive = index === 0;
-                        tabsHtml += `<button class="update-tab ${isActive ? 'active' : ''}" data-version="${index}">${escapeHtml(log.version)}</button>`;
-                        panelsHtml += `<div class="update-panel ${isActive ? 'active' : ''}" data-version="${index}"><div class="update-version">${escapeHtml(log.version)}</div><div class="update-date"><i class="fas fa-calendar-alt"></i> ${formatDate(log.release_date)}</div><div class="update-content">${log.content}</div></div>`;
-                    });
-                    tabsHtml += '</div>';
-                    panelsHtml += '</div>';
-                    updateModalBody.innerHTML = tabsHtml + panelsHtml;
-                    const tabs = document.querySelectorAll('.update-tab');
-                    const panels = document.querySelectorAll('.update-panel');
-                    tabs.forEach(tab => {
-                        tab.addEventListener('click', () => {
-                            const versionIndex = tab.getAttribute('data-version');
-                            tabs.forEach(t => t.classList.remove('active'));
-                            tab.classList.add('active');
-                            panels.forEach(p => p.classList.remove('active'));
-                            document.querySelector(`.update-panel[data-version="${versionIndex}"]`).classList.add('active');
-                        });
-                    });
-                } else {
-                    updateModalBody.innerHTML = `<div class="update-empty"><i class="fas fa-inbox"></i><p>暂无更新记录</p></div>`;
-                }
-            } catch (error) {
-                updateModalBody.innerHTML = `<div class="update-empty"><i class="fas fa-exclamation-triangle" style="color: #d13438;"></i><p style="color: #d13438;">加载失败，请刷新页面后重试</p></div>`;
-            }
-        }
-        
-        function checkVersionAndShowModal() {
-            const lastVisitedVersion = localStorage.getItem('lastVisitedVersion');
-            if (lastVisitedVersion !== CURRENT_VERSION) {
-                setTimeout(() => openUpdateModal(), 500);
-                localStorage.setItem('lastVisitedVersion', CURRENT_VERSION);
-            }
-        }
-        
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-        }
-        
-        if (settingsUpdateLogBtn) settingsUpdateLogBtn.addEventListener('click', openUpdateModal);
-        if (closeUpdateModalBtn) closeUpdateModalBtn.addEventListener('click', closeUpdateModal);
-        if (closeUpdateModalFooterBtn) closeUpdateModalFooterBtn.addEventListener('click', closeUpdateModal);
-        if (updateModal) updateModal.addEventListener('click', (e) => { if (e.target === updateModal) closeUpdateModal(); });
-        
-        addCheckinToDropdown();
-        
-        if (typeof websites !== 'undefined') displayWebsites();
-        displayPinnedWebsites();
-        
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            const searchEngineVal = searchEngineSelect.value;
-            if (searchEngineVal === 'internal' && isLoggedIn && typeof websites !== 'undefined') {
-                if (searchTerm.length > 0) {
+        // 初始化事件监听
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                if (searchTerm.length > 0 && typeof websites !== 'undefined') {
                     const filteredWebsites = websites.filter(website => 
                         website.name.toLowerCase().includes(searchTerm) || 
-                        website.url.toLowerCase().includes(searchTerm) ||
-                        (categories && categories[website.category]?.name.toLowerCase().includes(searchTerm))
+                        website.url.toLowerCase().includes(searchTerm)
                     );
                     displaySuggestions(filteredWebsites);
-                    suggestions.style.display = 'block';
+                    if (suggestions) suggestions.style.display = 'block';
                 } else {
-                    suggestions.style.display = 'none';
+                    if (suggestions) suggestions.style.display = 'none';
                     if (typeof websites !== 'undefined') displayWebsites();
                 }
-            } else {
-                if (searchTerm.length > 0) {
-                    const searchEngineName = searchEngines[searchEngineVal].name;
-                    suggestions.innerHTML = `<div class="suggestion-item" data-search="${searchTerm}"><i class="fas fa-search"></i><span>使用 ${searchEngineName} 搜索 "${searchTerm}"</span></div>`;
-                    suggestions.style.display = 'block';
-                } else {
-                    suggestions.style.display = 'none';
-                }
-            }
-        });
-        
-        searchInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') performSearch(this.value.trim());
-        });
-        
-        suggestions.addEventListener('click', function(e) {
-            const suggestionItem = e.target.closest('.suggestion-item');
-            if (!suggestionItem) return;
-            const searchEngineVal = searchEngineSelect.value;
-            if (searchEngineVal === 'internal' && isLoggedIn && typeof websites !== 'undefined') {
-                const websiteName = suggestionItem.querySelector('span').textContent;
-                const website = websites.find(w => w.name === websiteName);
-                if (website) window.open(website.url, '_blank');
-            } else {
-                const searchTerm = suggestionItem.getAttribute('data-search') || searchInput.value.trim();
-                performSearch(searchTerm);
-            }
-            suggestions.style.display = 'none';
-            searchInput.value = '';
-        });
-        
-        settingsBtn.addEventListener('click', () => settingsModal.style.display = 'flex');
-        closeSettingsBtn.addEventListener('click', () => settingsModal.style.display = 'none');
-        
-        addPinnedBtn.addEventListener('click', () => {
-            if (pinnedWebsites.length >= 10) return;
-            pinnedTitleInput.value = '';
-            pinnedUrlInput.value = '';
-            addPinnedModal.style.display = 'flex';
-        });
-        closeAddPinnedBtn.addEventListener('click', () => addPinnedModal.style.display = 'none');
-        cancelAddPinnedBtn.addEventListener('click', () => addPinnedModal.style.display = 'none');
-        savePinnedBtn.addEventListener('click', () => {
-            const title = pinnedTitleInput.value.trim();
-            const url = pinnedUrlInput.value.trim();
-            if (!url) { alert('请填写网站地址'); return; }
-            if (pinnedWebsites.length >= 10) return;
-            pinnedWebsites.push({ name: title || url, url: url, icon: 'fa-link' });
-            localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
-            displayPinnedWebsites();
-            updateAddPinnedButton();
-            addPinnedModal.style.display = 'none';
-        });
-        
-        batchOperateBtn.addEventListener('click', () => {
-            if (pinnedWebsites.length === 0) return;
-            isBatchMode = true;
-            batchActions.classList.add('active');
-            document.querySelectorAll('.pinned-card').forEach(card => card.classList.add('batch-mode'));
-            selectedCards.clear();
-            updateSelectedCount();
-        });
-        cancelBatchBtn.addEventListener('click', () => {
-            isBatchMode = false;
-            batchActions.classList.remove('active');
-            document.querySelectorAll('.pinned-card').forEach(card => {
-                card.classList.remove('batch-mode');
-                card.classList.remove('batch-selected');
-                card.querySelector('input[type="checkbox"]').checked = false;
             });
-            selectedCards.clear();
-            updateSelectedCount();
-        });
-        batchDeleteBtn.addEventListener('click', () => {
-            if (selectedCards.size === 0) { alert('请先选择要删除的网站'); return; }
-            const indicesToDelete = Array.from(selectedCards).map(card => parseInt(card.getAttribute('data-index'))).sort((a, b) => b - a);
-            indicesToDelete.forEach(index => pinnedWebsites.splice(index, 1));
-            localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
-            displayPinnedWebsites();
-            updateAddPinnedButton();
-            isBatchMode = false;
-            batchActions.classList.remove('active');
-            selectedCards.clear();
-            updateSelectedCount();
-            if (isLoggedIn && typeof websites !== 'undefined') displayWebsites();
-        });
+            
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') performSearch(this.value.trim());
+            });
+        }
+        
+        if (suggestions) {
+            suggestions.addEventListener('click', function(e) {
+                const suggestionItem = e.target.closest('.suggestion-item');
+                if (!suggestionItem) return;
+                const websiteUrl = suggestionItem.getAttribute('data-url');
+                if (websiteUrl) window.open(websiteUrl, '_blank');
+                suggestions.style.display = 'none';
+                if (searchInput) searchInput.value = '';
+            });
+        }
+        
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => {
+                if (settingsModal) settingsModal.style.display = 'flex';
+            });
+        }
+        if (closeSettingsBtn) {
+            closeSettingsBtn.addEventListener('click', () => {
+                if (settingsModal) settingsModal.style.display = 'none';
+            });
+        }
+        
+        if (addPinnedBtn) {
+            addPinnedBtn.addEventListener('click', () => {
+                if (pinnedWebsites.length >= 10) return;
+                if (pinnedTitleInput) pinnedTitleInput.value = '';
+                if (pinnedUrlInput) pinnedUrlInput.value = '';
+                if (addPinnedModal) addPinnedModal.style.display = 'flex';
+            });
+        }
+        if (closeAddPinnedBtn) closeAddPinnedBtn.addEventListener('click', () => { if (addPinnedModal) addPinnedModal.style.display = 'none'; });
+        if (cancelAddPinnedBtn) cancelAddPinnedBtn.addEventListener('click', () => { if (addPinnedModal) addPinnedModal.style.display = 'none'; });
+        if (savePinnedBtn) {
+            savePinnedBtn.addEventListener('click', () => {
+                const title = pinnedTitleInput ? pinnedTitleInput.value.trim() : '';
+                const url = pinnedUrlInput ? pinnedUrlInput.value.trim() : '';
+                if (!url) { alert('请填写网站地址'); return; }
+                if (pinnedWebsites.length >= 10) return;
+                pinnedWebsites.push({ name: title || url, url: url, icon: 'fa-link' });
+                localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
+                displayPinnedWebsites();
+                updateAddPinnedButton();
+                if (addPinnedModal) addPinnedModal.style.display = 'none';
+            });
+        }
+        
+        if (batchOperateBtn) {
+            batchOperateBtn.addEventListener('click', () => {
+                if (pinnedWebsites.length === 0) return;
+                isBatchMode = true;
+                if (batchActions) batchActions.classList.add('active');
+                document.querySelectorAll('.pinned-card').forEach(card => card.classList.add('batch-mode'));
+                selectedCards.clear();
+                updateSelectedCount();
+            });
+        }
+        if (cancelBatchBtn) {
+            cancelBatchBtn.addEventListener('click', () => {
+                isBatchMode = false;
+                if (batchActions) batchActions.classList.remove('active');
+                document.querySelectorAll('.pinned-card').forEach(card => {
+                    card.classList.remove('batch-mode');
+                    card.classList.remove('batch-selected');
+                    const cb = card.querySelector('input[type="checkbox"]');
+                    if (cb) cb.checked = false;
+                });
+                selectedCards.clear();
+                updateSelectedCount();
+            });
+        }
+        if (batchDeleteBtn) {
+            batchDeleteBtn.addEventListener('click', () => {
+                if (selectedCards.size === 0) { alert('请先选择要删除的网站'); return; }
+                const indicesToDelete = Array.from(selectedCards).map(card => parseInt(card.getAttribute('data-index'))).sort((a, b) => b - a);
+                indicesToDelete.forEach(index => pinnedWebsites.splice(index, 1));
+                localStorage.setItem('pinnedWebsites', JSON.stringify(pinnedWebsites));
+                displayPinnedWebsites();
+                updateAddPinnedButton();
+                isBatchMode = false;
+                if (batchActions) batchActions.classList.remove('active');
+                selectedCards.clear();
+                updateSelectedCount();
+            });
+        }
         
         colorOptions.forEach(option => {
             option.addEventListener('click', () => {
@@ -1433,22 +1146,23 @@
                 currentColor = color;
                 document.documentElement.style.setProperty('--primary-color', color);
                 localStorage.setItem('primaryColor', color);
-                customColorBtn.style.backgroundColor = color;
-                customColorInput.value = color;
+                if (customColorBtn) customColorBtn.style.backgroundColor = color;
+                if (customColorInput) customColorInput.value = color;
                 updateActiveOptions();
-                if (isLoggedIn) saveUserSettings();
             });
         });
-        customColorBtn.addEventListener('click', () => customColorInput.click());
-        applyCustomColorBtn.addEventListener('click', () => {
-            const color = customColorInput.value;
-            currentColor = color;
-            document.documentElement.style.setProperty('--primary-color', color);
-            localStorage.setItem('primaryColor', color);
-            customColorBtn.style.backgroundColor = color;
-            updateActiveOptions();
-            if (isLoggedIn) saveUserSettings();
-        });
+        if (customColorBtn) customColorBtn.addEventListener('click', () => { if (customColorInput) customColorInput.click(); });
+        if (applyCustomColorBtn) {
+            applyCustomColorBtn.addEventListener('click', () => {
+                if (!customColorInput) return;
+                const color = customColorInput.value;
+                currentColor = color;
+                document.documentElement.style.setProperty('--primary-color', color);
+                localStorage.setItem('primaryColor', color);
+                if (customColorBtn) customColorBtn.style.backgroundColor = color;
+                updateActiveOptions();
+            });
+        }
         
         themeOptions.forEach(option => {
             option.addEventListener('click', () => {
@@ -1457,98 +1171,87 @@
                 document.documentElement.setAttribute('data-theme', theme);
                 localStorage.setItem('theme', theme);
                 updateActiveOptions();
-                if (isLoggedIn) saveUserSettings();
             });
         });
         
-        showPinnedToggle.addEventListener('change', () => {
-            showPinned = showPinnedToggle.checked;
-            localStorage.setItem('showPinned', showPinned);
-            updatePinnedSectionVisibility();
-            if (isLoggedIn) saveUserSettings();
-        });
-        showNavigationToggle.addEventListener('change', () => {
-            showNavigation = showNavigationToggle.checked;
-            localStorage.setItem('showNavigation', showNavigation);
-            updateNavigationVisibility();
-            if (isLoggedIn) saveUserSettings();
-        });
+        if (showPinnedToggle) {
+            showPinnedToggle.addEventListener('change', () => {
+                showPinned = showPinnedToggle.checked;
+                localStorage.setItem('showPinned', showPinned);
+                updatePinnedSectionVisibility();
+            });
+        }
+        if (showNavigationToggle) {
+            showNavigationToggle.addEventListener('change', () => {
+                showNavigation = showNavigationToggle.checked;
+                localStorage.setItem('showNavigation', showNavigation);
+                updateNavigationVisibility();
+            });
+        }
         
-        showDateToggle.addEventListener('change', () => {
-            if (window.UI) UI.setDateTimeVisibility(showDateToggle.checked, showTimeToggle.checked);
-            if (isLoggedIn) saveUserSettings();
-        });
-        showTimeToggle.addEventListener('change', () => {
-            if (window.UI) UI.setDateTimeVisibility(showDateToggle.checked, showTimeToggle.checked);
-            if (isLoggedIn) saveUserSettings();
-        });
+        if (showDateToggle && showTimeToggle && window.UI) {
+            showDateToggle.addEventListener('change', () => {
+                window.UI.setDateTimeVisibility(showDateToggle.checked, showTimeToggle.checked);
+            });
+            showTimeToggle.addEventListener('change', () => {
+                window.UI.setDateTimeVisibility(showDateToggle.checked, showTimeToggle.checked);
+            });
+        }
         
         backgroundOptions.forEach(option => {
             option.addEventListener('click', () => {
                 applyBackground(option.getAttribute('data-bg'));
-                if (isLoggedIn) saveUserSettings();
             });
         });
-        applyCustomBackgroundBtn.addEventListener('click', () => {
-            const file = customBackgroundInput.files[0];
-            if (file) {
+        if (applyCustomBackgroundBtn) {
+            applyCustomBackgroundBtn.addEventListener('click', () => {
+                if (!customBackgroundInput || !customBackgroundInput.files || !customBackgroundInput.files[0]) {
+                    alert('请选择一张图片');
+                    return;
+                }
+                const file = customBackgroundInput.files[0];
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     localStorage.setItem('customBackground', e.target.result);
                     applyBackground('custom');
                     alert('自定义背景应用成功！');
-                    if (isLoggedIn) saveUserSettings();
                 };
                 reader.readAsDataURL(file);
-            } else { alert('请选择一张图片'); }
-        });
-        clearDataBtn.addEventListener('click', () => {
-            if (confirm('确定要清除所有自定义数据吗？此操作不可撤销。')) {
-                localStorage.clear();
-                location.reload();
-            }
-        });
+            });
+        }
+        if (clearDataBtn) {
+            clearDataBtn.addEventListener('click', () => {
+                if (confirm('确定要清除所有自定义数据吗？此操作不可撤销。')) {
+                    localStorage.clear();
+                    location.reload();
+                }
+            });
+        }
         
+        // Cookie 设置简化版
         function loadCookiePreferences() {
             const consent = localStorage.getItem('cookie_consent_v2');
-            if (consent) {
+            if (consent && functionalCookiesToggle && analyticsCookiesToggle) {
                 try {
                     const prefs = JSON.parse(consent);
-                    if (functionalCookiesToggle) functionalCookiesToggle.checked = prefs.functional !== false;
-                    if (analyticsCookiesToggle) analyticsCookiesToggle.checked = prefs.analytics !== false;
-                } catch(e) {
-                    console.error('解析 Cookie 偏好失败:', e);
-                }
+                    functionalCookiesToggle.checked = prefs.functional !== false;
+                    analyticsCookiesToggle.checked = prefs.analytics !== false;
+                } catch(e) {}
             } else {
                 if (functionalCookiesToggle) functionalCookiesToggle.checked = true;
                 if (analyticsCookiesToggle) analyticsCookiesToggle.checked = true;
             }
         }
         
-        function showCookieWarning(disabledType) {
-            if (!cookieWarning) return;
-            if (disabledType === 'functional') {
-                cookieWarningText.innerHTML = '⚠️ 禁用功能 Cookie 后，您的主题颜色、固定网站等个性化设置将丢失。页面将刷新以应用更改。';
-                cookieWarning.style.display = 'block';
-            } else if (disabledType === 'analytics') {
-                cookieWarningText.innerHTML = '⚠️ 禁用分析 Cookie 后，我们将无法收集匿名访问数据来改进网站。';
-                cookieWarning.style.display = 'block';
-            }
-        }
-        
         function saveCookiePreferences() {
+            if (!functionalCookiesToggle || !analyticsCookiesToggle) return;
             const preferences = {
-                functional: functionalCookiesToggle ? functionalCookiesToggle.checked : true,
-                analytics: analyticsCookiesToggle ? analyticsCookiesToggle.checked : true
+                functional: functionalCookiesToggle.checked,
+                analytics: analyticsCookiesToggle.checked
             };
             localStorage.setItem('cookie_consent_v2', JSON.stringify(preferences));
-            if (typeof gtag !== 'undefined') {
-                gtag('consent', 'update', {
-                    'analytics_storage': preferences.analytics ? 'granted' : 'denied'
-                });
-            }
             if (!preferences.functional) {
-                const keysToKeep = ['cookie_consent_v2', 'currentUser', 'isLoggedIn', 'theme', 'primaryColor', 'lastVisitedVersion'];
+                const keysToKeep = ['cookie_consent_v2', 'theme', 'primaryColor'];
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
                     if (!keysToKeep.includes(key)) {
@@ -1559,7 +1262,6 @@
                 location.reload();
             } else {
                 alert('Cookie 偏好设置已保存！');
-                if (cookieWarning) cookieWarning.style.display = 'none';
             }
         }
         
@@ -1569,118 +1271,41 @@
             saveCookiePreferences();
         }
         
-        function initCookieEventListeners() {
-            if (functionalCookiesToggle) {
-                functionalCookiesToggle.addEventListener('change', function() {
-                    if (!this.checked) {
-                        showCookieWarning('functional');
-                    } else {
-                        if (cookieWarning && (!analyticsCookiesToggle || analyticsCookiesToggle.checked)) {
-                            cookieWarning.style.display = 'none';
-                        }
-                    }
-                });
-            }
-            if (analyticsCookiesToggle) {
-                analyticsCookiesToggle.addEventListener('change', function() {
-                    if (!this.checked) {
-                        showCookieWarning('analytics');
-                    } else {
-                        if (cookieWarning && (!functionalCookiesToggle || functionalCookiesToggle.checked)) {
-                            cookieWarning.style.display = 'none';
-                        }
-                    }
-                });
-            }
-            if (saveCookiePrefsBtn) saveCookiePrefsBtn.addEventListener('click', saveCookiePreferences);
-            if (resetCookiePrefsBtn) resetCookiePrefsBtn.addEventListener('click', resetCookiePreferences);
+        if (saveCookiePrefsBtn) saveCookiePrefsBtn.addEventListener('click', saveCookiePreferences);
+        if (resetCookiePrefsBtn) resetCookiePrefsBtn.addEventListener('click', resetCookiePreferences);
+        
+        // 登录相关简化
+        if (closeLoginBtn) closeLoginBtn.addEventListener('click', () => { if (loginModal) loginModal.style.display = 'none'; });
+        if (cancelLoginBtn) cancelLoginBtn.addEventListener('click', () => { if (loginModal) loginModal.style.display = 'none'; });
+        if (submitLoginBtn) {
+            submitLoginBtn.addEventListener('click', () => {
+                // 跳转到主站登录
+                window.open(MAIN_SITE, '_blank');
+                if (loginModal) loginModal.style.display = 'none';
+            });
         }
         
-        closeLoginBtn.addEventListener('click', () => loginModal.style.display = 'none');
-        cancelLoginBtn.addEventListener('click', () => loginModal.style.display = 'none');
-        submitLoginBtn.addEventListener('click', () => {
-            const idNumber = idNumberInput.value.trim();
-            const password = passwordInput.value.trim();
-            if (!idNumber || !password) {
-                loginMessage.textContent = '请输入身份证号和密码';
-                loginMessage.style.color = '#d13438';
-                return;
-            }
-            fetch('https://dorn.rf.gd/php/query_citizen.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id_number: idNumber, password: password })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    isLoggedIn = true;
-                    currentUser = data.data;
-                    if (!currentUser.nickname) currentUser.nickname = currentUser.name;
-                    if (!currentUser.funds) currentUser.funds = 10.00;
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    updateLoginState();
-                    loginModal.style.display = 'none';
-                    idNumberInput.value = '';
-                    passwordInput.value = '';
-                    loginMessage.textContent = '';
-                    loadUserSettings();
-                    loadPinnedWebsitesFromServer();
-                } else {
-                    loginMessage.textContent = data.error || '登录失败，请重试';
-                    loginMessage.style.color = '#d13438';
-                }
-            })
-            .catch(error => {
-                console.error('登录请求失败:', error);
-                loginMessage.textContent = '出错啦！请刷新页面后重试';
-                loginMessage.style.color = '#d13438';
-            });
-        });
+        if (settingsUpdateLogBtn) settingsUpdateLogBtn.addEventListener('click', openUpdateModal);
+        if (closeUpdateModalBtn) closeUpdateModalBtn.addEventListener('click', closeUpdateModal);
+        if (closeUpdateModalFooterBtn) closeUpdateModalFooterBtn.addEventListener('click', closeUpdateModal);
+        if (updateModal) updateModal.addEventListener('click', (e) => { if (e.target === updateModal) closeUpdateModal(); });
         
         window.addEventListener('click', (e) => {
-            if (e.target === settingsModal) settingsModal.style.display = 'none';
-            if (e.target === addPinnedModal) addPinnedModal.style.display = 'none';
-            if (e.target === loginModal) loginModal.style.display = 'none';
+            if (e.target === settingsModal && settingsModal) settingsModal.style.display = 'none';
+            if (e.target === addPinnedModal && addPinnedModal) addPinnedModal.style.display = 'none';
+            if (e.target === loginModal && loginModal) loginModal.style.display = 'none';
         });
         
         document.addEventListener('click', (e) => {
-            if (!searchInput.contains(e.target) && !suggestions.contains(e.target) && !searchEngineSelect.contains(e.target)) {
+            if (searchInput && suggestions && !searchInput.contains(e.target) && !suggestions.contains(e.target) && searchEngineSelect && !searchEngineSelect.contains(e.target)) {
                 suggestions.style.display = 'none';
             }
         });
         
-        document.addEventListener('change', (e) => {
-            if (isLoggedIn && (
-                e.target === showPinnedToggle ||
-                e.target === showNavigationToggle ||
-                e.target === showDateToggle ||
-                e.target === showTimeToggle ||
-                e.target === searchEngineSelect
-            )) saveUserSettings();
-        });
-        
-        document.addEventListener('click', (e) => {
-            if (isLoggedIn && (
-                e.target.classList.contains('color-option') ||
-                e.target.classList.contains('theme-option') ||
-                e.target.classList.contains('background-option') ||
-                e.target === applyCustomColorBtn
-            )) setTimeout(saveUserSettings, 100);
-        });
-        
-        applySavedSettings();
-        initUserMenu();
-        
-        const style = document.createElement('style');
-        style.textContent = `@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }`;
-        document.head.appendChild(style);
-        
+        // 彩蛋功能保留
         let clickCount = 0;
         let isEasterEggActive = false;
         const easterEggTrigger = { searchTexts: ['I love dorn!', '刺梨汁'], clickCountNeeded: 5 };
-        
         const searchBtn = document.getElementById('searchBtn');
         const dornhubLogo = document.querySelector('.dornhub-logo');
         const logoPart1 = document.querySelector('.logo-part1');
@@ -1690,12 +1315,8 @@
         easterEggContainer.id = 'easter-egg-container';
         document.body.appendChild(easterEggContainer);
         
-        searchBtn.addEventListener('click', function() {
-            if (shouldTriggerEasterEgg()) triggerEasterEgg();
-            else performSearch(searchInput.value.trim());
-        });
-        
         function shouldTriggerEasterEgg() {
+            if (!searchInput) return false;
             const searchText = searchInput.value.trim();
             return !isEasterEggActive && clickCount >= easterEggTrigger.clickCountNeeded && easterEggTrigger.searchTexts.includes(searchText);
         }
@@ -1740,41 +1361,46 @@
             }, animationDuration * 1800);
         }
         
-        dornhubLogo.addEventListener('click', function() {
-            if (animationTimer) clearTimeout(animationTimer);
-            logoPart1.classList.remove('bounce-animation');
-            logoPart2.classList.remove('bounce-animation');
-            void logoPart1.offsetWidth;
-            void logoPart2.offsetWidth;
-            logoPart1.classList.add('bounce-animation');
-            logoPart2.classList.add('bounce-animation');
-            if (!isEasterEggActive) clickCount++;
-            animationTimer = setTimeout(() => {
+        if (dornhubLogo && logoPart1 && logoPart2) {
+            dornhubLogo.addEventListener('click', function() {
+                if (animationTimer) clearTimeout(animationTimer);
                 logoPart1.classList.remove('bounce-animation');
                 logoPart2.classList.remove('bounce-animation');
-                animationTimer = null;
-            }, 1000);
-        });
+                void logoPart1.offsetWidth;
+                void logoPart2.offsetWidth;
+                logoPart1.classList.add('bounce-animation');
+                logoPart2.classList.add('bounce-animation');
+                if (!isEasterEggActive) clickCount++;
+                animationTimer = setTimeout(() => {
+                    logoPart1.classList.remove('bounce-animation');
+                    logoPart2.classList.remove('bounce-animation');
+                    animationTimer = null;
+                }, 1000);
+            });
+        }
         
-        searchInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    if (shouldTriggerEasterEgg()) triggerEasterEgg();
+                    else performSearch(this.value.trim());
+                }
+            });
+            
+            searchInput.addEventListener('input', function() {
+                if (isEasterEggActive || clickCount > 0) {
+                    clickCount = 0;
+                    isEasterEggActive = false;
+                }
+            });
+        }
+        
+        if (searchBtn) {
+            searchBtn.addEventListener('click', function() {
                 if (shouldTriggerEasterEgg()) triggerEasterEgg();
-                else performSearch(this.value.trim());
-            }
-        });
-        
-        searchInput.addEventListener('input', function() {
-            if (isEasterEggActive || clickCount > 0) {
-                clickCount = 0;
-                isEasterEggActive = false;
-            }
-        });
-        
-        const originalPerformSearch = performSearch;
-        window.performSearch = function(searchTerm) {
-            if (!shouldTriggerEasterEgg()) originalPerformSearch(searchTerm);
-            suggestions.style.display = 'none';
-        };
+                else if (searchInput) performSearch(searchInput.value.trim());
+            });
+        }
         
         const easterEggStyle = document.createElement('style');
         easterEggStyle.textContent = `
@@ -1789,11 +1415,15 @@
         `;
         document.head.appendChild(easterEggStyle);
         
-        document.addEventListener('DOMContentLoaded', function() {
-            checkVersionAndShowModal();
-            loadCookiePreferences();
-            initCookieEventListeners();
-        });
+        // 初始化
+        applySavedSettings();
+        initUserMenu();
+        loadCookiePreferences();
+        if (typeof websites !== 'undefined') displayWebsites();
+        displayPinnedWebsites();
+        if (window.UI && showDateToggle && showTimeToggle) {
+            window.UI.setDateTimeVisibility(showDateToggle.checked, showTimeToggle.checked);
+        }
     </script>
 </body>
 </html>
